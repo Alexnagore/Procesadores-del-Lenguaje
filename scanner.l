@@ -22,19 +22,158 @@ literal_cadenaDR    '([^']|\/')*'
 comentarioDR	\{([^}]|\/\})*\}
 
 tipoDR	(?i:booleano|cadena|caracter|entero|real|tabla|ref)
-operacionDR	(?i:div|mod)
-conjuncionDR	(?i:o|y)
 tipo_atributo_accionDR	(?i:e\/s|sal|ent)
+operacionDR	(?i:div|mod)
+
+conjuncionDR	(?i:o|y)
+continuarDR	(?i:continuar)
+deDR	(?i:de)
+devDR	(?i:dev)
+hacerDR	(?i:hacer)
+hastaDR	(?i:hasta)
+noDR	(?i:no)
+
+
+inicio_accionDR	(?i:accion)
+fin_accionDR	(?i:faccion)
+
 inicio_algoritmoDR	(?i:algoritmo)
 fin_algoritmoDR	(?i:falgoritmo)
 
-palabra_reservadaDR	(?i:accion|const|continuar|de|dev|faccion|fconst|ffuncion|fmientras|fpara|fsi|ftipo|ftupla|funcion|fvar|hacer|hasta|mientras|no|para|si|tipo|tupla|var)
+inicio_siDR	(?i:si)
+fin_siDR	(?i:fsi)
 
+inicio_mientrasDR	(?i:mientras)
+fin_mientrasDR	(?i:fmientras)
+
+inicio_varDR	(?i:var)
+fin_varDR	(?i:fvar)
+
+inicio_constDR	(?i:const)
+fin_constDR	(?i:fconst)
+
+inicio_funcionDR	(?i:funcion)
+fin_funcionDR	(?i:ffuncion)
+
+inicio_paraDR	(?i:para)
+fin_paraDR	(?i:fpara)
+
+inicio_tuplaDR	(?i:tupla)
+fin_tuplaDR	(?i:ftupla)
+
+inicio_tipoDR	(?i:tipo)
+fin_tipoDR	(?i:ftipo)
 
 %%
 
-{tipoDR}|{booleano}{conjuncionDR}	{
-	printf("(palabra_reservadaTK, %s)\n", yytext);
+{tipoDR}	{
+	printf("(tipoTK, %s)\n", yytext);
+}
+
+{conjuncionDR}	{
+	printf("(conjuncionTK, %s)\n", yytext);
+}
+
+{tipo_atributo_accionDR}	{
+	printf("(tipo_atributo_accionTK, %s)\n", yytext);
+}
+
+{operacionDR}	{
+	printf("(operacionTK, %s)\n", yytext);
+}
+
+{continuarDR}	{
+	printf("(continuarTK, %s)\n", yytext);
+}
+
+{deDR}	{
+	printf("(deTK, %s)\n", yytext);
+}
+
+{devDR}	{
+	printf("(devTK, %s)\n", yytext);
+}
+
+{hacerDR}	{
+	printf("(hacerTK, %s)\n", yytext);
+}
+
+{hastaDR}	{
+	printf("(hastaTK, %s)\n", yytext);
+}
+
+{noDR}	{
+	printf("(noTK, %s)\n", yytext);
+}
+
+{inicio_accionDR}	{
+	printf("(inicio_accionTK, %s)\n", yytext);
+}
+{fin_accionDR}	{
+	printf("(fin_accionTK, %s)\n", yytext);
+}
+
+{inicio_algoritmoDR}	{
+	printf("(inicio_algoritmoTK, %s)\n", yytext);
+}
+{fin_algoritmoDR}	{
+	printf("(fin_algoritmoTK, %s)\n", yytext);
+}
+
+{inicio_siDR}	{
+	printf("(inicio_siTK, %s)\n", yytext);
+}
+{fin_siDR}	{
+	printf("(fin_siTK, %s)\n", yytext);
+}
+
+{inicio_mientrasDR}	{
+	printf("(inicio_mientrasTK, %s)\n", yytext);
+}
+{fin_mientrasDR}	{
+	printf("(fin_mientrasTK, %s)\n", yytext);
+}
+
+{inicio_varDR}	{
+	printf("(inicio_varTK, %s)\n", yytext);
+}
+{fin_varDR}	{
+	printf("(fin_varTK, %s)\n", yytext);
+}
+
+{inicio_constDR}	{
+	printf("(inicio_constTK, %s)\n", yytext);
+}
+{fin_constDR}	{
+	printf("(fin_constTK, %s)\n", yytext);
+}
+
+{inicio_funcionDR}	{
+	printf("(inicio_funcionTK, %s)\n", yytext);
+}
+{fin_funcionDR}	{
+	printf("(fin_funcionTK, %s)\n", yytext);
+}
+
+{inicio_paraDR}	{
+	printf("(inicioParaTK, %s)\n", yytext);
+}
+{fin_paraDR}	{
+	printf("(fin_paraTK, %s)\n", yytext);
+}
+
+{inicio_tuplaDR}	{
+	printf("(inicio_tuplaTK, %s)\n", yytext);
+}
+{fin_tuplaDR}	{
+	printf("(fin_tuplaTK, %s)\n", yytext);
+}
+
+{inicio_tipoDR}	{
+	printf("(inicio_tipoTK, %s)\n", yytext);
+}
+{fin_tipoDR}	{
+	printf("(fin_tipoTK, %s)\n", yytext);
 }
 
 {literal_booleanoDR}  {
@@ -64,6 +203,8 @@ palabra_reservadaDR	(?i:accion|const|continuar|de|dev|faccion|fconst|ffuncion|fm
 {comentarioDR} {
     printf("(comentarioTK, %s)\n", yytext);
 }
+
+
 
 
 
