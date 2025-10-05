@@ -214,3 +214,19 @@ void errorEnScanner(char* definicionDelError, char * variable){
 	printf("\n\n\n\t%s %s \n", definicionDelError, variable);
 	exit(EXIT_FAILURE);
 }
+
+int main(int argc, char **argv) {
+    if (argc > 1) {
+        FILE *f = fopen(argv[1], "r");
+        if (!f) {
+            perror("Error al abrir el archivo");
+            return 1;
+        }
+        yyin = f;  // yyin es la variable global que Flex usa como fuente de entrada
+    }
+
+    yylex();  // Ejecuta el analizador léxico
+
+    if (yyin != stdin) fclose(yyin);
+    return 0;
+}
