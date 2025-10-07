@@ -11,7 +11,7 @@ scanner: scanner.l
 	flex scanner.l
 
 archivo: lex.yy.c
-	gcc -lfl lex.yy.c
+	gcc -lfl lex.yy.c -lm
 
 clean:
 	rm -f lex.yy.c a.out

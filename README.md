@@ -2,6 +2,8 @@
 
 Proyecto de prácticas para la asignatura **Procesadores del Lenguaje**, que implementa un **analizador léxico** utilizando **Flex** y un **Makefile** para automatizar la compilación y ejecución.
 
+Link al repositorio: https://github.com/Alexnagore/Procesadores-del-Lenguaje#
+
 ---
 
 ## ⚙️ Uso del Makefile
@@ -20,7 +22,7 @@ make FILE=nombre_del_archivo
 
 Por ejemplo:
 ```bash
-make FILE=program1.alg
+make FILE=programa1.alg
 ```
 
 Esto compilará (si es necesario) y ejecutará el analizador sobre el fichero indicado.
@@ -38,6 +40,7 @@ make clean
  ┣ 📜 scanner.l          # Definición del analizador léxico (Flex)
  ┣ 📜 makefile           # Compilación automática
  ┣ 📜 programa1.alg      # Ejemplo de archivo de entrada
+ ┣ 📜 programa2.alg      # Ejemplo de archivo de entrada
  ┗ 📄 README.md           # Este archivo
 ```
 
@@ -57,18 +60,4 @@ sudo apt install flex gcc make
 
 ---
 
-## 🧾 Ejemplo de ejecución
 
-**Archivo de entrada:** `programa1.alg`
-```text
-algoritmo
-falgoritmo
-```
-
-**Salida del analizador:**
-```text
-(inicio_algoritmoTK, algoritmo)
-(fin_algoritmoTK, falgoritmo)
-```
-
----

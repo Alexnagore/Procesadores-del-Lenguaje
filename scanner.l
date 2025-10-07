@@ -3,9 +3,10 @@
 	#include <stdio.h> //Para poder escribir en el terminal
 	#include <stdlib.h> //Para usar exit()
 	#include <strings.h> //Para trabajar con cadenas de caracteres
+	#include <math.h>
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
-	
+	int potenciaDeDiez(char*);
 %}
 
 letraDR [[:alpha:]]
@@ -22,7 +23,7 @@ literal_cadenaDR    '([^']|\/')*'
 comentarioDR	\{([^}]|\/\})*\}
 
 tipoDR	(?i:booleano|cadena|caracter|entero|real|tabla|ref)
-tipo_atributo_accionDR	(?i:e\/s|sal|ent)
+tipo_atributoDR	(?i:e\/s|sal|ent)
 operacionDR	(?i:div|mod)
 
 conjuncionDR	(?i:o|y)
@@ -64,7 +65,105 @@ fin_tuplaDR	(?i:ftupla)
 inicio_tipoDR	(?i:tipo)
 fin_tipoDR	(?i:ftipo)
 
+operador_asignacionDR	:=
+operador_comp_secDR	;
+operador_separadorDR	,
+operador_subrangoDR	\.\.
+operador_def_tipoDR	:
+operador_entoncesDR	(->)
+operador_elseDR	\[\]
+operador_igualDR	=
+operador_inicio_arrayDR	\[
+operador_fin_arrayDR	\]
+
+relacional_distintoDR <>
+relacional_menor_igualDR	<=
+relacional_mayor_igualDR	>=
+relacional_menorDR	<
+relacional_mayorDR	>
+
+aritmetico_sumaDR	\+
+aritmetico_restaDR	-
+aritmetico_productoDR	\*
+aritmetico_divisionDR	\/
+
 %%
+
+{operador_asignacionDR}	{
+	printf("(operador_asignacionTK, %s)\n", yytext);
+}
+
+{operador_comp_secDR}	{
+	printf("(operador_comp_secTK, %s)\n", yytext);
+}
+
+{operador_separadorDR}	{
+	printf("(operador_separadorTK, %s)\n", yytext);
+}
+
+{operador_subrangoDR}	{
+	printf("(operador_subrangoTK, %s)\n", yytext);
+}
+
+{operador_def_tipoDR}	{
+	printf("(operador_def_tipoTK, %s)\n", yytext);
+}
+
+{operador_entoncesDR}	{
+	printf("(operador_entoncesTK, %s)\n", yytext);
+}
+
+{operador_elseDR}	{
+	printf("(operador_elseTK, %s)\n", yytext);
+}
+
+{operador_igualDR}	{
+	printf("(operador_igualTK, %s)\n", yytext);
+}
+
+{operador_inicio_arrayDR}	{
+	printf("(operador_inicio_arrayTK, %s)\n", yytext);
+}
+
+{operador_fin_arrayDR}	{
+	printf("(operador_fin_arrayTK, %s)\n", yytext);
+}
+
+{relacional_distintoDR}	{
+	printf("(relacional_distintoTK, %s)\n", yytext);
+}
+
+{relacional_menor_igualDR}	{
+	printf("(relacional_menor_igualTK, %s)\n", yytext);
+}
+
+{relacional_mayor_igualDR}	{
+	printf("(relacional_mayor_igualTK, %s)\n", yytext);
+}
+
+{relacional_menorDR}	{
+	printf("(relacional_menorTK, %s)\n", yytext);
+}
+
+{relacional_mayorDR}	{
+	printf("(relacional_mayorTK, %s)\n", yytext);
+}
+
+{aritmetico_sumaDR}	{
+	printf("(aritmetico_sumaTK, %s)\n", yytext);
+}
+
+{aritmetico_restaDR}	{
+	printf("(aritmetico_restaTK, %s)\n", yytext);
+}
+
+{aritmetico_productoDR}	{
+	printf("(aritmetico_productoTK, %s)\n", yytext);
+}
+
+{aritmetico_divisionDR}	{
+	printf("(aritmetico_divisionTK, %s)\n", yytext);
+}
 
 {tipoDR}	{
 	printf("(tipoTK, %s)\n", yytext);
@@ -74,8 +173,8 @@ fin_tipoDR	(?i:ftipo)
 	printf("(conjuncionTK, %s)\n", yytext);
 }
 
-{tipo_atributo_accionDR}	{
-	printf("(tipo_atributo_accionTK, %s)\n", yytext);
+{tipo_atributoDR}	{
+	printf("(tipo_atributoTK, %s)\n", yytext);
 }
 
 {operacionDR}	{
@@ -185,11 +284,11 @@ fin_tipoDR	(?i:ftipo)
 }
 
 {literal_enteroDR}  {
-    printf("(literal_enteroTK, %s)\n", yytext);
+    printf("(literal_enteroTK, %d)\n", potenciaDeDiez(yytext));
 }
 
 {literal_realDR}  {
-    printf("(literal_realTK, %s)\n", yytext);
+    printf("(literal_realTK, %f)\n", atof(yytext));
 }
 
 {literal_caracterDR}  {
@@ -204,15 +303,33 @@ fin_tipoDR	(?i:ftipo)
     printf("(comentarioTK, %s)\n", yytext);
 }
 
-
-
-
-
 %%
 
 void errorEnScanner(char* definicionDelError, char * variable){
 	printf("\n\n\n\t%s %s \n", definicionDelError, variable);
 	exit(EXIT_FAILURE);
+}
+
+int potenciaDeDiez(char* literalEntero){
+	char entero[100];
+	char exponente[100];
+	int i = 0, j = 0;
+	while ((literalEntero[i] != 'e' && literalEntero[i] != 'E') && literalEntero[i] != '\0'){
+		entero[i] = literalEntero[i];
+		i++;
+	}
+	if (literalEntero[i] == 'e' || literalEntero[i] == 'E') {
+        i++;
+    }
+	while (literalEntero[i] != '\0'){
+		exponente[j] = literalEntero[i];
+		i++;
+		j++;
+	}
+	int base = atoi(entero);
+    int exp = atoi(exponente);
+
+    return (int)(base * pow(10, exp));
 }
 
 int main(int argc, char **argv) {
