@@ -1,0 +1,236 @@
+Terminales no usados en la gramática
+
+    operador_asignacionTK
+    operador_separadorTK
+    operador_subrangoTK
+    operador_def_tipoTK
+    operador_entoncesTK
+    operador_elseTK
+    operador_inicio_arrayTK
+    operador_fin_arrayTK
+    relacional_distintoTK
+    relacional_menor_igualTK
+    relacional_mayor_igualTK
+    relacional_menorTK
+    relacional_mayorTK
+    aritmetico_sumaTK
+    aritmetico_restaTK
+    aritmetico_productoTK
+    aritmetico_divisionTK
+    tipoTK
+    conjuncionTK
+    tipo_atributoTK
+    operacionTK
+    continuarTK
+    deTK
+    devTK
+    hacerTK
+    hastaTK
+    noTK
+    inicio_accionTK
+    fin_accionTK
+    inicio_algoritmoTK
+    fin_algoritmoTK
+    inicio_siTK
+    fin_siTK
+    inicio_mientrasTK
+    fin_mientrasTK
+    inicio_varTK
+    fin_varTK
+    inicio_funcionTK
+    fin_funcionTK
+    inicioParaTK
+    fin_paraTK
+    inicio_tuplaTK
+    fin_tuplaTK
+    inicio_tipoTK
+    fin_tipoTK
+    literal_booleanoTK
+    literal_realTK
+    literal_caracterTK
+    literal_cadenaTK
+    comentarioTK
+
+
+Gramática
+
+    0 $accept: declaracionConstantesV $end
+
+    1 declaracionConstantesV: inicio_constTK lista_d_cteV fin_constTK
+
+    2 lista_d_cteV: declaracionDeConstanteV
+    3             | lista_d_cteV operador_comp_secTK lista_d_cteV
+
+    4 declaracionDeConstanteV: identificadorTK operador_igualTK literal_enteroTK
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256)
+    operador_asignacionTK (258)
+    operador_comp_secTK <caracter> (259) 3
+    operador_separadorTK (260)
+    operador_subrangoTK (261)
+    operador_def_tipoTK (262)
+    operador_entoncesTK (263)
+    operador_elseTK (264)
+    operador_igualTK (265) 4
+    operador_inicio_arrayTK (266)
+    operador_fin_arrayTK (267)
+    relacional_distintoTK (268)
+    relacional_menor_igualTK (269)
+    relacional_mayor_igualTK (270)
+    relacional_menorTK (271)
+    relacional_mayorTK (272)
+    aritmetico_sumaTK (273)
+    aritmetico_restaTK (274)
+    aritmetico_productoTK (275)
+    aritmetico_divisionTK (276)
+    tipoTK (277)
+    conjuncionTK (278)
+    tipo_atributoTK (279)
+    operacionTK (280)
+    continuarTK (281)
+    deTK (282)
+    devTK (283)
+    hacerTK (284)
+    hastaTK (285)
+    noTK (286)
+    inicio_accionTK (287)
+    fin_accionTK (288)
+    inicio_algoritmoTK (289)
+    fin_algoritmoTK (290)
+    inicio_siTK (291)
+    fin_siTK (292)
+    inicio_mientrasTK (293)
+    fin_mientrasTK (294)
+    inicio_varTK (295)
+    fin_varTK (296)
+    inicio_constTK (297) 1
+    fin_constTK (298) 1
+    inicio_funcionTK (299)
+    fin_funcionTK (300)
+    inicioParaTK (301)
+    fin_paraTK (302)
+    inicio_tuplaTK (303)
+    fin_tuplaTK (304)
+    inicio_tipoTK (305)
+    fin_tipoTK (306)
+    identificadorTK <cadena> (307) 4
+    literal_booleanoTK (308)
+    literal_enteroTK <entero> (309) 4
+    literal_realTK (310)
+    literal_caracterTK (311)
+    literal_cadenaTK (312)
+    comentarioTK (313)
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (59)
+        on left: 0
+    declaracionConstantesV (60)
+        on left: 1
+        on right: 0
+    lista_d_cteV <entero> (61)
+        on left: 2 3
+        on right: 1 3
+    declaracionDeConstanteV (62)
+        on left: 4
+        on right: 2
+
+
+Estado 0
+
+    0 $accept: • declaracionConstantesV $end
+
+    inicio_constTK  desplazar e ir al estado 1
+
+    declaracionConstantesV  ir al estado 2
+
+
+Estado 1
+
+    1 declaracionConstantesV: inicio_constTK • lista_d_cteV fin_constTK
+
+    identificadorTK  desplazar e ir al estado 3
+
+    lista_d_cteV             ir al estado 4
+    declaracionDeConstanteV  ir al estado 5
+
+
+Estado 2
+
+    0 $accept: declaracionConstantesV • $end
+
+    $end  desplazar e ir al estado 6
+
+
+Estado 3
+
+    4 declaracionDeConstanteV: identificadorTK • operador_igualTK literal_enteroTK
+
+    operador_igualTK  desplazar e ir al estado 7
+
+
+Estado 4
+
+    1 declaracionConstantesV: inicio_constTK lista_d_cteV • fin_constTK
+    3 lista_d_cteV: lista_d_cteV • operador_comp_secTK lista_d_cteV
+
+    operador_comp_secTK  desplazar e ir al estado 8
+    fin_constTK          desplazar e ir al estado 9
+
+
+Estado 5
+
+    2 lista_d_cteV: declaracionDeConstanteV •
+
+    $default  reduce usando la regla 2 (lista_d_cteV)
+
+
+Estado 6
+
+    0 $accept: declaracionConstantesV $end •
+
+    $default  aceptar
+
+
+Estado 7
+
+    4 declaracionDeConstanteV: identificadorTK operador_igualTK • literal_enteroTK
+
+    literal_enteroTK  desplazar e ir al estado 10
+
+
+Estado 8
+
+    3 lista_d_cteV: lista_d_cteV operador_comp_secTK • lista_d_cteV
+
+    identificadorTK  desplazar e ir al estado 3
+
+    lista_d_cteV             ir al estado 11
+    declaracionDeConstanteV  ir al estado 5
+
+
+Estado 9
+
+    1 declaracionConstantesV: inicio_constTK lista_d_cteV fin_constTK •
+
+    $default  reduce usando la regla 1 (declaracionConstantesV)
+
+
+Estado 10
+
+    4 declaracionDeConstanteV: identificadorTK operador_igualTK literal_enteroTK •
+
+    $default  reduce usando la regla 4 (declaracionDeConstanteV)
+
+
+Estado 11
+
+    3 lista_d_cteV: lista_d_cteV • operador_comp_secTK lista_d_cteV
+    3             | lista_d_cteV operador_comp_secTK lista_d_cteV •
+
+    $default  reduce usando la regla 3 (lista_d_cteV)

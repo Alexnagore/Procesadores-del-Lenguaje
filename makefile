@@ -13,5 +13,8 @@ scanner: scanner.l
 archivo: lex.yy.c
 	gcc -lfl lex.yy.c -lm
 
+tablaDeConstantes.o: tablaDeConstantes.c
+	gcc -c tablaDeConstantes.c
+
 clean:
 	rm -f lex.yy.c a.out
