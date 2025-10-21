@@ -13,6 +13,7 @@ letraDR [[:alpha:]]
 cifraDR [[:digit:]]
 letra_o_cifraDR [[:alnum:]]
 identificadorDR {letraDR}{letra_o_cifraDR}*
+identificadorConstanteDR [A-Z][A-Z]*
 
 literal_enteroDR    [+-]?{cifraDR}{cifraDR}*([eE]{cifraDR}{cifraDR}*)?
 literal_realDR    [+-]?{cifraDR}{cifraDR}*(\.{cifraDR}{cifraDR}*)?([eE]{cifraDR}{cifraDR}*)?|{literal_enteroDR}[rR]
@@ -23,7 +24,8 @@ literal_cadenaDR    '([^']|\/')*'
 comentarioDR	\{([^}]|\/\})*\}
 
 tipoDR	(?i:booleano|cadena|caracter|entero|real|tabla|ref)
-tipo_atributoDR	(?i:e\/s|sal|ent)
+tipo_atributo_entDR	ent
+tipo_atributo_salDR	sal
 operacionDR	(?i:div|mod)
 
 conjuncionDR	(?i:o|y)
@@ -75,6 +77,7 @@ operador_elseDR	\[\]
 operador_igualDR	=
 operador_inicio_arrayDR	\[
 operador_fin_arrayDR	\]
+puntoDR	\.
 
 relacional_distintoDR <>
 relacional_menor_igualDR	<=
@@ -129,6 +132,10 @@ aritmetico_divisionDR	\/
 	printf("(operador_fin_arrayTK, %s)\n", yytext);
 }
 
+{puntoDR} {
+	printf("(puntoTK, %s)\n", yytext);
+}
+
 {relacional_distintoDR}	{
 	printf("(relacional_distintoTK, %s)\n", yytext);
 }
@@ -173,8 +180,12 @@ aritmetico_divisionDR	\/
 	printf("(conjuncionTK, %s)\n", yytext);
 }
 
-{tipo_atributoDR}	{
-	printf("(tipo_atributoTK, %s)\n", yytext);
+{tipo_atributo_entDR}	{
+	printf("(tipo_atributo_entTK, %s)\n", yytext);
+}
+
+{tipo_atributo_salDR}	{
+	printf("(tipo_atributo_salTK, %s)\n", yytext);
 }
 
 {operacionDR}	{
@@ -281,6 +292,10 @@ aritmetico_divisionDR	\/
 
 {identificadorDR}   {
     printf("(identificadorTK, %s)\n", yytext);
+}
+
+{identificadorConstanteDR}   {
+    printf("(identificadorConstanteTK, %s)\n", yytext);
 }
 
 {literal_enteroDR}  {

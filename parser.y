@@ -13,6 +13,7 @@
 %token <caracter> operador_comp_secTK
 %token operador_separadorTK
 %token operador_subrangoTK
+%token puntoTK
 %token operador_def_tipoTK
 %token operador_entoncesTK
 %token operador_elseTK
@@ -30,7 +31,8 @@
 %token aritmetico_divisionTK
 %token <tipo> tipoTK
 %token conjuncionTK
-%token tipo_atributoTK
+%token tipo_atributo_entTK
+%token tipo_atributo_salTK
 %token operacionTK
 %token continuarTK
 %token deTK
@@ -59,6 +61,7 @@
 %token inicio_tipoTK
 %token fin_tipoTK
 %token <cadena> identificadorTK
+%token <cadena> identificadorConstanteTK
 %token literal_booleanoTK
 %token <entero> literal_enteroTK
 %token literal_realTK
@@ -81,35 +84,64 @@
 
 %%
 
-
-declaracionConstantesV: inicio_constTK lista_d_cteV fin_constTK{
-			}
-	;
-lista_d_cteV :  declaracionDeConstanteV {
-			$$= 1;
-		}
-	| lista_d_cteV operador_comp_secTK lista_d_cteV {
-			$$= $1 + $3;
-		}
-	;
-declaracionDeConstanteV : identificadorTK operador_igualTK literal_enteroTK {
-			insertaConstante(&tc, $1, $3);
+desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK puntoTK{
 		}
 	;
 
-
-
-
-
-declaracionTiposV: inicio_tipoTK lista_d_tipoV fin_tipoTK{
+cabecera_algV : decl_globalesV decl_a_fV decl_ent_salV comentarioTK{
 		}
 	;
-lista_d_tipoV: declaracionTipoV {
-		}
-	| lista_d_tipoV operador_comp_secTK lista_d_tipoV {
+
+bloque_algV : bloqueV comentarioTK{
 		}
 	;
-declaracionTipoV: identificadorTK operador_igualTK d_tipoV {
+
+decl_globalesV :
+		declaracionTiposV decl_globalesV
+	| declaracionConstantesV decl_globalesV
+	| %empty{
+		}
+	;
+
+decl_a_fV :
+		accion_dV decl_a_fV
+	| funcio_dV decl_a_fV
+	| %empty{
+		}
+	;
+
+bloqueV : declaracionesV instruccionesV{
+		}
+	;
+
+declaracionesV :
+		declaracion_tipoV declaracionesV
+	| declaracion_constV declaracionesV
+	| declaracion_varV declaracionesV
+	| %empty{
+		}
+	;
+
+declaracion_tipoV : inicio_tipoTK lista_d_tipoV fin_tipoTK{
+		}
+	;
+
+declaracion_constV : inicio_constTK lista_d_cteV fin_constTK{
+		}
+	;
+
+declaracion_varV : inicio_varTK lista_d_varV fin_varTK{
+		}
+	;
+
+lista_d_tipoV : declaracionTipoV{
+		}
+	| lista_d_tipoV declaracionTipoV {
+		}
+	;
+declaracionTipoV: identificadorTK operador_igualTK d_tipoV operador_comp_secTK {
+		}
+	| %empty{
 		}
 	;
 d_tipoV: inicio_tuplaTK lista_camposV fin_tuplaTK {
@@ -140,14 +172,62 @@ expresion_tV: expresionV {
     ;
 lista_camposV: declaracionCampoV{
         }
-    | lista_camposV operador_comp_secTK lista_camposV {
-
+    | lista_camposV declaracionCampoV{
         }
     ;
-declaracionCampoV: identificadorTK operador_def_tipoTK d_tipo operador_comp_secTK {
-
+declaracionCampoV: identificadorTK operador_def_tipoTK d_tipoV operador_comp_secTK {
         }
+	| %empty{
+		}
     ;
+
+lista_d_cteV : declaracionDeConstanteV {
+		}
+	| lista_d_cteV declaracionDeConstanteV {
+		}
+	;
+declaracionDeConstanteV : identificadorConstanteTK operador_igualTK literal_enteroTK operador_comp_secTK{
+		}
+	| %empty{
+		}
+	;
+
+lista_d_varV : declaracionDeVariableV {
+		}
+	| lista_d_varV declaracionDeVariableV{
+		}
+	;
+declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
+		}
+	| %empty{
+		}
+	;
+lista_idV : declaracionDeListaIdV {
+		}
+	| lista_idV operador_separadorTK declaracionDeListaIdV {
+		}
+	;
+declaracionDeListaIdV : identificadorTK{
+		}
+	;
+
+decl_ent_salV :	decl_entV {
+		}
+	| decl_entV decl_salidaV {
+		}
+	| decl_salidaV {
+		}
+	;
+decl_entV : tipo_atributo_entTK lista_d_varV{
+		}
+	;
+decl_salV : tipo_atributo_salTK lista_d_varV{
+		}
+	;
+
+
+
+
 
 %%
 
