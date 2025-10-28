@@ -72,10 +72,6 @@
 %token literal_cadenaTK
 %token comentarioTK
 
-%nonassoc inicio_constTK
-%right fin_constTK
-%left operador_comp_secTK
-
 %union {
     int entero;
     char* cadena;
@@ -149,8 +145,6 @@ lista_d_tipoV : declaracionTipoV{
 	;
 declaracionTipoV: identificadorTK operador_igualTK d_tipoV operador_comp_secTK {
 		}
-	| %empty{
-		}
 	;
 d_tipoV: inicio_tuplaTK lista_camposV fin_tuplaTK {
         }
@@ -177,8 +171,6 @@ lista_camposV: declaracionCampoV{
     ;
 declaracionCampoV: identificadorTK operador_def_tipoTK d_tipoV operador_comp_secTK {
         }
-	| %empty{
-		}
     ;
 
 lista_d_cteV : declaracionDeConstanteV {
@@ -188,8 +180,6 @@ lista_d_cteV : declaracionDeConstanteV {
 	;
 declaracionDeConstanteV : identificadorConstanteTK operador_igualTK literal_enteroTK operador_comp_secTK{
 		}
-	| %empty{
-		}
 	;
 
 lista_d_varV : declaracionDeVariableV {
@@ -198,8 +188,6 @@ lista_d_varV : declaracionDeVariableV {
 		}
 	;
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
-		}
-	| %empty{
 		}
 	;
 lista_idV : declaracionDeListaIdV {
