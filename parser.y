@@ -29,10 +29,13 @@
 %token aritmetico_restaTK
 %token aritmetico_productoTK
 %token aritmetico_divisionTK
+%token inicio_parentesisTK
+%token fin_parentesisTK
 %token <tipo> tipoTK
 %token conjuncionTK
 %token tipo_atributo_entTK
 %token tipo_atributo_salTK
+%token tipo_atributo_ent_salTK
 %token operacionTK
 %token continuarTK
 %token deTK
@@ -54,7 +57,7 @@
 %token fin_constTK
 %token inicio_funcionTK
 %token fin_funcionTK
-%token inicioParaTK
+%token inicio_paraTK
 %token fin_paraTK
 %token inicio_tuplaTK
 %token fin_tuplaTK
@@ -80,8 +83,6 @@
     char caracter;
 }
 
-%type <entero> lista_d_cteV
-
 %%
 
 desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK puntoTK{
@@ -97,15 +98,19 @@ bloque_algV : bloqueV comentarioTK{
 	;
 
 decl_globalesV :
-		declaracionTiposV decl_globalesV
-	| declaracionConstantesV decl_globalesV
+		declaracion_tipoV decl_globalesV {
+		}
+	| declaracion_constV decl_globalesV {
+		}
 	| %empty{
 		}
 	;
 
 decl_a_fV :
-		accion_dV decl_a_fV
-	| funcio_dV decl_a_fV
+		accion_dV decl_a_fV {
+		}
+	| funcion_dV decl_a_fV {
+		}
 	| %empty{
 		}
 	;
@@ -115,9 +120,12 @@ bloqueV : declaracionesV instruccionesV{
 	;
 
 declaracionesV :
-		declaracion_tipoV declaracionesV
-	| declaracion_constV declaracionesV
-	| declaracion_varV declaracionesV
+		declaracion_tipoV declaracionesV {
+		}
+	| declaracion_constV declaracionesV {
+		}
+	| declaracion_varV declaracionesV {
+		}
 	| %empty{
 		}
 	;
@@ -145,29 +153,21 @@ declaracionTipoV: identificadorTK operador_igualTK d_tipoV operador_comp_secTK {
 		}
 	;
 d_tipoV: inicio_tuplaTK lista_camposV fin_tuplaTK {
-
         }
     | tipoTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV {
-
         }
     | identificadorTK {
-
         }
     | expresion_tV operador_subrangoTK expresion_tV {
-
         }
     | tipoTK d_tipoV {
-
         }
     | tipoTK {
-
         }
     ;
 expresion_tV: expresionV {
-
         }
     | literal_caracterTK {
-
         }
     ;
 lista_camposV: declaracionCampoV{
@@ -213,9 +213,9 @@ declaracionDeListaIdV : identificadorTK{
 
 decl_ent_salV :	decl_entV {
 		}
-	| decl_entV decl_salidaV {
+	| decl_entV decl_salV {
 		}
-	| decl_salidaV {
+	| decl_salV {
 		}
 	;
 decl_entV : tipo_atributo_entTK lista_d_varV{
@@ -225,9 +225,144 @@ decl_salV : tipo_atributo_salTK lista_d_varV{
 		}
 	;
 
+expresionV : exp_aV {
+		}
+	| exp_bV {
+		}
+	| funcion_llV {
+		}
+	;
+exp_aV : exp_aV aritmetico_sumaTK exp_aV {
+		}
+	| exp_aV aritmetico_restaTK exp_aV {
+		}
+	| exp_aV aritmetico_productoTK exp_aV {
+		}
+	| exp_aV aritmetico_divisionTK exp_aV {
+		}
+	| exp_aV operacionTK exp_aV {
+		}
+	| inicio_parentesisTK exp_aV fin_parentesisTK {
+		}
+	| operandoV {
+		}
+	| literal_enteroTK {
+		}
+	| literal_realTK {
+		}
+	| aritmetico_restaTK exp_aV {
+		}
+	| aritmetico_sumaTK exp_aV {
+		}
+	;
+exp_bV : exp_bV conjuncionTK exp_bV {
+		}
+	| noTK exp_bV {
+		}
+	| operandoV {
+		}
+	| literal_booleanoTK {
+		}
+	| expresionV relacional_distintoTK expresionV {
+		}
+	| expresionV relacional_menor_igualTK expresionV {
+		}
+	| expresionV relacional_mayor_igualTK expresionV {
+		}
+	| expresionV relacional_menorTK expresionV {
+		}
+	| expresionV relacional_mayorTK expresionV {
+		}	 
+	| expresionV operador_igualTK expresionV {
+		}
+	| inicio_parentesisTK exp_bV fin_parentesisTK {
+		}
+	;
+operandoV : identificadorTK {
+		}
+	| operandoV puntoTK operandoV {
+		}
+	| operandoV operador_inicio_arrayTK expresionV operador_fin_arrayTK {
+		}
+	| operandoV tipoTK {
+		}
+	;
 
+instruccionesV : instruccionV operador_comp_secTK instruccionesV {
+		}
+	| instruccionV {
+		}
+	;
+instruccionV : continuarTK {
+		}
+	| asignacionV {
+		}
+	| alternativaV {
+		}
+	| iteracionV {
+		}
+	| accion_llV {
+		}
+	;
+asignacionV : operandoV operador_asignacionTK expresionV {
+		}
+	;
+alternativaV : inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK {
+		}
+	;
+lista_opcionesV : operador_elseTK expresionV operador_entoncesTK instruccionesV lista_opcionesV {
+		}
+	| %empty {
+		}
+	;
+iteracionV : it_cota_fijaV {
+		}
+	| it_cota_expV {
+		}
+	;
+it_cota_expV : inicio_mientrasTK expresionV hacerTK instruccionesV fin_mientrasTK {
+		}
+	;
+it_cota_fijaV : inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK expresionV hacerTK instruccionesV fin_paraTK {
+		}
+	;
 
+accion_dV : inicio_accionTK a_cabeceraV bloqueV fin_accionTK {
+		}
+	;
+funcion_dV : inicio_funcionTK f_cabeceraV bloqueV devTK expresionV fin_funcionTK {
+		}
+	;
+a_cabeceraV : identificadorTK inicio_parentesisTK d_par_formV fin_parentesisTK operador_comp_secTK {
+		}
+	;
+f_cabeceraV : identificadorTK inicio_parentesisTK lista_d_varV fin_parentesisTK devTK d_tipoV operador_comp_secTK {
+		}
+	;
+d_par_formV : d_p_formV operador_comp_secTK d_par_formV {
+		}
+	| %empty {
+		}
+	;
+d_p_formV : tipo_atributo_entTK lista_idV operador_def_tipoTK d_tipoV {
+		}
+	| tipo_atributo_salTK lista_idV operador_def_tipoTK d_tipoV {
+		}
+	| tipo_atributo_ent_salTK lista_idV operador_def_tipoTK d_tipoV {
+		}
+	;
 
+accion_llV : identificadorTK inicio_parentesisTK l_llV fin_parentesisTK {
+		}
+	;
+funcion_llV : identificadorTK inicio_parentesisTK l_llV fin_parentesisTK {
+		}
+	;
+l_llV : expresionV operador_separadorTK l_llV {
+		}
+	| expresionV {
+		}
+	;
 
 %%
 
