@@ -64,12 +64,12 @@
 %token inicio_tipoTK
 %token fin_tipoTK
 %token <cadena> identificadorTK
+%token <cadena> identificadorBooleanoTK
 %token <cadena> identificadorConstanteTK
 %token literal_booleanoTK
 %token <entero> literal_enteroTK
 %token literal_realTK
 %token literal_caracterTK
-%token literal_cadenaTK
 %token comentarioTK
 
 %union {
@@ -78,6 +78,8 @@
     TipoT tipo;
     char caracter;
 }
+
+%left conjuncionTK
 
 %%
 
@@ -232,7 +234,7 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		}
 	| inicio_parentesisTK exp_aV fin_parentesisTK {
 		}
-	| operandoV {
+	| operando_aV {
 		}
 	| literal_enteroTK {
 		}
@@ -247,7 +249,7 @@ exp_bV : exp_bV conjuncionTK exp_bV {
 		}
 	| noTK exp_bV {
 		}
-	| operandoV {
+	| operando_bV {
 		}
 	| literal_booleanoTK {
 		}
@@ -266,13 +268,22 @@ exp_bV : exp_bV conjuncionTK exp_bV {
 	| inicio_parentesisTK exp_bV fin_parentesisTK {
 		}
 	;
-operandoV : identificadorTK {
+operando_aV : identificadorTK {
 		}
-	| operandoV puntoTK operandoV {
+	| operando_aV puntoTK operando_aV {
 		}
-	| operandoV operador_inicio_arrayTK expresionV operador_fin_arrayTK {
+	| operando_aV operador_inicio_arrayTK expresionV operador_fin_arrayTK {
 		}
-	| operandoV tipoTK {
+	| operando_aV tipoTK {
+		}
+	;
+operando_bV : identificadorBooleanoTK {
+		}
+	| operando_bV puntoTK operando_bV {
+		}
+	| operando_bV operador_inicio_arrayTK expresionV operador_fin_arrayTK {
+		}
+	| operando_bV tipoTK {
 		}
 	;
 
@@ -283,7 +294,9 @@ instruccionesV : instruccionV operador_comp_secTK instruccionesV {
 	;
 instruccionV : continuarTK {
 		}
-	| asignacionV {
+	| asignacion_aV {
+		}
+	| asignacion_bV {
 		}
 	| alternativaV {
 		}
@@ -292,7 +305,10 @@ instruccionV : continuarTK {
 	| accion_llV {
 		}
 	;
-asignacionV : operandoV operador_asignacionTK expresionV {
+asignacion_aV : operando_aV operador_asignacionTK expresionV {
+		}
+	;
+asignacion_bV : operando_bV operador_asignacionTK expresionV {
 		}
 	;
 alternativaV : inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK {
