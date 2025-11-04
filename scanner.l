@@ -4,6 +4,7 @@
 	#include <stdlib.h> //Para usar exit()
 	#include <strings.h> //Para trabajar con cadenas de caracteres
 	#include <math.h>
+	#include "parser.tab.h"
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
 	int potenciaDeDiez(char*);
@@ -93,83 +94,83 @@ aritmetico_divisionDR	\/
 %%
 
 {operador_asignacionDR}	{
-	printf("(operador_asignacionTK, %s)\n", yytext);
+	return operador_asignacionTK;
 }
 
 {operador_comp_secDR}	{
-	printf("(operador_comp_secTK, %s)\n", yytext);
+	return operador_comp_secTK;
 }
 
 {operador_separadorDR}	{
-	printf("(operador_separadorTK, %s)\n", yytext);
+	return operador_separadorTK;
 }
 
 {operador_subrangoDR}	{
-	printf("(operador_subrangoTK, %s)\n", yytext);
+	return operador_subrangoTK;
 }
 
 {operador_def_tipoDR}	{
-	printf("(operador_def_tipoTK, %s)\n", yytext);
+	return operador_def_tipoTK;
 }
 
 {operador_entoncesDR}	{
-	printf("(operador_entoncesTK, %s)\n", yytext);
+	return operador_entoncesTK;
 }
 
 {operador_elseDR}	{
-	printf("(operador_elseTK, %s)\n", yytext);
+	return operador_elseTK;
 }
 
 {operador_igualDR}	{
-	printf("(operador_igualTK, %s)\n", yytext);
+	return operador_igualTK;
 }
 
 {operador_inicio_arrayDR}	{
-	printf("(operador_inicio_arrayTK, %s)\n", yytext);
+	return operador_inicio_arrayTK;
 }
 
 {operador_fin_arrayDR}	{
-	printf("(operador_fin_arrayTK, %s)\n", yytext);
+	return operador_fin_arrayTK;
 }
 
 {puntoDR} {
-	printf("(puntoTK, %s)\n", yytext);
+	return puntoTK;
 }
 
 {relacional_distintoDR}	{
-	printf("(relacional_distintoTK, %s)\n", yytext);
+	return relacional_distintoTK;
 }
 
 {relacional_menor_igualDR}	{
-	printf("(relacional_menor_igualTK, %s)\n", yytext);
+	return relacional_menor_igualTK;
 }
 
 {relacional_mayor_igualDR}	{
-	printf("(relacional_mayor_igualTK, %s)\n", yytext);
+	return relacional_mayor_igualTK;
 }
 
 {relacional_menorDR}	{
-	printf("(relacional_menorTK, %s)\n", yytext);
+	return relacional_menorTK;
 }
 
 {relacional_mayorDR}	{
-	printf("(relacional_mayorTK, %s)\n", yytext);
+	return relacional_mayorTK;
 }
 
 {aritmetico_sumaDR}	{
-	printf("(aritmetico_sumaTK, %s)\n", yytext);
+	return aritmetico_sumaTK;
 }
 
 {aritmetico_restaDR}	{
-	printf("(aritmetico_restaTK, %s)\n", yytext);
+	return aritmetico_restaTK;
 }
 
 {aritmetico_productoDR}	{
-	printf("(aritmetico_productoTK, %s)\n", yytext);
+	return aritmetico_productoTK;
 }
 
 {aritmetico_divisionDR}	{
-	printf("(aritmetico_divisionTK, %s)\n", yytext);
+	return aritmetico_divisionTK;
 }
 
 {tipoDR}	{
@@ -181,7 +182,7 @@ aritmetico_divisionDR	\/
 }
 
 {tipo_atributo_entDR}	{
-	printf("(tipo_atributo_entTK, %s)\n", yytext);
+	return tipo_atributo_entTK;
 }
 
 {tipo_atributo_salDR}	{
