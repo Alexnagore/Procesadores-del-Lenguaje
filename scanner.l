@@ -5,6 +5,7 @@
 	#include <strings.h> //Para trabajar con cadenas de caracteres
 	#include <math.h>
 	#include "parser.tab.h"
+	#include "nombresDeTipos.h"
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
 	int potenciaDeDiez(char*);
@@ -13,8 +14,9 @@
 letraDR [[:alpha:]]
 cifraDR [[:digit:]]
 letra_o_cifraDR [[:alnum:]]
-identificadorDR {letraDR}{letra_o_cifraDR}*
+
 identificadorConstanteDR [A-Z][A-Z]*
+identificadorDR {letraDR}{letra_o_cifraDR}*
 
 literal_enteroDR    [+-]?{cifraDR}{cifraDR}*([eE]{cifraDR}{cifraDR}*)?
 literal_realDR    [+-]?{cifraDR}{cifraDR}*(\.{cifraDR}{cifraDR}*)?([eE]{cifraDR}{cifraDR}*)?|{literal_enteroDR}[rR]
@@ -27,7 +29,6 @@ comentarioDR	\{([^}]|\/\})*\}
 tipoDR	(?i:booleano|cadena|caracter|entero|real|tabla|ref)
 tipo_atributo_entDR	ent
 tipo_atributo_salDR	sal
-operacionDR	(?i:div|mod)
 
 conjuncionDR	(?i:o|y)
 continuarDR	(?i:continuar)
@@ -90,6 +91,8 @@ aritmetico_sumaDR	\+
 aritmetico_restaDR	-
 aritmetico_productoDR	\*
 aritmetico_divisionDR	\/
+aritmetico_divisionRealDR	(?i:div)
+aritmetico_moduloDR (?i:mod)
 
 %%
 
@@ -173,6 +176,14 @@ aritmetico_divisionDR	\/
 	return aritmetico_divisionTK;
 }
 
+{aritmetico_divisionRealDR}	{
+	return aritmetico_divisionRealTK;
+}
+
+{aritmetico_moduloDR}	{
+	return aritmetico_moduloTK;
+}
+
 {tipoDR}	{
 	printf("(tipoTK, %s)\n", yytext);
 }
@@ -189,134 +200,141 @@ aritmetico_divisionDR	\/
 	printf("(tipo_atributo_salTK, %s)\n", yytext);
 }
 
-{operacionDR}	{
-	printf("(operacionTK, %s)\n", yytext);
-}
-
 {continuarDR}	{
-	printf("(continuarTK, %s)\n", yytext);
+	return continuarTK;
 }
 
 {deDR}	{
-	printf("(deTK, %s)\n", yytext);
+	return deTK;
 }
 
 {devDR}	{
-	printf("(devTK, %s)\n", yytext);
+	return devTK;
 }
 
 {hacerDR}	{
-	printf("(hacerTK, %s)\n", yytext);
+	return hacerTK;
 }
 
 {hastaDR}	{
-	printf("(hastaTK, %s)\n", yytext);
+	return hastaTK;
 }
 
 {noDR}	{
-	printf("(noTK, %s)\n", yytext);
+	return noTK;
 }
 
 {inicio_accionDR}	{
-	printf("(inicio_accionTK, %s)\n", yytext);
+	return inicio_accionTK;
 }
 {fin_accionDR}	{
-	printf("(fin_accionTK, %s)\n", yytext);
+	return fin_accionTK;
 }
 
 {inicio_algoritmoDR}	{
-	printf("(inicio_algoritmoTK, %s)\n", yytext);
+	return inicio_algoritmoTK;
 }
+
 {fin_algoritmoDR}	{
-	printf("(fin_algoritmoTK, %s)\n", yytext);
+	return fin_algoritmoTK;
 }
 
 {inicio_siDR}	{
-	printf("(inicio_siTK, %s)\n", yytext);
+	return inicio_siTK;
 }
 {fin_siDR}	{
-	printf("(fin_siTK, %s)\n", yytext);
+	return fin_siTK;
 }
 
 {inicio_mientrasDR}	{
-	printf("(inicio_mientrasTK, %s)\n", yytext);
+	return inicio_mientrasTK;
 }
 {fin_mientrasDR}	{
-	printf("(fin_mientrasTK, %s)\n", yytext);
+	return fin_mientrasTK;
 }
 
 {inicio_varDR}	{
-	printf("(inicio_varTK, %s)\n", yytext);
+	return inicio_varTK;
 }
 {fin_varDR}	{
-	printf("(fin_varTK, %s)\n", yytext);
+	return fin_varTK;
 }
 
 {inicio_constDR}	{
-	printf("(inicio_constTK, %s)\n", yytext);
+	return inicio_constTK;
 }
 {fin_constDR}	{
-	printf("(fin_constTK, %s)\n", yytext);
+	return fin_constTK;
 }
 
 {inicio_funcionDR}	{
-	printf("(inicio_funcionTK, %s)\n", yytext);
+	return inicio_funcionTK;
 }
 {fin_funcionDR}	{
-	printf("(fin_funcionTK, %s)\n", yytext);
+	return fin_funcionTK;
 }
 
 {inicio_paraDR}	{
-	printf("(inicioParaTK, %s)\n", yytext);
+	return inicio_paraTK;
 }
 {fin_paraDR}	{
-	printf("(fin_paraTK, %s)\n", yytext);
+	return fin_paraTK;
 }
 
 {inicio_tuplaDR}	{
-	printf("(inicio_tuplaTK, %s)\n", yytext);
+	return inicio_tuplaTK;
 }
 {fin_tuplaDR}	{
-	printf("(fin_tuplaTK, %s)\n", yytext);
+	return fin_tuplaTK;
 }
 
 {inicio_tipoDR}	{
-	printf("(inicio_tipoTK, %s)\n", yytext);
+	return inicio_tipoTK;
 }
 {fin_tipoDR}	{
-	printf("(fin_tipoTK, %s)\n", yytext);
+	return fin_tipoTK;
 }
 
 {literal_booleanoDR}  {
     printf("(literal_booleanoTK, %s)\n", yytext);
 }
 
-{identificadorDR}   {
-    printf("(identificadorTK, %s)\n", yytext);
-}
-
 {identificadorConstanteDR}   {
     printf("(identificadorConstanteTK, %s)\n", yytext);
 }
 
+{identificadorDR}   {
+    printf("(identificadorTK, %s)\n", yytext);
+}
+
 {literal_enteroDR}  {
-    printf("(literal_enteroTK, %d)\n", potenciaDeDiez(yytext));
+    yylval.literal.tipoDelValor = ENTERO;
+	yylval.literal.valor.valorEntero = atoi(yytext);
+	return literal_enteroTK;
 }
 
 {literal_realDR}  {
-    printf("(literal_realTK, %f)\n", atof(yytext));
+	yylval.literal.tipoDelValor = REAL;
+	yylval.literal.valor.valorReal = atof(yytext);
+	return literal_realTK;
 }
 
 {literal_caracterDR}  {
-    printf("(literal_caracterTK, %s)\n", yytext);
+    yylval.literal.tipoDelValor = CARACTER;
+	yylval.literal.valor.valorCaracter = yytext[1];
+	return literalTK;
 }
 
 {literal_cadenaDR}  {
-    printf("(literal_cadenaTK, %s)\n", yytext);
+    yylval.literal.tipoDelValor = CADENA;
+	if ((ttlval.literal.valor.valorCadena = strdup(yytext)) == NULL )
+	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+	else
+		return literal_cadenaTK;
 }
 
 {comentarioDR} {
-    printf("(comentarioTK, %s)\n", yytext);
+    /* ignorar */
 }
 
 %%
