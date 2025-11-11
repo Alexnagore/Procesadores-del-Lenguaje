@@ -1,6 +1,7 @@
 Terminales no usados en la gramática
 
-    relacional_menor_igualDR
+    tipoTablaTK
+    tipoRefTK
     aritmetico_divisionRealTK
     aritmetico_moduloTK
 
@@ -9,12 +10,6 @@ Estado 91 conflictos: 2 desplazamiento/reducción
 Estado 133 conflictos: 6 reducción/reducción
 Estado 189 conflictos: 6 reducción/reducción
 Estado 190 conflictos: 6 reducción/reducción
-Estado 191 conflictos: 1 desplazamiento/reducción
-Estado 192 conflictos: 1 desplazamiento/reducción
-Estado 193 conflictos: 6 desplazamiento/reducción
-Estado 194 conflictos: 1 desplazamiento/reducción
-Estado 195 conflictos: 1 desplazamiento/reducción
-Estado 196 conflictos: 1 desplazamiento/reducción
 
 
 Gramática
@@ -206,197 +201,198 @@ Terminales con las reglas donde aparecen
     inicio_parentesisTK (278) 51 68 99 100 106 107
     fin_parentesisTK (279) 51 68 99 100 106 107
     tipoTK <tipo> (280) 22 25 26 75 79
-    conjuncionTK (281) 57
-    disyuncionTK (282) 58
-    tipo_atributo_entTK (283) 44 103
-    tipo_atributo_salTK (284) 45 104
-    tipo_atributo_ent_salTK (285) 105
-    operacionTK (286) 50
-    continuarTK (287) 82
-    deTK (288) 22
-    devTK (289) 98 100
-    hacerTK (290) 95 96
-    hastaTK (291) 96
-    noTK (292) 59
-    inicio_accionTK (293) 97
-    fin_accionTK (294) 97
-    inicio_algoritmoTK (295) 1
-    fin_algoritmoTK (296) 1
-    inicio_siTK (297) 90
-    fin_siTK (298) 90
-    inicio_mientrasTK (299) 95
-    fin_mientrasTK (300) 95
-    inicio_varTK (301) 17
-    fin_varTK (302) 17
-    inicio_constTK (303) 16
-    fin_constTK (304) 16
-    inicio_funcionTK (305) 98
-    fin_funcionTK (306) 98
-    inicio_paraTK (307) 96
-    fin_paraTK (308) 96
-    inicio_tuplaTK (309) 21
-    fin_tuplaTK (310) 21
-    inicio_tipoTK (311) 15
-    fin_tipoTK (312) 15
-    identificadorTK <cadena> (313) 1 20 23 31 40 72 96 99 100 106 107
-    identificadorBooleanoTK <cadena> (314) 76
-    identificadorConstanteTK <cadena> (315) 34
-    literal_booleanoTK <literal> (316) 61
-    literal_enteroTK <literal> (317) 34 53
-    literal_realTK <literal> (318) 54
-    literal_caracterTK <literal> (319) 28
-    comentarioTK (320) 2 3
-    relacional_menor_igualDR (321)
-    aritmetico_divisionRealTK (322)
-    aritmetico_moduloTK (323)
+    tipoTablaTK (281)
+    tipoRefTK (282)
+    conjuncionTK (283) 57
+    disyuncionTK (284) 58
+    tipo_atributo_entTK (285) 44 103
+    tipo_atributo_salTK (286) 45 104
+    tipo_atributo_ent_salTK (287) 105
+    operacionTK (288) 50
+    continuarTK (289) 82
+    deTK (290) 22
+    devTK (291) 98 100
+    hacerTK (292) 95 96
+    hastaTK (293) 96
+    noTK (294) 59
+    inicio_accionTK (295) 97
+    fin_accionTK (296) 97
+    inicio_algoritmoTK (297) 1
+    fin_algoritmoTK (298) 1
+    inicio_siTK (299) 90
+    fin_siTK (300) 90
+    inicio_mientrasTK (301) 95
+    fin_mientrasTK (302) 95
+    inicio_varTK (303) 17
+    fin_varTK (304) 17
+    inicio_constTK (305) 16
+    fin_constTK (306) 16
+    inicio_funcionTK (307) 98
+    fin_funcionTK (308) 98
+    inicio_paraTK (309) 96
+    fin_paraTK (310) 96
+    inicio_tuplaTK (311) 21
+    fin_tuplaTK (312) 21
+    inicio_tipoTK (313) 15
+    fin_tipoTK (314) 15
+    identificadorTK <cadena> (315) 1 20 23 31 40 72 96 99 100 106 107
+    identificadorBooleanoTK <cadena> (316) 76
+    identificadorConstanteTK <cadena> (317) 34
+    literal_booleanoTK <literal> (318) 61
+    literal_enteroTK <literal> (319) 34 53
+    literal_realTK <literal> (320) 54
+    literal_caracterTK <literal> (321) 28
+    comentarioTK (322) 2 3
+    aritmetico_divisionRealTK (323)
+    aritmetico_moduloTK (324)
 
 
 No terminales con las reglas donde aparecen
 
-    $accept (69)
+    $accept (70)
         on left: 0
-    desc_algoritmoV (70)
+    desc_algoritmoV (71)
         on left: 1
         on right: 0
-    cabecera_algV (71)
+    cabecera_algV (72)
         on left: 2
         on right: 1
-    bloque_algV (72)
+    bloque_algV (73)
         on left: 3
         on right: 1
-    decl_globalesV (73)
+    decl_globalesV (74)
         on left: 4 5 6
         on right: 2 4 5
-    decl_a_fV (74)
+    decl_a_fV (75)
         on left: 7 8 9
         on right: 2 7 8
-    bloqueV (75)
+    bloqueV (76)
         on left: 10
         on right: 3 97 98
-    declaracionesV (76)
+    declaracionesV (77)
         on left: 11 12 13 14
         on right: 10 11 12 13
-    declaracion_tipoV (77)
+    declaracion_tipoV (78)
         on left: 15
         on right: 4 11
-    declaracion_constV (78)
+    declaracion_constV (79)
         on left: 16
         on right: 5 12
-    declaracion_varV (79)
+    declaracion_varV (80)
         on left: 17
         on right: 13
-    lista_d_tipoV (80)
+    lista_d_tipoV (81)
         on left: 18 19
         on right: 15 19
-    declaracionTipoV (81)
+    declaracionTipoV (82)
         on left: 20
         on right: 18 19
-    d_tipoV (82)
+    d_tipoV (83)
         on left: 21 22 23 24 25 26
         on right: 20 22 25 31 37 100 103 104 105
-    expresion_tV (83)
+    expresion_tV (84)
         on left: 27 28
         on right: 22 24
-    lista_camposV (84)
+    lista_camposV (85)
         on left: 29 30
         on right: 21 30
-    declaracionCampoV (85)
+    declaracionCampoV (86)
         on left: 31
         on right: 29 30
-    lista_d_cteV (86)
+    lista_d_cteV (87)
         on left: 32 33
         on right: 16 33
-    declaracionDeConstanteV (87)
+    declaracionDeConstanteV (88)
         on left: 34
         on right: 32 33
-    lista_d_varV (88)
+    lista_d_varV (89)
         on left: 35 36
         on right: 17 36 44 45 100
-    declaracionDeVariableV (89)
+    declaracionDeVariableV (90)
         on left: 37
         on right: 35 36
-    lista_idV (90)
+    lista_idV (91)
         on left: 38 39
         on right: 37 39 103 104 105
-    declaracionDeListaIdV (91)
+    declaracionDeListaIdV (92)
         on left: 40
         on right: 38 39
-    decl_ent_salV (92)
+    decl_ent_salV (93)
         on left: 41 42 43
         on right: 2
-    decl_entV (93)
+    decl_entV (94)
         on left: 44
         on right: 41 42
-    decl_salV (94)
+    decl_salV (95)
         on left: 45
         on right: 42 43
-    exp_aV (95)
+    exp_aV (96)
         on left: 46 47 48 49 50 51 52 53 54 55 56
         on right: 46 47 48 49 50 51 55 56 69
-    exp_bV (96)
+    exp_bV (97)
         on left: 57 58 59 60 61 62 63 64 65 66 67 68
         on right: 57 58 59 68 70
-    expresionV (97)
+    expresionV (98)
         on left: 69 70 71
         on right: 27 62 63 64 65 66 67 74 78 88 89 90 91 95 96 98 108 109
-    operando_aV (98)
+    operando_aV (99)
         on left: 72 73 74 75
         on right: 52 73 74 75 88
-    operando_bV (99)
+    operando_bV (100)
         on left: 76 77 78 79
         on right: 60 77 78 79 89
-    instruccionesV (100)
+    instruccionesV (101)
         on left: 80 81
         on right: 10 80 90 91 95 96
-    instruccionV (101)
+    instruccionV (102)
         on left: 82 83 84 85 86 87
         on right: 80 81
-    asignacion_aV (102)
+    asignacion_aV (103)
         on left: 88
         on right: 83
-    asignacion_bV (103)
+    asignacion_bV (104)
         on left: 89
         on right: 84
-    alternativaV (104)
+    alternativaV (105)
         on left: 90
         on right: 85
-    lista_opcionesV (105)
+    lista_opcionesV (106)
         on left: 91 92
         on right: 90 91
-    iteracionV (106)
+    iteracionV (107)
         on left: 93 94
         on right: 86
-    it_cota_expV (107)
+    it_cota_expV (108)
         on left: 95
         on right: 94
-    it_cota_fijaV (108)
+    it_cota_fijaV (109)
         on left: 96
         on right: 93
-    accion_dV (109)
+    accion_dV (110)
         on left: 97
         on right: 7
-    funcion_dV (110)
+    funcion_dV (111)
         on left: 98
         on right: 8
-    a_cabeceraV (111)
+    a_cabeceraV (112)
         on left: 99
         on right: 97
-    f_cabeceraV (112)
+    f_cabeceraV (113)
         on left: 100
         on right: 98
-    d_par_formV (113)
+    d_par_formV (114)
         on left: 101 102
         on right: 99 101
-    d_p_formV (114)
+    d_p_formV (115)
         on left: 103 104 105
         on right: 101
-    accion_llV (115)
+    accion_llV (116)
         on left: 106
         on right: 87
-    funcion_llV (116)
+    funcion_llV (117)
         on left: 107
         on right: 71
-    l_llV (117)
+    l_llV (118)
         on left: 108 109
         on right: 106 107 108
 
@@ -2765,8 +2761,6 @@ Estado 189
    58       | exp_bV • disyuncionTK exp_bV
    70 expresionV: exp_bV •
 
-    disyuncionTK  desplazar e ir al estado 146
-
     operador_igualTK          reduce usando la regla 57 (exp_bV)
     operador_igualTK          [reduce usando la regla 70 (expresionV)]
     relacional_distintoTK     reduce usando la regla 57 (exp_bV)
@@ -2788,6 +2782,8 @@ Estado 190
    58       | exp_bV • disyuncionTK exp_bV
    58       | exp_bV disyuncionTK exp_bV •
    70 expresionV: exp_bV •
+
+    conjuncionTK  desplazar e ir al estado 145
 
     operador_igualTK          reduce usando la regla 58 (exp_bV)
     operador_igualTK          [reduce usando la regla 70 (expresionV)]
@@ -2814,14 +2810,11 @@ Estado 191
    67       | expresionV • operador_igualTK expresionV
    67       | expresionV operador_igualTK expresionV •
 
-    relacional_menor_igualTK  desplazar e ir al estado 149
-
     operador_igualTK    error (no asociativo)
     relacional_menorTK  error (no asociativo)
     relacional_mayorTK  error (no asociativo)
 
-    relacional_menor_igualTK  [reduce usando la regla 67 (exp_bV)]
-    $default                  reduce usando la regla 67 (exp_bV)
+    $default  reduce usando la regla 67 (exp_bV)
 
 
 Estado 192
@@ -2834,16 +2827,15 @@ Estado 192
    66       | expresionV • relacional_mayorTK expresionV
    67       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK          desplazar e ir al estado 147
-    relacional_menor_igualTK  desplazar e ir al estado 149
-    relacional_menorTK        desplazar e ir al estado 151
-    relacional_mayorTK        desplazar e ir al estado 152
+    operador_igualTK    desplazar e ir al estado 147
+    relacional_menorTK  desplazar e ir al estado 151
+    relacional_mayorTK  desplazar e ir al estado 152
 
     relacional_distintoTK     error (no asociativo)
+    relacional_menor_igualTK  error (no asociativo)
     relacional_mayor_igualTK  error (no asociativo)
 
-    relacional_menor_igualTK  [reduce usando la regla 62 (exp_bV)]
-    $default                  reduce usando la regla 62 (exp_bV)
+    $default  reduce usando la regla 62 (exp_bV)
 
 
 Estado 193
@@ -2856,20 +2848,15 @@ Estado 193
    66       | expresionV • relacional_mayorTK expresionV
    67       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK          desplazar e ir al estado 147
-    relacional_distintoTK     desplazar e ir al estado 148
-    relacional_menor_igualTK  desplazar e ir al estado 149
-    relacional_mayor_igualTK  desplazar e ir al estado 150
-    relacional_menorTK        desplazar e ir al estado 151
-    relacional_mayorTK        desplazar e ir al estado 152
+    operador_igualTK    desplazar e ir al estado 147
+    relacional_menorTK  desplazar e ir al estado 151
+    relacional_mayorTK  desplazar e ir al estado 152
 
-    operador_igualTK          [reduce usando la regla 63 (exp_bV)]
-    relacional_distintoTK     [reduce usando la regla 63 (exp_bV)]
-    relacional_menor_igualTK  [reduce usando la regla 63 (exp_bV)]
-    relacional_mayor_igualTK  [reduce usando la regla 63 (exp_bV)]
-    relacional_menorTK        [reduce usando la regla 63 (exp_bV)]
-    relacional_mayorTK        [reduce usando la regla 63 (exp_bV)]
-    $default                  reduce usando la regla 63 (exp_bV)
+    relacional_distintoTK     error (no asociativo)
+    relacional_menor_igualTK  error (no asociativo)
+    relacional_mayor_igualTK  error (no asociativo)
+
+    $default  reduce usando la regla 63 (exp_bV)
 
 
 Estado 194
@@ -2882,16 +2869,15 @@ Estado 194
    66       | expresionV • relacional_mayorTK expresionV
    67       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK          desplazar e ir al estado 147
-    relacional_menor_igualTK  desplazar e ir al estado 149
-    relacional_menorTK        desplazar e ir al estado 151
-    relacional_mayorTK        desplazar e ir al estado 152
+    operador_igualTK    desplazar e ir al estado 147
+    relacional_menorTK  desplazar e ir al estado 151
+    relacional_mayorTK  desplazar e ir al estado 152
 
     relacional_distintoTK     error (no asociativo)
+    relacional_menor_igualTK  error (no asociativo)
     relacional_mayor_igualTK  error (no asociativo)
 
-    relacional_menor_igualTK  [reduce usando la regla 64 (exp_bV)]
-    $default                  reduce usando la regla 64 (exp_bV)
+    $default  reduce usando la regla 64 (exp_bV)
 
 
 Estado 195
@@ -2904,14 +2890,11 @@ Estado 195
    66       | expresionV • relacional_mayorTK expresionV
    67       | expresionV • operador_igualTK expresionV
 
-    relacional_menor_igualTK  desplazar e ir al estado 149
-
     operador_igualTK    error (no asociativo)
     relacional_menorTK  error (no asociativo)
     relacional_mayorTK  error (no asociativo)
 
-    relacional_menor_igualTK  [reduce usando la regla 65 (exp_bV)]
-    $default                  reduce usando la regla 65 (exp_bV)
+    $default  reduce usando la regla 65 (exp_bV)
 
 
 Estado 196
@@ -2924,14 +2907,11 @@ Estado 196
    66       | expresionV relacional_mayorTK expresionV •
    67       | expresionV • operador_igualTK expresionV
 
-    relacional_menor_igualTK  desplazar e ir al estado 149
-
     operador_igualTK    error (no asociativo)
     relacional_menorTK  error (no asociativo)
     relacional_mayorTK  error (no asociativo)
 
-    relacional_menor_igualTK  [reduce usando la regla 66 (exp_bV)]
-    $default                  reduce usando la regla 66 (exp_bV)
+    $default  reduce usando la regla 66 (exp_bV)
 
 
 Estado 197

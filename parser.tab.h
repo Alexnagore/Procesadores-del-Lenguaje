@@ -39,7 +39,7 @@
 # define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -77,49 +77,50 @@ extern int yydebug;
     inicio_parentesisTK = 278,     /* inicio_parentesisTK  */
     fin_parentesisTK = 279,        /* fin_parentesisTK  */
     tipoTK = 280,                  /* tipoTK  */
-    conjuncionTK = 281,            /* conjuncionTK  */
-    disyuncionTK = 282,            /* disyuncionTK  */
-    tipo_atributo_entTK = 283,     /* tipo_atributo_entTK  */
-    tipo_atributo_salTK = 284,     /* tipo_atributo_salTK  */
-    tipo_atributo_ent_salTK = 285, /* tipo_atributo_ent_salTK  */
-    operacionTK = 286,             /* operacionTK  */
-    continuarTK = 287,             /* continuarTK  */
-    deTK = 288,                    /* deTK  */
-    devTK = 289,                   /* devTK  */
-    hacerTK = 290,                 /* hacerTK  */
-    hastaTK = 291,                 /* hastaTK  */
-    noTK = 292,                    /* noTK  */
-    inicio_accionTK = 293,         /* inicio_accionTK  */
-    fin_accionTK = 294,            /* fin_accionTK  */
-    inicio_algoritmoTK = 295,      /* inicio_algoritmoTK  */
-    fin_algoritmoTK = 296,         /* fin_algoritmoTK  */
-    inicio_siTK = 297,             /* inicio_siTK  */
-    fin_siTK = 298,                /* fin_siTK  */
-    inicio_mientrasTK = 299,       /* inicio_mientrasTK  */
-    fin_mientrasTK = 300,          /* fin_mientrasTK  */
-    inicio_varTK = 301,            /* inicio_varTK  */
-    fin_varTK = 302,               /* fin_varTK  */
-    inicio_constTK = 303,          /* inicio_constTK  */
-    fin_constTK = 304,             /* fin_constTK  */
-    inicio_funcionTK = 305,        /* inicio_funcionTK  */
-    fin_funcionTK = 306,           /* fin_funcionTK  */
-    inicio_paraTK = 307,           /* inicio_paraTK  */
-    fin_paraTK = 308,              /* fin_paraTK  */
-    inicio_tuplaTK = 309,          /* inicio_tuplaTK  */
-    fin_tuplaTK = 310,             /* fin_tuplaTK  */
-    inicio_tipoTK = 311,           /* inicio_tipoTK  */
-    fin_tipoTK = 312,              /* fin_tipoTK  */
-    identificadorTK = 313,         /* identificadorTK  */
-    identificadorBooleanoTK = 314, /* identificadorBooleanoTK  */
-    identificadorConstanteTK = 315, /* identificadorConstanteTK  */
-    literal_booleanoTK = 316,      /* literal_booleanoTK  */
-    literal_enteroTK = 317,        /* literal_enteroTK  */
-    literal_realTK = 318,          /* literal_realTK  */
-    literal_caracterTK = 319,      /* literal_caracterTK  */
-    comentarioTK = 320,            /* comentarioTK  */
-    relacional_menor_igualDR = 321, /* relacional_menor_igualDR  */
-    aritmetico_divisionRealTK = 322, /* aritmetico_divisionRealTK  */
-    aritmetico_moduloTK = 323      /* aritmetico_moduloTK  */
+    tipoTablaTK = 281,             /* tipoTablaTK  */
+    tipoRefTK = 282,               /* tipoRefTK  */
+    conjuncionTK = 283,            /* conjuncionTK  */
+    disyuncionTK = 284,            /* disyuncionTK  */
+    tipo_atributo_entTK = 285,     /* tipo_atributo_entTK  */
+    tipo_atributo_salTK = 286,     /* tipo_atributo_salTK  */
+    tipo_atributo_ent_salTK = 287, /* tipo_atributo_ent_salTK  */
+    operacionTK = 288,             /* operacionTK  */
+    continuarTK = 289,             /* continuarTK  */
+    deTK = 290,                    /* deTK  */
+    devTK = 291,                   /* devTK  */
+    hacerTK = 292,                 /* hacerTK  */
+    hastaTK = 293,                 /* hastaTK  */
+    noTK = 294,                    /* noTK  */
+    inicio_accionTK = 295,         /* inicio_accionTK  */
+    fin_accionTK = 296,            /* fin_accionTK  */
+    inicio_algoritmoTK = 297,      /* inicio_algoritmoTK  */
+    fin_algoritmoTK = 298,         /* fin_algoritmoTK  */
+    inicio_siTK = 299,             /* inicio_siTK  */
+    fin_siTK = 300,                /* fin_siTK  */
+    inicio_mientrasTK = 301,       /* inicio_mientrasTK  */
+    fin_mientrasTK = 302,          /* fin_mientrasTK  */
+    inicio_varTK = 303,            /* inicio_varTK  */
+    fin_varTK = 304,               /* fin_varTK  */
+    inicio_constTK = 305,          /* inicio_constTK  */
+    fin_constTK = 306,             /* fin_constTK  */
+    inicio_funcionTK = 307,        /* inicio_funcionTK  */
+    fin_funcionTK = 308,           /* fin_funcionTK  */
+    inicio_paraTK = 309,           /* inicio_paraTK  */
+    fin_paraTK = 310,              /* fin_paraTK  */
+    inicio_tuplaTK = 311,          /* inicio_tuplaTK  */
+    fin_tuplaTK = 312,             /* fin_tuplaTK  */
+    inicio_tipoTK = 313,           /* inicio_tipoTK  */
+    fin_tipoTK = 314,              /* fin_tipoTK  */
+    identificadorTK = 315,         /* identificadorTK  */
+    identificadorBooleanoTK = 316, /* identificadorBooleanoTK  */
+    identificadorConstanteTK = 317, /* identificadorConstanteTK  */
+    literal_booleanoTK = 318,      /* literal_booleanoTK  */
+    literal_enteroTK = 319,        /* literal_enteroTK  */
+    literal_realTK = 320,          /* literal_realTK  */
+    literal_caracterTK = 321,      /* literal_caracterTK  */
+    comentarioTK = 322,            /* comentarioTK  */
+    aritmetico_divisionRealTK = 323, /* aritmetico_divisionRealTK  */
+    aritmetico_moduloTK = 324      /* aritmetico_moduloTK  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -128,14 +129,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 76 "parser.y"
+#line 79 "parser.y"
 
 	char* cadena;
 	LiteralT literal;
 	int entero;
-	tipoDato tipo;
+	nombreDeTipoT tipo;
 
-#line 139 "parser.tab.h"
+#line 140 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

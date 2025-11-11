@@ -9,6 +9,8 @@ LiteralT nuevoLiteralBooleano(ValorBooleanoT valor){
     l.tipoDelValor = BOOLEANO;
     l.valor.valorBooleano = valor;
     return l;
+}
+
 LiteralT nuevoLiteralCadena(char * valor){
     LiteralT l;
     l.tipoDelValor = CADENA;
@@ -63,4 +65,3 @@ void escribeLiteral(LiteralT l){
             break; 
     }
 }
-

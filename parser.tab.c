@@ -71,6 +71,7 @@
 
 	#include <stdio.h>
 	#include "nombresDeTipos.h"
+	#include "literal.h"
 	#include "tablaDeConstantes.h"
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
@@ -78,7 +79,7 @@
 	TablaDeConstantes tc; //Es donde guardaremos las constantes
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 
-#line 82 "parser.tab.c"
+#line 83 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -132,98 +133,99 @@ enum yysymbol_kind_t
   YYSYMBOL_inicio_parentesisTK = 23,       /* inicio_parentesisTK  */
   YYSYMBOL_fin_parentesisTK = 24,          /* fin_parentesisTK  */
   YYSYMBOL_tipoTK = 25,                    /* tipoTK  */
-  YYSYMBOL_conjuncionTK = 26,              /* conjuncionTK  */
-  YYSYMBOL_disyuncionTK = 27,              /* disyuncionTK  */
-  YYSYMBOL_tipo_atributo_entTK = 28,       /* tipo_atributo_entTK  */
-  YYSYMBOL_tipo_atributo_salTK = 29,       /* tipo_atributo_salTK  */
-  YYSYMBOL_tipo_atributo_ent_salTK = 30,   /* tipo_atributo_ent_salTK  */
-  YYSYMBOL_operacionTK = 31,               /* operacionTK  */
-  YYSYMBOL_continuarTK = 32,               /* continuarTK  */
-  YYSYMBOL_deTK = 33,                      /* deTK  */
-  YYSYMBOL_devTK = 34,                     /* devTK  */
-  YYSYMBOL_hacerTK = 35,                   /* hacerTK  */
-  YYSYMBOL_hastaTK = 36,                   /* hastaTK  */
-  YYSYMBOL_noTK = 37,                      /* noTK  */
-  YYSYMBOL_inicio_accionTK = 38,           /* inicio_accionTK  */
-  YYSYMBOL_fin_accionTK = 39,              /* fin_accionTK  */
-  YYSYMBOL_inicio_algoritmoTK = 40,        /* inicio_algoritmoTK  */
-  YYSYMBOL_fin_algoritmoTK = 41,           /* fin_algoritmoTK  */
-  YYSYMBOL_inicio_siTK = 42,               /* inicio_siTK  */
-  YYSYMBOL_fin_siTK = 43,                  /* fin_siTK  */
-  YYSYMBOL_inicio_mientrasTK = 44,         /* inicio_mientrasTK  */
-  YYSYMBOL_fin_mientrasTK = 45,            /* fin_mientrasTK  */
-  YYSYMBOL_inicio_varTK = 46,              /* inicio_varTK  */
-  YYSYMBOL_fin_varTK = 47,                 /* fin_varTK  */
-  YYSYMBOL_inicio_constTK = 48,            /* inicio_constTK  */
-  YYSYMBOL_fin_constTK = 49,               /* fin_constTK  */
-  YYSYMBOL_inicio_funcionTK = 50,          /* inicio_funcionTK  */
-  YYSYMBOL_fin_funcionTK = 51,             /* fin_funcionTK  */
-  YYSYMBOL_inicio_paraTK = 52,             /* inicio_paraTK  */
-  YYSYMBOL_fin_paraTK = 53,                /* fin_paraTK  */
-  YYSYMBOL_inicio_tuplaTK = 54,            /* inicio_tuplaTK  */
-  YYSYMBOL_fin_tuplaTK = 55,               /* fin_tuplaTK  */
-  YYSYMBOL_inicio_tipoTK = 56,             /* inicio_tipoTK  */
-  YYSYMBOL_fin_tipoTK = 57,                /* fin_tipoTK  */
-  YYSYMBOL_identificadorTK = 58,           /* identificadorTK  */
-  YYSYMBOL_identificadorBooleanoTK = 59,   /* identificadorBooleanoTK  */
-  YYSYMBOL_identificadorConstanteTK = 60,  /* identificadorConstanteTK  */
-  YYSYMBOL_literal_booleanoTK = 61,        /* literal_booleanoTK  */
-  YYSYMBOL_literal_enteroTK = 62,          /* literal_enteroTK  */
-  YYSYMBOL_literal_realTK = 63,            /* literal_realTK  */
-  YYSYMBOL_literal_caracterTK = 64,        /* literal_caracterTK  */
-  YYSYMBOL_comentarioTK = 65,              /* comentarioTK  */
-  YYSYMBOL_relacional_menor_igualDR = 66,  /* relacional_menor_igualDR  */
-  YYSYMBOL_aritmetico_divisionRealTK = 67, /* aritmetico_divisionRealTK  */
-  YYSYMBOL_aritmetico_moduloTK = 68,       /* aritmetico_moduloTK  */
-  YYSYMBOL_YYACCEPT = 69,                  /* $accept  */
-  YYSYMBOL_desc_algoritmoV = 70,           /* desc_algoritmoV  */
-  YYSYMBOL_cabecera_algV = 71,             /* cabecera_algV  */
-  YYSYMBOL_bloque_algV = 72,               /* bloque_algV  */
-  YYSYMBOL_decl_globalesV = 73,            /* decl_globalesV  */
-  YYSYMBOL_decl_a_fV = 74,                 /* decl_a_fV  */
-  YYSYMBOL_bloqueV = 75,                   /* bloqueV  */
-  YYSYMBOL_declaracionesV = 76,            /* declaracionesV  */
-  YYSYMBOL_declaracion_tipoV = 77,         /* declaracion_tipoV  */
-  YYSYMBOL_declaracion_constV = 78,        /* declaracion_constV  */
-  YYSYMBOL_declaracion_varV = 79,          /* declaracion_varV  */
-  YYSYMBOL_lista_d_tipoV = 80,             /* lista_d_tipoV  */
-  YYSYMBOL_declaracionTipoV = 81,          /* declaracionTipoV  */
-  YYSYMBOL_d_tipoV = 82,                   /* d_tipoV  */
-  YYSYMBOL_expresion_tV = 83,              /* expresion_tV  */
-  YYSYMBOL_lista_camposV = 84,             /* lista_camposV  */
-  YYSYMBOL_declaracionCampoV = 85,         /* declaracionCampoV  */
-  YYSYMBOL_lista_d_cteV = 86,              /* lista_d_cteV  */
-  YYSYMBOL_declaracionDeConstanteV = 87,   /* declaracionDeConstanteV  */
-  YYSYMBOL_lista_d_varV = 88,              /* lista_d_varV  */
-  YYSYMBOL_declaracionDeVariableV = 89,    /* declaracionDeVariableV  */
-  YYSYMBOL_lista_idV = 90,                 /* lista_idV  */
-  YYSYMBOL_declaracionDeListaIdV = 91,     /* declaracionDeListaIdV  */
-  YYSYMBOL_decl_ent_salV = 92,             /* decl_ent_salV  */
-  YYSYMBOL_decl_entV = 93,                 /* decl_entV  */
-  YYSYMBOL_decl_salV = 94,                 /* decl_salV  */
-  YYSYMBOL_exp_aV = 95,                    /* exp_aV  */
-  YYSYMBOL_exp_bV = 96,                    /* exp_bV  */
-  YYSYMBOL_expresionV = 97,                /* expresionV  */
-  YYSYMBOL_operando_aV = 98,               /* operando_aV  */
-  YYSYMBOL_operando_bV = 99,               /* operando_bV  */
-  YYSYMBOL_instruccionesV = 100,           /* instruccionesV  */
-  YYSYMBOL_instruccionV = 101,             /* instruccionV  */
-  YYSYMBOL_asignacion_aV = 102,            /* asignacion_aV  */
-  YYSYMBOL_asignacion_bV = 103,            /* asignacion_bV  */
-  YYSYMBOL_alternativaV = 104,             /* alternativaV  */
-  YYSYMBOL_lista_opcionesV = 105,          /* lista_opcionesV  */
-  YYSYMBOL_iteracionV = 106,               /* iteracionV  */
-  YYSYMBOL_it_cota_expV = 107,             /* it_cota_expV  */
-  YYSYMBOL_it_cota_fijaV = 108,            /* it_cota_fijaV  */
-  YYSYMBOL_accion_dV = 109,                /* accion_dV  */
-  YYSYMBOL_funcion_dV = 110,               /* funcion_dV  */
-  YYSYMBOL_a_cabeceraV = 111,              /* a_cabeceraV  */
-  YYSYMBOL_f_cabeceraV = 112,              /* f_cabeceraV  */
-  YYSYMBOL_d_par_formV = 113,              /* d_par_formV  */
-  YYSYMBOL_d_p_formV = 114,                /* d_p_formV  */
-  YYSYMBOL_accion_llV = 115,               /* accion_llV  */
-  YYSYMBOL_funcion_llV = 116,              /* funcion_llV  */
-  YYSYMBOL_l_llV = 117                     /* l_llV  */
+  YYSYMBOL_tipoTablaTK = 26,               /* tipoTablaTK  */
+  YYSYMBOL_tipoRefTK = 27,                 /* tipoRefTK  */
+  YYSYMBOL_conjuncionTK = 28,              /* conjuncionTK  */
+  YYSYMBOL_disyuncionTK = 29,              /* disyuncionTK  */
+  YYSYMBOL_tipo_atributo_entTK = 30,       /* tipo_atributo_entTK  */
+  YYSYMBOL_tipo_atributo_salTK = 31,       /* tipo_atributo_salTK  */
+  YYSYMBOL_tipo_atributo_ent_salTK = 32,   /* tipo_atributo_ent_salTK  */
+  YYSYMBOL_operacionTK = 33,               /* operacionTK  */
+  YYSYMBOL_continuarTK = 34,               /* continuarTK  */
+  YYSYMBOL_deTK = 35,                      /* deTK  */
+  YYSYMBOL_devTK = 36,                     /* devTK  */
+  YYSYMBOL_hacerTK = 37,                   /* hacerTK  */
+  YYSYMBOL_hastaTK = 38,                   /* hastaTK  */
+  YYSYMBOL_noTK = 39,                      /* noTK  */
+  YYSYMBOL_inicio_accionTK = 40,           /* inicio_accionTK  */
+  YYSYMBOL_fin_accionTK = 41,              /* fin_accionTK  */
+  YYSYMBOL_inicio_algoritmoTK = 42,        /* inicio_algoritmoTK  */
+  YYSYMBOL_fin_algoritmoTK = 43,           /* fin_algoritmoTK  */
+  YYSYMBOL_inicio_siTK = 44,               /* inicio_siTK  */
+  YYSYMBOL_fin_siTK = 45,                  /* fin_siTK  */
+  YYSYMBOL_inicio_mientrasTK = 46,         /* inicio_mientrasTK  */
+  YYSYMBOL_fin_mientrasTK = 47,            /* fin_mientrasTK  */
+  YYSYMBOL_inicio_varTK = 48,              /* inicio_varTK  */
+  YYSYMBOL_fin_varTK = 49,                 /* fin_varTK  */
+  YYSYMBOL_inicio_constTK = 50,            /* inicio_constTK  */
+  YYSYMBOL_fin_constTK = 51,               /* fin_constTK  */
+  YYSYMBOL_inicio_funcionTK = 52,          /* inicio_funcionTK  */
+  YYSYMBOL_fin_funcionTK = 53,             /* fin_funcionTK  */
+  YYSYMBOL_inicio_paraTK = 54,             /* inicio_paraTK  */
+  YYSYMBOL_fin_paraTK = 55,                /* fin_paraTK  */
+  YYSYMBOL_inicio_tuplaTK = 56,            /* inicio_tuplaTK  */
+  YYSYMBOL_fin_tuplaTK = 57,               /* fin_tuplaTK  */
+  YYSYMBOL_inicio_tipoTK = 58,             /* inicio_tipoTK  */
+  YYSYMBOL_fin_tipoTK = 59,                /* fin_tipoTK  */
+  YYSYMBOL_identificadorTK = 60,           /* identificadorTK  */
+  YYSYMBOL_identificadorBooleanoTK = 61,   /* identificadorBooleanoTK  */
+  YYSYMBOL_identificadorConstanteTK = 62,  /* identificadorConstanteTK  */
+  YYSYMBOL_literal_booleanoTK = 63,        /* literal_booleanoTK  */
+  YYSYMBOL_literal_enteroTK = 64,          /* literal_enteroTK  */
+  YYSYMBOL_literal_realTK = 65,            /* literal_realTK  */
+  YYSYMBOL_literal_caracterTK = 66,        /* literal_caracterTK  */
+  YYSYMBOL_comentarioTK = 67,              /* comentarioTK  */
+  YYSYMBOL_aritmetico_divisionRealTK = 68, /* aritmetico_divisionRealTK  */
+  YYSYMBOL_aritmetico_moduloTK = 69,       /* aritmetico_moduloTK  */
+  YYSYMBOL_YYACCEPT = 70,                  /* $accept  */
+  YYSYMBOL_desc_algoritmoV = 71,           /* desc_algoritmoV  */
+  YYSYMBOL_cabecera_algV = 72,             /* cabecera_algV  */
+  YYSYMBOL_bloque_algV = 73,               /* bloque_algV  */
+  YYSYMBOL_decl_globalesV = 74,            /* decl_globalesV  */
+  YYSYMBOL_decl_a_fV = 75,                 /* decl_a_fV  */
+  YYSYMBOL_bloqueV = 76,                   /* bloqueV  */
+  YYSYMBOL_declaracionesV = 77,            /* declaracionesV  */
+  YYSYMBOL_declaracion_tipoV = 78,         /* declaracion_tipoV  */
+  YYSYMBOL_declaracion_constV = 79,        /* declaracion_constV  */
+  YYSYMBOL_declaracion_varV = 80,          /* declaracion_varV  */
+  YYSYMBOL_lista_d_tipoV = 81,             /* lista_d_tipoV  */
+  YYSYMBOL_declaracionTipoV = 82,          /* declaracionTipoV  */
+  YYSYMBOL_d_tipoV = 83,                   /* d_tipoV  */
+  YYSYMBOL_expresion_tV = 84,              /* expresion_tV  */
+  YYSYMBOL_lista_camposV = 85,             /* lista_camposV  */
+  YYSYMBOL_declaracionCampoV = 86,         /* declaracionCampoV  */
+  YYSYMBOL_lista_d_cteV = 87,              /* lista_d_cteV  */
+  YYSYMBOL_declaracionDeConstanteV = 88,   /* declaracionDeConstanteV  */
+  YYSYMBOL_lista_d_varV = 89,              /* lista_d_varV  */
+  YYSYMBOL_declaracionDeVariableV = 90,    /* declaracionDeVariableV  */
+  YYSYMBOL_lista_idV = 91,                 /* lista_idV  */
+  YYSYMBOL_declaracionDeListaIdV = 92,     /* declaracionDeListaIdV  */
+  YYSYMBOL_decl_ent_salV = 93,             /* decl_ent_salV  */
+  YYSYMBOL_decl_entV = 94,                 /* decl_entV  */
+  YYSYMBOL_decl_salV = 95,                 /* decl_salV  */
+  YYSYMBOL_exp_aV = 96,                    /* exp_aV  */
+  YYSYMBOL_exp_bV = 97,                    /* exp_bV  */
+  YYSYMBOL_expresionV = 98,                /* expresionV  */
+  YYSYMBOL_operando_aV = 99,               /* operando_aV  */
+  YYSYMBOL_operando_bV = 100,              /* operando_bV  */
+  YYSYMBOL_instruccionesV = 101,           /* instruccionesV  */
+  YYSYMBOL_instruccionV = 102,             /* instruccionV  */
+  YYSYMBOL_asignacion_aV = 103,            /* asignacion_aV  */
+  YYSYMBOL_asignacion_bV = 104,            /* asignacion_bV  */
+  YYSYMBOL_alternativaV = 105,             /* alternativaV  */
+  YYSYMBOL_lista_opcionesV = 106,          /* lista_opcionesV  */
+  YYSYMBOL_iteracionV = 107,               /* iteracionV  */
+  YYSYMBOL_it_cota_expV = 108,             /* it_cota_expV  */
+  YYSYMBOL_it_cota_fijaV = 109,            /* it_cota_fijaV  */
+  YYSYMBOL_accion_dV = 110,                /* accion_dV  */
+  YYSYMBOL_funcion_dV = 111,               /* funcion_dV  */
+  YYSYMBOL_a_cabeceraV = 112,              /* a_cabeceraV  */
+  YYSYMBOL_f_cabeceraV = 113,              /* f_cabeceraV  */
+  YYSYMBOL_d_par_formV = 114,              /* d_par_formV  */
+  YYSYMBOL_d_p_formV = 115,                /* d_p_formV  */
+  YYSYMBOL_accion_llV = 116,               /* accion_llV  */
+  YYSYMBOL_funcion_llV = 117,              /* funcion_llV  */
+  YYSYMBOL_l_llV = 118                     /* l_llV  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -551,10 +553,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   350
+#define YYLAST   348
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  69
+#define YYNTOKENS  70
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  49
 /* YYNRULES -- Number of rules.  */
@@ -563,7 +565,7 @@ union yyalloc
 #define YYNSTATES  246
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   323
+#define YYMAXUTOK   324
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -609,25 +611,25 @@ static const yytype_int8 yytranslate[] =
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
       45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
       55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    68
+      65,    66,    67,    68,    69
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    96,    96,   100,   104,   109,   111,   113,   118,   120,
-     122,   126,   131,   133,   135,   137,   141,   145,   149,   153,
-     155,   158,   161,   163,   165,   167,   169,   171,   174,   176,
-     179,   181,   184,   188,   190,   193,   197,   199,   202,   205,
-     207,   210,   214,   216,   218,   221,   224,   228,   230,   232,
-     234,   236,   238,   240,   242,   244,   246,   248,   251,   254,
-     256,   258,   260,   262,   264,   266,   268,   270,   272,   274,
-     277,   279,   281,   284,   286,   288,   290,   293,   295,   297,
-     299,   303,   305,   308,   310,   312,   314,   316,   318,   321,
-     324,   327,   330,   332,   335,   337,   340,   343,   347,   350,
-     353,   356,   359,   361,   364,   366,   368,   372,   375,   378,
-     380
+       0,    99,    99,   103,   107,   112,   114,   116,   121,   123,
+     125,   129,   134,   136,   138,   140,   144,   148,   152,   156,
+     158,   161,   164,   166,   168,   170,   172,   174,   177,   179,
+     182,   184,   187,   191,   193,   196,   200,   202,   205,   208,
+     210,   213,   217,   219,   221,   224,   227,   231,   233,   235,
+     237,   239,   241,   243,   245,   247,   249,   251,   254,   257,
+     259,   261,   263,   265,   267,   269,   271,   273,   275,   277,
+     280,   282,   284,   287,   289,   291,   293,   296,   298,   300,
+     302,   306,   308,   311,   313,   315,   317,   319,   321,   324,
+     327,   330,   333,   335,   338,   340,   343,   346,   350,   353,
+     356,   359,   362,   364,   367,   369,   371,   375,   378,   381,
+     383
 };
 #endif
 
@@ -652,10 +654,10 @@ static const char *const yytname[] =
   "relacional_mayor_igualTK", "relacional_menorTK", "relacional_mayorTK",
   "aritmetico_sumaTK", "aritmetico_restaTK", "aritmetico_productoTK",
   "aritmetico_divisionTK", "inicio_parentesisTK", "fin_parentesisTK",
-  "tipoTK", "conjuncionTK", "disyuncionTK", "tipo_atributo_entTK",
-  "tipo_atributo_salTK", "tipo_atributo_ent_salTK", "operacionTK",
-  "continuarTK", "deTK", "devTK", "hacerTK", "hastaTK", "noTK",
-  "inicio_accionTK", "fin_accionTK", "inicio_algoritmoTK",
+  "tipoTK", "tipoTablaTK", "tipoRefTK", "conjuncionTK", "disyuncionTK",
+  "tipo_atributo_entTK", "tipo_atributo_salTK", "tipo_atributo_ent_salTK",
+  "operacionTK", "continuarTK", "deTK", "devTK", "hacerTK", "hastaTK",
+  "noTK", "inicio_accionTK", "fin_accionTK", "inicio_algoritmoTK",
   "fin_algoritmoTK", "inicio_siTK", "fin_siTK", "inicio_mientrasTK",
   "fin_mientrasTK", "inicio_varTK", "fin_varTK", "inicio_constTK",
   "fin_constTK", "inicio_funcionTK", "fin_funcionTK", "inicio_paraTK",
@@ -663,20 +665,19 @@ static const char *const yytname[] =
   "fin_tipoTK", "identificadorTK", "identificadorBooleanoTK",
   "identificadorConstanteTK", "literal_booleanoTK", "literal_enteroTK",
   "literal_realTK", "literal_caracterTK", "comentarioTK",
-  "relacional_menor_igualDR", "aritmetico_divisionRealTK",
-  "aritmetico_moduloTK", "$accept", "desc_algoritmoV", "cabecera_algV",
-  "bloque_algV", "decl_globalesV", "decl_a_fV", "bloqueV",
-  "declaracionesV", "declaracion_tipoV", "declaracion_constV",
-  "declaracion_varV", "lista_d_tipoV", "declaracionTipoV", "d_tipoV",
-  "expresion_tV", "lista_camposV", "declaracionCampoV", "lista_d_cteV",
-  "declaracionDeConstanteV", "lista_d_varV", "declaracionDeVariableV",
-  "lista_idV", "declaracionDeListaIdV", "decl_ent_salV", "decl_entV",
-  "decl_salV", "exp_aV", "exp_bV", "expresionV", "operando_aV",
-  "operando_bV", "instruccionesV", "instruccionV", "asignacion_aV",
-  "asignacion_bV", "alternativaV", "lista_opcionesV", "iteracionV",
-  "it_cota_expV", "it_cota_fijaV", "accion_dV", "funcion_dV",
-  "a_cabeceraV", "f_cabeceraV", "d_par_formV", "d_p_formV", "accion_llV",
-  "funcion_llV", "l_llV", YY_NULLPTR
+  "aritmetico_divisionRealTK", "aritmetico_moduloTK", "$accept",
+  "desc_algoritmoV", "cabecera_algV", "bloque_algV", "decl_globalesV",
+  "decl_a_fV", "bloqueV", "declaracionesV", "declaracion_tipoV",
+  "declaracion_constV", "declaracion_varV", "lista_d_tipoV",
+  "declaracionTipoV", "d_tipoV", "expresion_tV", "lista_camposV",
+  "declaracionCampoV", "lista_d_cteV", "declaracionDeConstanteV",
+  "lista_d_varV", "declaracionDeVariableV", "lista_idV",
+  "declaracionDeListaIdV", "decl_ent_salV", "decl_entV", "decl_salV",
+  "exp_aV", "exp_bV", "expresionV", "operando_aV", "operando_bV",
+  "instruccionesV", "instruccionV", "asignacion_aV", "asignacion_bV",
+  "alternativaV", "lista_opcionesV", "iteracionV", "it_cota_expV",
+  "it_cota_fijaV", "accion_dV", "funcion_dV", "a_cabeceraV", "f_cabeceraV",
+  "d_par_formV", "d_p_formV", "accion_llV", "funcion_llV", "l_llV", YY_NULLPTR
 };
 
 static const char *
@@ -700,31 +701,31 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -28,   -31,    34,    48,  -126,    63,     6,    24,    69,   -10,
-      63,    63,    78,     0,  -126,   105,    18,  -126,    65,   116,
-      74,   171,    69,    69,    69,    89,   124,    68,   -10,   -10,
-    -126,  -126,   112,  -126,  -126,   129,  -126,  -126,  -126,    41,
-    -126,    93,  -126,   201,  -126,  -126,    22,    22,   164,   197,
-    -126,    32,   115,  -126,   228,  -126,  -126,  -126,  -126,  -126,
-    -126,  -126,  -126,  -126,  -126,   213,    69,   225,    69,    65,
-      65,   182,   230,  -126,  -126,  -126,   250,   175,   175,    22,
-     101,    22,   207,    33,  -126,  -126,  -126,  -126,   262,   264,
-     242,   143,   294,    36,    43,  -126,  -126,  -126,    65,   129,
-    -126,   245,   260,   162,   269,    22,    22,   222,    22,  -126,
-      22,   223,    22,  -126,   171,   293,   244,    65,   256,    65,
-      65,  -126,  -126,  -126,   175,  -126,   183,   183,   236,   106,
-     294,   148,  -126,  -126,   290,    98,  -126,    22,  -126,   148,
-     175,   175,   175,   175,   175,    22,    22,    22,    22,    22,
-      22,    22,    22,  -126,   310,   171,   171,    22,   235,   282,
-     294,  -126,   278,   294,  -126,   286,  -126,    65,    65,    65,
-     283,   311,  -126,    -5,    22,   236,  -126,  -126,   318,   129,
-    -126,  -126,   307,  -126,   183,   183,  -126,  -126,  -126,   305,
-    -126,   224,   302,   294,   302,   224,   224,  -126,   323,   289,
-      15,    22,  -126,  -126,  -126,   176,   181,   226,   331,   293,
-     304,     7,   148,   332,  -126,    22,   296,  -126,    22,  -126,
-     129,   129,   129,  -126,  -126,   129,  -126,   324,  -126,   270,
-    -126,   210,  -126,  -126,  -126,   336,   308,   171,   171,  -126,
-     129,   323,   291,  -126,  -126,  -126
+       9,   -11,    66,    78,  -126,   -31,    64,    60,   118,     5,
+     -31,   -31,   141,   -10,  -126,   145,    16,  -126,   117,   143,
+     135,    79,   118,   118,   118,   162,   169,    58,     5,     5,
+    -126,  -126,   183,  -126,  -126,   128,  -126,  -126,  -126,    72,
+    -126,    53,  -126,   259,  -126,  -126,    20,    20,   198,   267,
+    -126,   175,   178,  -126,   287,  -126,  -126,  -126,  -126,  -126,
+    -126,  -126,  -126,  -126,  -126,   275,   118,   277,   118,   117,
+     117,   207,   281,  -126,  -126,  -126,   297,   150,   150,    20,
+      99,    20,   255,    33,  -126,  -126,  -126,  -126,   312,   311,
+     176,   209,   270,    43,   105,  -126,  -126,  -126,   117,   128,
+    -126,   295,   235,   190,   316,    20,    20,   260,    20,  -126,
+      20,   261,    20,  -126,    79,   181,   280,   117,   288,   117,
+     117,  -126,  -126,  -126,   150,  -126,    94,    94,    77,   121,
+     270,   160,  -126,  -126,   315,    97,  -126,    20,  -126,   160,
+     150,   150,   150,   150,   150,    20,    20,    20,    20,    20,
+      20,    20,    20,  -126,   321,    79,    79,    20,   225,   302,
+     270,  -126,   254,   270,  -126,   262,  -126,   117,   117,   117,
+     303,   324,  -126,   -12,    20,    77,  -126,  -126,   323,   128,
+    -126,  -126,   306,  -126,    94,    94,  -126,  -126,  -126,  -126,
+     304,    17,   278,   278,   278,    17,    17,  -126,   325,   286,
+      15,    20,  -126,  -126,  -126,   166,   240,   251,   327,   181,
+     298,     7,   160,   332,  -126,    20,   293,  -126,    20,  -126,
+     128,   128,   128,  -126,  -126,   128,  -126,   326,  -126,   246,
+    -126,   217,  -126,  -126,  -126,   333,   305,    79,    79,  -126,
+     128,   325,   289,  -126,  -126,  -126
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -762,11 +763,11 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -126,  -126,  -126,  -126,   189,   215,    44,   303,   140,   191,
-    -126,  -126,   326,   -79,  -125,  -126,   208,  -126,   333,   -53,
-     -29,   161,   247,  -126,  -126,   275,   -70,   -68,   -43,   -21,
-     -19,  -109,  -126,  -126,  -126,  -126,   107,  -126,  -126,  -126,
-    -126,  -126,  -126,  -126,   141,  -126,  -126,  -126,  -122
+    -126,  -126,  -126,  -126,   272,   285,   -24,   284,   292,   294,
+    -126,  -126,   329,   -79,  -125,  -126,   206,  -126,   330,   -53,
+     -29,   142,   244,  -126,  -126,   274,   -70,   -68,   -43,   -21,
+     -19,  -109,  -126,  -126,  -126,  -126,   106,  -126,  -126,  -126,
+    -126,  -126,  -126,  -126,   139,  -126,  -126,  -126,  -122
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -785,129 +786,127 @@ static const yytype_uint8 yydefgoto[] =
 static const yytype_int16 yytable[] =
 {
       51,   132,    52,   102,   103,   166,   178,   126,   127,   128,
-      97,   129,     1,   133,   183,   182,   119,   120,   147,   210,
-     154,   148,   149,   150,   151,   152,   147,     3,    25,   148,
-     149,   150,   151,   152,     4,   106,   130,   -24,   130,   107,
-      26,    77,    78,   107,   108,    79,   198,   199,   108,    33,
-     111,   218,     5,    38,   175,   112,   137,   109,   226,    81,
-      12,   109,   158,   160,   173,   162,    12,   163,   113,   165,
+      97,   129,   210,   133,   183,   182,   119,   120,   147,     6,
+     154,   148,   149,   150,   151,   152,   147,     7,   -25,   148,
+     149,   150,   151,   152,   -25,   -25,   130,   -24,   130,    77,
+      78,    33,   116,    79,   118,    25,   198,   199,    38,     3,
+     107,     1,    12,   218,   175,   108,   137,    26,    98,    81,
+     226,    99,   158,   160,   173,   162,     4,   163,   109,   165,
      184,   185,   186,   187,   188,    36,    15,   189,   190,   219,
-     101,    50,    15,    84,    85,    86,   161,   227,    96,    32,
-      97,    97,   164,    51,   158,    52,    69,    70,    98,    38,
-     213,    99,   130,   130,   191,   192,   193,   194,   195,   196,
-     116,     6,   118,   131,   200,    18,    35,     6,   110,     7,
-      77,    78,   111,    38,    79,     7,    80,   112,   241,   242,
-     177,   211,   145,   146,    51,    51,    52,    52,    81,    44,
-     113,   232,   233,   234,    97,    10,   235,    65,    77,    78,
-      10,    10,    79,   180,    80,    82,   134,    43,   158,    83,
-      50,   243,    84,    85,    86,    87,    81,    77,    78,   145,
-     146,    79,   229,   147,    76,   231,   148,   149,   150,   151,
-     152,    98,    67,    82,   220,    81,    98,    83,    50,   221,
-      84,    85,    86,    87,    77,    78,    11,   156,   124,    30,
-      31,    11,    11,    45,   142,   143,   101,    50,   100,    84,
-      85,    86,    87,    46,   144,    47,    51,    51,    52,    52,
-     105,   147,   104,    48,   148,   149,   150,   151,   152,    49,
-      50,    98,   114,   125,   222,   -25,   115,    85,    86,   149,
-     201,   -25,   -25,    74,    75,   238,   147,   121,   117,   148,
-     149,   150,   151,   152,   123,   140,   141,   142,   143,    70,
-     176,   140,   141,   142,   143,   134,   138,   144,   137,   155,
-     139,   147,   157,   144,   148,   149,   150,   151,   152,   237,
-     125,   147,    50,   172,   148,   149,   150,   151,   152,   147,
-     174,   203,   148,   149,   150,   151,   152,   147,   179,   204,
-     148,   149,   150,   151,   152,   147,   202,   208,   148,   149,
-     150,   151,   152,   147,   197,   209,   -25,   149,   -25,   151,
-     152,   167,   168,   169,   212,    62,    63,    64,   205,   206,
-     207,   214,   146,   215,   217,   223,   228,   236,   225,   230,
-     239,   240,    37,   181,   245,   153,    34,   122,   244,     0,
-     224
+     101,    50,     5,    84,    85,    86,   161,   227,    69,    70,
+      97,    97,   164,    51,   158,    52,   140,   141,   142,   143,
+     213,   176,   130,   130,   191,   192,   193,   194,   195,   196,
+     144,   131,   111,    45,   200,   142,   143,   112,    77,    78,
+      15,    96,    79,    46,    80,    47,    12,   144,   241,   242,
+     113,   211,    38,    48,    51,    51,    52,    52,    81,    49,
+      50,   232,   233,   234,    97,   177,   235,    77,    78,   145,
+     146,    79,    32,    80,   180,    82,    35,   134,   158,    83,
+      50,   243,    84,    85,    86,    87,    18,    81,     6,    77,
+      78,    98,   229,   124,   220,   231,     7,    38,   106,    77,
+      78,   110,   107,    79,    82,   111,    43,   108,    83,    50,
+     112,    84,    85,    86,    87,   140,   141,   142,   143,    81,
+     109,   147,    44,   113,   148,   149,   150,   151,   152,   144,
+     125,   167,   168,   169,    85,    86,    51,    51,    52,    52,
+     101,    50,    65,    84,    85,    86,    87,   156,   147,    67,
+     201,   148,   149,   150,   151,   152,   147,   145,   146,   148,
+     149,   150,   151,   152,   155,    98,   147,    76,   221,   148,
+     149,   150,   151,   152,   238,   237,    98,   147,   104,   222,
+     148,   149,   150,   151,   152,   147,   100,   203,   148,   149,
+     150,   151,   152,   147,   121,   204,   148,   149,   150,   151,
+     152,   147,    30,    31,   148,   149,   150,   151,   152,   147,
+     105,   114,   -25,   -25,   -25,   151,   152,    10,   115,    11,
+     117,   123,    10,    10,    11,    11,    62,    63,    64,   205,
+     206,   207,    70,    74,    75,   134,   138,   139,   137,   157,
+     125,   172,    50,   179,   174,   197,   202,   208,   209,   212,
+     214,   223,   145,   217,   225,   215,   228,   239,   230,   236,
+     240,   181,   153,    34,   245,    37,   122,   244,   224
 };
 
-static const yytype_int16 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
       21,    80,    21,    46,    47,   114,   131,    77,    78,    79,
-      39,    79,    40,    81,   139,   137,    69,    70,    11,    24,
-      99,    14,    15,    16,    17,    18,    11,    58,    38,    14,
-      15,    16,    17,    18,     0,     3,    79,     4,    81,     7,
-      50,    19,    20,     7,    12,    23,   155,   156,    12,    49,
-       7,    36,     4,    58,   124,    12,    23,    25,    51,    37,
-      60,    25,   105,   106,   117,   108,    60,   110,    25,   112,
-     140,   141,   142,   143,   144,    57,    58,   145,   146,   201,
-      58,    59,    58,    61,    62,    63,   107,   212,    47,    11,
-     119,   120,   111,   114,   137,   114,    28,    29,     5,    58,
-     179,     8,   145,   146,   147,   148,   149,   150,   151,   152,
-      66,    48,    68,    12,   157,    46,    11,    48,     3,    56,
-      19,    20,     7,    58,    23,    56,    25,    12,   237,   238,
-      24,   174,    26,    27,   155,   156,   155,   156,    37,    65,
-      25,   220,   221,   222,   173,     5,   225,    58,    19,    20,
-      10,    11,    23,    55,    25,    54,    58,    41,   201,    58,
-      59,   240,    61,    62,    63,    64,    37,    19,    20,    26,
-      27,    23,   215,    11,    62,   218,    14,    15,    16,    17,
-      18,     5,    58,    54,     8,    37,     5,    58,    59,     8,
-      61,    62,    63,    64,    19,    20,     5,    35,    23,    10,
-      11,    10,    11,    32,    21,    22,    58,    59,     7,    61,
-      62,    63,    64,    42,    31,    44,   237,   238,   237,   238,
-      23,    11,    58,    52,    14,    15,    16,    17,    18,    58,
-      59,     5,     4,    58,     8,    11,    23,    62,    63,    15,
-       5,    17,    18,    28,    29,    35,    11,    65,    23,    14,
-      15,    16,    17,    18,     4,    19,    20,    21,    22,    29,
-      24,    19,    20,    21,    22,    58,     4,    31,    23,     9,
-       6,    11,     3,    31,    14,    15,    16,    17,    18,     9,
-      58,    11,    59,    39,    14,    15,    16,    17,    18,    11,
-      34,    13,    14,    15,    16,    17,    18,    11,     8,    13,
-      14,    15,    16,    17,    18,    11,    24,    24,    14,    15,
-      16,    17,    18,    11,     4,     4,    14,    15,    16,    17,
-      18,    28,    29,    30,     6,    22,    23,    24,   167,   168,
-     169,    24,    27,    10,    45,     4,     4,    13,    34,    43,
-       4,    33,    16,   135,    53,    98,    13,    72,   241,    -1,
-     209
+      39,    79,    24,    81,   139,   137,    69,    70,    11,    50,
+      99,    14,    15,    16,    17,    18,    11,    58,    11,    14,
+      15,    16,    17,    18,    17,    18,    79,     4,    81,    19,
+      20,    51,    66,    23,    68,    40,   155,   156,    60,    60,
+       7,    42,    62,    38,   124,    12,    23,    52,     5,    39,
+      53,     8,   105,   106,   117,   108,     0,   110,    25,   112,
+     140,   141,   142,   143,   144,    59,    60,   145,   146,   201,
+      60,    61,     4,    63,    64,    65,   107,   212,    30,    31,
+     119,   120,   111,   114,   137,   114,    19,    20,    21,    22,
+     179,    24,   145,   146,   147,   148,   149,   150,   151,   152,
+      33,    12,     7,    34,   157,    21,    22,    12,    19,    20,
+      60,    49,    23,    44,    25,    46,    62,    33,   237,   238,
+      25,   174,    60,    54,   155,   156,   155,   156,    39,    60,
+      61,   220,   221,   222,   173,    24,   225,    19,    20,    28,
+      29,    23,    11,    25,    57,    56,    11,    60,   201,    60,
+      61,   240,    63,    64,    65,    66,    48,    39,    50,    19,
+      20,     5,   215,    23,     8,   218,    58,    60,     3,    19,
+      20,     3,     7,    23,    56,     7,    43,    12,    60,    61,
+      12,    63,    64,    65,    66,    19,    20,    21,    22,    39,
+      25,    11,    67,    25,    14,    15,    16,    17,    18,    33,
+      60,    30,    31,    32,    64,    65,   237,   238,   237,   238,
+      60,    61,    60,    63,    64,    65,    66,    37,    11,    60,
+       5,    14,    15,    16,    17,    18,    11,    28,    29,    14,
+      15,    16,    17,    18,     9,     5,    11,    64,     8,    14,
+      15,    16,    17,    18,    37,     9,     5,    11,    60,     8,
+      14,    15,    16,    17,    18,    11,     7,    13,    14,    15,
+      16,    17,    18,    11,    67,    13,    14,    15,    16,    17,
+      18,    11,    10,    11,    14,    15,    16,    17,    18,    11,
+      23,     4,    14,    15,    16,    17,    18,     5,    23,     5,
+      23,     4,    10,    11,    10,    11,    22,    23,    24,   167,
+     168,   169,    31,    28,    29,    60,     4,     6,    23,     3,
+      60,    41,    61,     8,    36,     4,    24,    24,     4,     6,
+      24,     4,    28,    47,    36,    10,     4,     4,    45,    13,
+      35,   135,    98,    13,    55,    16,    72,   241,   209
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    40,    70,    58,     0,     4,    48,    56,    71,    73,
-      77,    78,    60,    86,    87,    58,    80,    81,    46,    72,
-      75,    76,    77,    78,    79,    38,    50,    74,   109,   110,
-      73,    73,    11,    49,    87,    11,    57,    81,    58,    88,
-      89,    90,    91,    41,    65,    32,    42,    44,    52,    58,
-      59,    98,    99,   100,   101,   102,   103,   104,   106,   107,
-     108,   115,    76,    76,    76,    58,   111,    58,   112,    28,
-      29,    92,    93,    94,    74,    74,    62,    19,    20,    23,
-      25,    37,    54,    58,    61,    62,    63,    64,    82,    83,
-      95,    96,    97,    98,    99,   116,    47,    89,     5,     8,
-       7,    58,    97,    97,    58,    23,     3,     7,    12,    25,
-       3,     7,    12,    25,     4,    23,    75,    23,    75,    88,
-      88,    65,    94,     4,    23,    58,    95,    95,    95,    96,
-      97,    12,    82,    96,    58,    84,    85,    23,     4,     6,
-      19,    20,    21,    22,    31,    26,    27,    11,    14,    15,
-      16,    17,    18,    91,    82,     9,    35,     3,    97,   117,
-      97,    98,    97,    97,    99,    97,   100,    28,    29,    30,
-     113,   114,    39,    88,    34,    95,    24,    24,    83,     8,
-      55,    85,   117,    83,    95,    95,    95,    95,    95,    96,
-      96,    97,    97,    97,    97,    97,    97,     4,   100,   100,
-      97,     5,    24,    13,    13,    90,    90,    90,    24,     4,
-      24,    97,     6,    82,    24,    10,   105,    45,    36,   117,
-       8,     8,     8,     4,   113,    34,    51,    83,     4,    97,
-      43,    97,    82,    82,    82,    82,    13,     9,    35,     4,
-      33,   100,   100,    82,   105,    53
+       0,    42,    71,    60,     0,     4,    50,    58,    72,    74,
+      78,    79,    62,    87,    88,    60,    81,    82,    48,    73,
+      76,    77,    78,    79,    80,    40,    52,    75,   110,   111,
+      74,    74,    11,    51,    88,    11,    59,    82,    60,    89,
+      90,    91,    92,    43,    67,    34,    44,    46,    54,    60,
+      61,    99,   100,   101,   102,   103,   104,   105,   107,   108,
+     109,   116,    77,    77,    77,    60,   112,    60,   113,    30,
+      31,    93,    94,    95,    75,    75,    64,    19,    20,    23,
+      25,    39,    56,    60,    63,    64,    65,    66,    83,    84,
+      96,    97,    98,    99,   100,   117,    49,    90,     5,     8,
+       7,    60,    98,    98,    60,    23,     3,     7,    12,    25,
+       3,     7,    12,    25,     4,    23,    76,    23,    76,    89,
+      89,    67,    95,     4,    23,    60,    96,    96,    96,    97,
+      98,    12,    83,    97,    60,    85,    86,    23,     4,     6,
+      19,    20,    21,    22,    33,    28,    29,    11,    14,    15,
+      16,    17,    18,    92,    83,     9,    37,     3,    98,   118,
+      98,    99,    98,    98,   100,    98,   101,    30,    31,    32,
+     114,   115,    41,    89,    36,    96,    24,    24,    84,     8,
+      57,    86,   118,    84,    96,    96,    96,    96,    96,    97,
+      97,    98,    98,    98,    98,    98,    98,     4,   101,   101,
+      98,     5,    24,    13,    13,    91,    91,    91,    24,     4,
+      24,    98,     6,    83,    24,    10,   106,    47,    38,   118,
+       8,     8,     8,     4,   114,    36,    53,    84,     4,    98,
+      45,    98,    83,    83,    83,    83,    13,     9,    37,     4,
+      35,   101,   101,    83,   106,    55
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    69,    70,    71,    72,    73,    73,    73,    74,    74,
-      74,    75,    76,    76,    76,    76,    77,    78,    79,    80,
-      80,    81,    82,    82,    82,    82,    82,    82,    83,    83,
-      84,    84,    85,    86,    86,    87,    88,    88,    89,    90,
-      90,    91,    92,    92,    92,    93,    94,    95,    95,    95,
-      95,    95,    95,    95,    95,    95,    95,    95,    96,    96,
-      96,    96,    96,    96,    96,    96,    96,    96,    96,    96,
-      97,    97,    97,    98,    98,    98,    98,    99,    99,    99,
-      99,   100,   100,   101,   101,   101,   101,   101,   101,   102,
-     103,   104,   105,   105,   106,   106,   107,   108,   109,   110,
-     111,   112,   113,   113,   114,   114,   114,   115,   116,   117,
-     117
+       0,    70,    71,    72,    73,    74,    74,    74,    75,    75,
+      75,    76,    77,    77,    77,    77,    78,    79,    80,    81,
+      81,    82,    83,    83,    83,    83,    83,    83,    84,    84,
+      85,    85,    86,    87,    87,    88,    89,    89,    90,    91,
+      91,    92,    93,    93,    93,    94,    95,    96,    96,    96,
+      96,    96,    96,    96,    96,    96,    96,    96,    97,    97,
+      97,    97,    97,    97,    97,    97,    97,    97,    97,    97,
+      98,    98,    98,    99,    99,    99,    99,   100,   100,   100,
+     100,   101,   101,   102,   102,   102,   102,   102,   102,   103,
+     104,   105,   106,   106,   107,   107,   108,   109,   110,   111,
+     112,   113,   114,   114,   115,   115,   115,   116,   117,   118,
+     118
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1388,770 +1387,770 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK puntoTK  */
-#line 96 "parser.y"
+#line 99 "parser.y"
                                                                                                                          {
 		}
-#line 1395 "parser.tab.c"
+#line 1394 "parser.tab.c"
     break;
 
   case 3: /* cabecera_algV: decl_globalesV decl_a_fV decl_ent_salV comentarioTK  */
-#line 100 "parser.y"
+#line 103 "parser.y"
                                                                    {
 		}
-#line 1402 "parser.tab.c"
+#line 1401 "parser.tab.c"
     break;
 
   case 4: /* bloque_algV: bloqueV comentarioTK  */
-#line 104 "parser.y"
+#line 107 "parser.y"
                                   {
 		}
-#line 1409 "parser.tab.c"
+#line 1408 "parser.tab.c"
     break;
 
   case 5: /* decl_globalesV: declaracion_tipoV decl_globalesV  */
-#line 109 "parser.y"
+#line 112 "parser.y"
                                                  {
 		}
-#line 1416 "parser.tab.c"
+#line 1415 "parser.tab.c"
     break;
 
   case 6: /* decl_globalesV: declaracion_constV decl_globalesV  */
-#line 111 "parser.y"
+#line 114 "parser.y"
                                             {
 		}
-#line 1423 "parser.tab.c"
+#line 1422 "parser.tab.c"
     break;
 
   case 7: /* decl_globalesV: %empty  */
-#line 113 "parser.y"
+#line 116 "parser.y"
                 {
 		}
-#line 1430 "parser.tab.c"
+#line 1429 "parser.tab.c"
     break;
 
   case 8: /* decl_a_fV: accion_dV decl_a_fV  */
-#line 118 "parser.y"
+#line 121 "parser.y"
                                     {
 		}
-#line 1437 "parser.tab.c"
+#line 1436 "parser.tab.c"
     break;
 
   case 9: /* decl_a_fV: funcion_dV decl_a_fV  */
-#line 120 "parser.y"
+#line 123 "parser.y"
                                {
 		}
-#line 1444 "parser.tab.c"
+#line 1443 "parser.tab.c"
     break;
 
   case 10: /* decl_a_fV: %empty  */
-#line 122 "parser.y"
+#line 125 "parser.y"
                 {
 		}
-#line 1451 "parser.tab.c"
+#line 1450 "parser.tab.c"
     break;
 
   case 11: /* bloqueV: declaracionesV instruccionesV  */
-#line 126 "parser.y"
+#line 129 "parser.y"
                                        {
 		}
-#line 1458 "parser.tab.c"
+#line 1457 "parser.tab.c"
     break;
 
   case 12: /* declaracionesV: declaracion_tipoV declaracionesV  */
-#line 131 "parser.y"
+#line 134 "parser.y"
                                                  {
 		}
-#line 1465 "parser.tab.c"
+#line 1464 "parser.tab.c"
     break;
 
   case 13: /* declaracionesV: declaracion_constV declaracionesV  */
-#line 133 "parser.y"
+#line 136 "parser.y"
                                             {
 		}
-#line 1472 "parser.tab.c"
+#line 1471 "parser.tab.c"
     break;
 
   case 14: /* declaracionesV: declaracion_varV declaracionesV  */
-#line 135 "parser.y"
+#line 138 "parser.y"
                                           {
 		}
-#line 1479 "parser.tab.c"
+#line 1478 "parser.tab.c"
     break;
 
   case 15: /* declaracionesV: %empty  */
-#line 137 "parser.y"
+#line 140 "parser.y"
                 {
 		}
-#line 1486 "parser.tab.c"
+#line 1485 "parser.tab.c"
     break;
 
   case 16: /* declaracion_tipoV: inicio_tipoTK lista_d_tipoV fin_tipoTK  */
-#line 141 "parser.y"
+#line 144 "parser.y"
                                                           {
 		}
-#line 1493 "parser.tab.c"
+#line 1492 "parser.tab.c"
     break;
 
   case 17: /* declaracion_constV: inicio_constTK lista_d_cteV fin_constTK  */
-#line 145 "parser.y"
+#line 148 "parser.y"
                                                             {
 		}
-#line 1500 "parser.tab.c"
+#line 1499 "parser.tab.c"
     break;
 
   case 18: /* declaracion_varV: inicio_varTK lista_d_varV fin_varTK  */
-#line 149 "parser.y"
+#line 152 "parser.y"
                                                       {
 		}
-#line 1507 "parser.tab.c"
+#line 1506 "parser.tab.c"
     break;
 
   case 19: /* lista_d_tipoV: declaracionTipoV  */
-#line 153 "parser.y"
+#line 156 "parser.y"
                                 {
 		}
-#line 1514 "parser.tab.c"
+#line 1513 "parser.tab.c"
     break;
 
   case 20: /* lista_d_tipoV: lista_d_tipoV declaracionTipoV  */
-#line 155 "parser.y"
+#line 158 "parser.y"
                                          {
 		}
-#line 1521 "parser.tab.c"
+#line 1520 "parser.tab.c"
     break;
 
   case 21: /* declaracionTipoV: identificadorTK operador_igualTK d_tipoV operador_comp_secTK  */
-#line 158 "parser.y"
+#line 161 "parser.y"
                                                                                {
 		}
-#line 1528 "parser.tab.c"
+#line 1527 "parser.tab.c"
     break;
 
   case 22: /* d_tipoV: inicio_tuplaTK lista_camposV fin_tuplaTK  */
-#line 161 "parser.y"
+#line 164 "parser.y"
                                                   {
         }
-#line 1535 "parser.tab.c"
+#line 1534 "parser.tab.c"
     break;
 
   case 23: /* d_tipoV: tipoTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV  */
-#line 163 "parser.y"
+#line 166 "parser.y"
                                                                                                                      {
         }
-#line 1542 "parser.tab.c"
+#line 1541 "parser.tab.c"
     break;
 
   case 24: /* d_tipoV: identificadorTK  */
-#line 165 "parser.y"
+#line 168 "parser.y"
                       {
         }
-#line 1549 "parser.tab.c"
+#line 1548 "parser.tab.c"
     break;
 
   case 25: /* d_tipoV: expresion_tV operador_subrangoTK expresion_tV  */
-#line 167 "parser.y"
+#line 170 "parser.y"
                                                     {
         }
-#line 1556 "parser.tab.c"
+#line 1555 "parser.tab.c"
     break;
 
   case 26: /* d_tipoV: tipoTK d_tipoV  */
-#line 169 "parser.y"
+#line 172 "parser.y"
                      {
         }
-#line 1563 "parser.tab.c"
+#line 1562 "parser.tab.c"
     break;
 
   case 27: /* d_tipoV: tipoTK  */
-#line 171 "parser.y"
+#line 174 "parser.y"
              {
         }
-#line 1570 "parser.tab.c"
+#line 1569 "parser.tab.c"
     break;
 
   case 28: /* expresion_tV: expresionV  */
-#line 174 "parser.y"
+#line 177 "parser.y"
                          {
         }
-#line 1577 "parser.tab.c"
+#line 1576 "parser.tab.c"
     break;
 
   case 29: /* expresion_tV: literal_caracterTK  */
-#line 176 "parser.y"
+#line 179 "parser.y"
                          {
         }
-#line 1584 "parser.tab.c"
+#line 1583 "parser.tab.c"
     break;
 
   case 30: /* lista_camposV: declaracionCampoV  */
-#line 179 "parser.y"
+#line 182 "parser.y"
                                 {
         }
-#line 1591 "parser.tab.c"
+#line 1590 "parser.tab.c"
     break;
 
   case 31: /* lista_camposV: lista_camposV declaracionCampoV  */
-#line 181 "parser.y"
+#line 184 "parser.y"
                                      {
         }
-#line 1598 "parser.tab.c"
+#line 1597 "parser.tab.c"
     break;
 
   case 32: /* declaracionCampoV: identificadorTK operador_def_tipoTK d_tipoV operador_comp_secTK  */
-#line 184 "parser.y"
+#line 187 "parser.y"
                                                                                    {
         }
-#line 1605 "parser.tab.c"
+#line 1604 "parser.tab.c"
     break;
 
   case 33: /* lista_d_cteV: declaracionDeConstanteV  */
-#line 188 "parser.y"
+#line 191 "parser.y"
                                        {
 		}
-#line 1612 "parser.tab.c"
+#line 1611 "parser.tab.c"
     break;
 
   case 34: /* lista_d_cteV: lista_d_cteV declaracionDeConstanteV  */
-#line 190 "parser.y"
+#line 193 "parser.y"
                                                {
 		}
-#line 1619 "parser.tab.c"
+#line 1618 "parser.tab.c"
     break;
 
   case 35: /* declaracionDeConstanteV: identificadorConstanteTK operador_igualTK literal_enteroTK operador_comp_secTK  */
-#line 193 "parser.y"
+#line 196 "parser.y"
                                                                                                         {
 		}
-#line 1626 "parser.tab.c"
+#line 1625 "parser.tab.c"
     break;
 
   case 36: /* lista_d_varV: declaracionDeVariableV  */
-#line 197 "parser.y"
+#line 200 "parser.y"
                                       {
 		}
-#line 1633 "parser.tab.c"
+#line 1632 "parser.tab.c"
     break;
 
   case 37: /* lista_d_varV: lista_d_varV declaracionDeVariableV  */
-#line 199 "parser.y"
+#line 202 "parser.y"
                                              {
 		}
-#line 1640 "parser.tab.c"
+#line 1639 "parser.tab.c"
     break;
 
   case 38: /* declaracionDeVariableV: lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK  */
-#line 202 "parser.y"
+#line 205 "parser.y"
                                                                                   {
 		}
-#line 1647 "parser.tab.c"
+#line 1646 "parser.tab.c"
     break;
 
   case 39: /* lista_idV: declaracionDeListaIdV  */
-#line 205 "parser.y"
+#line 208 "parser.y"
                                   {
 		}
-#line 1654 "parser.tab.c"
+#line 1653 "parser.tab.c"
     break;
 
   case 40: /* lista_idV: lista_idV operador_separadorTK declaracionDeListaIdV  */
-#line 207 "parser.y"
+#line 210 "parser.y"
                                                                {
 		}
-#line 1661 "parser.tab.c"
+#line 1660 "parser.tab.c"
     break;
 
   case 41: /* declaracionDeListaIdV: identificadorTK  */
-#line 210 "parser.y"
+#line 213 "parser.y"
                                        {
 		}
-#line 1668 "parser.tab.c"
+#line 1667 "parser.tab.c"
     break;
 
   case 42: /* decl_ent_salV: decl_entV  */
-#line 214 "parser.y"
+#line 217 "parser.y"
                           {
 		}
-#line 1675 "parser.tab.c"
+#line 1674 "parser.tab.c"
     break;
 
   case 43: /* decl_ent_salV: decl_entV decl_salV  */
-#line 216 "parser.y"
+#line 219 "parser.y"
                               {
 		}
-#line 1682 "parser.tab.c"
+#line 1681 "parser.tab.c"
     break;
 
   case 44: /* decl_ent_salV: decl_salV  */
-#line 218 "parser.y"
+#line 221 "parser.y"
                     {
 		}
-#line 1689 "parser.tab.c"
+#line 1688 "parser.tab.c"
     break;
 
   case 45: /* decl_entV: tipo_atributo_entTK lista_d_varV  */
-#line 221 "parser.y"
-                                            {
-		}
-#line 1696 "parser.tab.c"
-    break;
-
-  case 46: /* decl_salV: tipo_atributo_salTK lista_d_varV  */
 #line 224 "parser.y"
                                             {
 		}
-#line 1703 "parser.tab.c"
+#line 1695 "parser.tab.c"
+    break;
+
+  case 46: /* decl_salV: tipo_atributo_salTK lista_d_varV  */
+#line 227 "parser.y"
+                                            {
+		}
+#line 1702 "parser.tab.c"
     break;
 
   case 47: /* exp_aV: exp_aV aritmetico_sumaTK exp_aV  */
-#line 228 "parser.y"
+#line 231 "parser.y"
                                          {
 		}
-#line 1710 "parser.tab.c"
+#line 1709 "parser.tab.c"
     break;
 
   case 48: /* exp_aV: exp_aV aritmetico_restaTK exp_aV  */
-#line 230 "parser.y"
+#line 233 "parser.y"
                                            {
 		}
-#line 1717 "parser.tab.c"
+#line 1716 "parser.tab.c"
     break;
 
   case 49: /* exp_aV: exp_aV aritmetico_productoTK exp_aV  */
-#line 232 "parser.y"
+#line 235 "parser.y"
                                               {
 		}
-#line 1724 "parser.tab.c"
+#line 1723 "parser.tab.c"
     break;
 
   case 50: /* exp_aV: exp_aV aritmetico_divisionTK exp_aV  */
-#line 234 "parser.y"
+#line 237 "parser.y"
                                               {
 		}
-#line 1731 "parser.tab.c"
+#line 1730 "parser.tab.c"
     break;
 
   case 51: /* exp_aV: exp_aV operacionTK exp_aV  */
-#line 236 "parser.y"
+#line 239 "parser.y"
                                     {
 		}
-#line 1738 "parser.tab.c"
+#line 1737 "parser.tab.c"
     break;
 
   case 52: /* exp_aV: inicio_parentesisTK exp_aV fin_parentesisTK  */
-#line 238 "parser.y"
+#line 241 "parser.y"
                                                       {
 		}
-#line 1745 "parser.tab.c"
+#line 1744 "parser.tab.c"
     break;
 
   case 53: /* exp_aV: operando_aV  */
-#line 240 "parser.y"
+#line 243 "parser.y"
                       {
 		}
-#line 1752 "parser.tab.c"
+#line 1751 "parser.tab.c"
     break;
 
   case 54: /* exp_aV: literal_enteroTK  */
-#line 242 "parser.y"
+#line 245 "parser.y"
                            {
 		}
-#line 1759 "parser.tab.c"
+#line 1758 "parser.tab.c"
     break;
 
   case 55: /* exp_aV: literal_realTK  */
-#line 244 "parser.y"
+#line 247 "parser.y"
                          {
 		}
-#line 1766 "parser.tab.c"
+#line 1765 "parser.tab.c"
     break;
 
   case 56: /* exp_aV: aritmetico_restaTK exp_aV  */
-#line 246 "parser.y"
+#line 249 "parser.y"
                                     {
 		}
-#line 1773 "parser.tab.c"
+#line 1772 "parser.tab.c"
     break;
 
   case 57: /* exp_aV: aritmetico_sumaTK exp_aV  */
-#line 248 "parser.y"
+#line 251 "parser.y"
                                    {
 		}
-#line 1780 "parser.tab.c"
+#line 1779 "parser.tab.c"
     break;
 
   case 58: /* exp_bV: exp_bV conjuncionTK exp_bV  */
-#line 251 "parser.y"
+#line 254 "parser.y"
                                     {
 		}
-#line 1787 "parser.tab.c"
+#line 1786 "parser.tab.c"
     break;
 
   case 59: /* exp_bV: exp_bV disyuncionTK exp_bV  */
-#line 254 "parser.y"
+#line 257 "parser.y"
                                    {
 		}
-#line 1794 "parser.tab.c"
+#line 1793 "parser.tab.c"
     break;
 
   case 60: /* exp_bV: noTK exp_bV  */
-#line 256 "parser.y"
+#line 259 "parser.y"
                      {
 		}
-#line 1801 "parser.tab.c"
+#line 1800 "parser.tab.c"
     break;
 
   case 61: /* exp_bV: operando_bV  */
-#line 258 "parser.y"
+#line 261 "parser.y"
                       {
 		}
-#line 1808 "parser.tab.c"
+#line 1807 "parser.tab.c"
     break;
 
   case 62: /* exp_bV: literal_booleanoTK  */
-#line 260 "parser.y"
+#line 263 "parser.y"
                              {
 		}
-#line 1815 "parser.tab.c"
+#line 1814 "parser.tab.c"
     break;
 
   case 63: /* exp_bV: expresionV relacional_distintoTK expresionV  */
-#line 262 "parser.y"
+#line 265 "parser.y"
                                                       {
 		}
-#line 1822 "parser.tab.c"
+#line 1821 "parser.tab.c"
     break;
 
   case 64: /* exp_bV: expresionV relacional_menor_igualTK expresionV  */
-#line 264 "parser.y"
+#line 267 "parser.y"
                                                          {
 		}
-#line 1829 "parser.tab.c"
+#line 1828 "parser.tab.c"
     break;
 
   case 65: /* exp_bV: expresionV relacional_mayor_igualTK expresionV  */
-#line 266 "parser.y"
+#line 269 "parser.y"
                                                          {
 		}
-#line 1836 "parser.tab.c"
+#line 1835 "parser.tab.c"
     break;
 
   case 66: /* exp_bV: expresionV relacional_menorTK expresionV  */
-#line 268 "parser.y"
+#line 271 "parser.y"
                                                    {
 		}
-#line 1843 "parser.tab.c"
+#line 1842 "parser.tab.c"
     break;
 
   case 67: /* exp_bV: expresionV relacional_mayorTK expresionV  */
-#line 270 "parser.y"
+#line 273 "parser.y"
                                                    {
 		}
-#line 1850 "parser.tab.c"
+#line 1849 "parser.tab.c"
     break;
 
   case 68: /* exp_bV: expresionV operador_igualTK expresionV  */
-#line 272 "parser.y"
+#line 275 "parser.y"
                                                  {
 		}
-#line 1857 "parser.tab.c"
+#line 1856 "parser.tab.c"
     break;
 
   case 69: /* exp_bV: inicio_parentesisTK exp_bV fin_parentesisTK  */
-#line 274 "parser.y"
+#line 277 "parser.y"
                                                       {
 		}
-#line 1864 "parser.tab.c"
+#line 1863 "parser.tab.c"
     break;
 
   case 70: /* expresionV: exp_aV  */
-#line 277 "parser.y"
+#line 280 "parser.y"
                     {
 		}
-#line 1871 "parser.tab.c"
+#line 1870 "parser.tab.c"
     break;
 
   case 71: /* expresionV: exp_bV  */
-#line 279 "parser.y"
+#line 282 "parser.y"
                  {
 		}
-#line 1878 "parser.tab.c"
+#line 1877 "parser.tab.c"
     break;
 
   case 72: /* expresionV: funcion_llV  */
-#line 281 "parser.y"
+#line 284 "parser.y"
                       {
 		}
-#line 1885 "parser.tab.c"
+#line 1884 "parser.tab.c"
     break;
 
   case 73: /* operando_aV: identificadorTK  */
-#line 284 "parser.y"
+#line 287 "parser.y"
                               {
 		}
-#line 1892 "parser.tab.c"
+#line 1891 "parser.tab.c"
     break;
 
   case 74: /* operando_aV: operando_aV puntoTK operando_aV  */
-#line 286 "parser.y"
+#line 289 "parser.y"
                                           {
 		}
-#line 1899 "parser.tab.c"
+#line 1898 "parser.tab.c"
     break;
 
   case 75: /* operando_aV: operando_aV operador_inicio_arrayTK expresionV operador_fin_arrayTK  */
-#line 288 "parser.y"
+#line 291 "parser.y"
                                                                               {
 		}
-#line 1906 "parser.tab.c"
+#line 1905 "parser.tab.c"
     break;
 
   case 76: /* operando_aV: operando_aV tipoTK  */
-#line 290 "parser.y"
+#line 293 "parser.y"
                              {
 		}
-#line 1913 "parser.tab.c"
+#line 1912 "parser.tab.c"
     break;
 
   case 77: /* operando_bV: identificadorBooleanoTK  */
-#line 293 "parser.y"
+#line 296 "parser.y"
                                       {
 		}
-#line 1920 "parser.tab.c"
+#line 1919 "parser.tab.c"
     break;
 
   case 78: /* operando_bV: operando_bV puntoTK operando_bV  */
-#line 295 "parser.y"
+#line 298 "parser.y"
                                           {
 		}
-#line 1927 "parser.tab.c"
+#line 1926 "parser.tab.c"
     break;
 
   case 79: /* operando_bV: operando_bV operador_inicio_arrayTK expresionV operador_fin_arrayTK  */
-#line 297 "parser.y"
+#line 300 "parser.y"
                                                                               {
 		}
-#line 1934 "parser.tab.c"
+#line 1933 "parser.tab.c"
     break;
 
   case 80: /* operando_bV: operando_bV tipoTK  */
-#line 299 "parser.y"
+#line 302 "parser.y"
                              {
 		}
-#line 1941 "parser.tab.c"
+#line 1940 "parser.tab.c"
     break;
 
   case 81: /* instruccionesV: instruccionV operador_comp_secTK instruccionesV  */
-#line 303 "parser.y"
+#line 306 "parser.y"
                                                                  {
 		}
-#line 1948 "parser.tab.c"
+#line 1947 "parser.tab.c"
     break;
 
   case 82: /* instruccionesV: instruccionV  */
-#line 305 "parser.y"
+#line 308 "parser.y"
                        {
 		}
-#line 1955 "parser.tab.c"
+#line 1954 "parser.tab.c"
     break;
 
   case 83: /* instruccionV: continuarTK  */
-#line 308 "parser.y"
+#line 311 "parser.y"
                            {
 		}
-#line 1962 "parser.tab.c"
+#line 1961 "parser.tab.c"
     break;
 
   case 84: /* instruccionV: asignacion_aV  */
-#line 310 "parser.y"
+#line 313 "parser.y"
                         {
 		}
-#line 1969 "parser.tab.c"
+#line 1968 "parser.tab.c"
     break;
 
   case 85: /* instruccionV: asignacion_bV  */
-#line 312 "parser.y"
+#line 315 "parser.y"
                         {
 		}
-#line 1976 "parser.tab.c"
+#line 1975 "parser.tab.c"
     break;
 
   case 86: /* instruccionV: alternativaV  */
-#line 314 "parser.y"
+#line 317 "parser.y"
                        {
 		}
-#line 1983 "parser.tab.c"
+#line 1982 "parser.tab.c"
     break;
 
   case 87: /* instruccionV: iteracionV  */
-#line 316 "parser.y"
+#line 319 "parser.y"
                      {
 		}
-#line 1990 "parser.tab.c"
+#line 1989 "parser.tab.c"
     break;
 
   case 88: /* instruccionV: accion_llV  */
-#line 318 "parser.y"
+#line 321 "parser.y"
                      {
 		}
-#line 1997 "parser.tab.c"
+#line 1996 "parser.tab.c"
     break;
 
   case 89: /* asignacion_aV: operando_aV operador_asignacionTK expresionV  */
-#line 321 "parser.y"
-                                                             {
-		}
-#line 2004 "parser.tab.c"
-    break;
-
-  case 90: /* asignacion_bV: operando_bV operador_asignacionTK expresionV  */
 #line 324 "parser.y"
                                                              {
 		}
-#line 2011 "parser.tab.c"
+#line 2003 "parser.tab.c"
+    break;
+
+  case 90: /* asignacion_bV: operando_bV operador_asignacionTK expresionV  */
+#line 327 "parser.y"
+                                                             {
+		}
+#line 2010 "parser.tab.c"
     break;
 
   case 91: /* alternativaV: inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK  */
-#line 327 "parser.y"
+#line 330 "parser.y"
                                                                                                   {
 		}
-#line 2018 "parser.tab.c"
+#line 2017 "parser.tab.c"
     break;
 
   case 92: /* lista_opcionesV: operador_elseTK expresionV operador_entoncesTK instruccionesV lista_opcionesV  */
-#line 330 "parser.y"
+#line 333 "parser.y"
                                                                                                 {
 		}
-#line 2025 "parser.tab.c"
+#line 2024 "parser.tab.c"
     break;
 
   case 93: /* lista_opcionesV: %empty  */
-#line 332 "parser.y"
+#line 335 "parser.y"
                  {
 		}
-#line 2032 "parser.tab.c"
+#line 2031 "parser.tab.c"
     break;
 
   case 94: /* iteracionV: it_cota_fijaV  */
-#line 335 "parser.y"
+#line 338 "parser.y"
                            {
 		}
-#line 2039 "parser.tab.c"
+#line 2038 "parser.tab.c"
     break;
 
   case 95: /* iteracionV: it_cota_expV  */
-#line 337 "parser.y"
+#line 340 "parser.y"
                        {
 		}
-#line 2046 "parser.tab.c"
+#line 2045 "parser.tab.c"
     break;
 
   case 96: /* it_cota_expV: inicio_mientrasTK expresionV hacerTK instruccionesV fin_mientrasTK  */
-#line 340 "parser.y"
+#line 343 "parser.y"
                                                                                   {
 		}
-#line 2053 "parser.tab.c"
+#line 2052 "parser.tab.c"
     break;
 
   case 97: /* it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK expresionV hacerTK instruccionesV fin_paraTK  */
-#line 343 "parser.y"
+#line 346 "parser.y"
                                                                                                                                     {
 		}
-#line 2060 "parser.tab.c"
+#line 2059 "parser.tab.c"
     break;
 
   case 98: /* accion_dV: inicio_accionTK a_cabeceraV bloqueV fin_accionTK  */
-#line 347 "parser.y"
+#line 350 "parser.y"
                                                              {
 		}
-#line 2067 "parser.tab.c"
+#line 2066 "parser.tab.c"
     break;
 
   case 99: /* funcion_dV: inicio_funcionTK f_cabeceraV bloqueV devTK expresionV fin_funcionTK  */
-#line 350 "parser.y"
+#line 353 "parser.y"
                                                                                  {
 		}
-#line 2074 "parser.tab.c"
+#line 2073 "parser.tab.c"
     break;
 
   case 100: /* a_cabeceraV: identificadorTK inicio_parentesisTK d_par_formV fin_parentesisTK operador_comp_secTK  */
-#line 353 "parser.y"
+#line 356 "parser.y"
                                                                                                    {
 		}
-#line 2081 "parser.tab.c"
+#line 2080 "parser.tab.c"
     break;
 
   case 101: /* f_cabeceraV: identificadorTK inicio_parentesisTK lista_d_varV fin_parentesisTK devTK d_tipoV operador_comp_secTK  */
-#line 356 "parser.y"
+#line 359 "parser.y"
                                                                                                                   {
 		}
-#line 2088 "parser.tab.c"
+#line 2087 "parser.tab.c"
     break;
 
   case 102: /* d_par_formV: d_p_formV operador_comp_secTK d_par_formV  */
-#line 359 "parser.y"
+#line 362 "parser.y"
                                                         {
 		}
-#line 2095 "parser.tab.c"
+#line 2094 "parser.tab.c"
     break;
 
   case 103: /* d_par_formV: %empty  */
-#line 361 "parser.y"
+#line 364 "parser.y"
                  {
 		}
-#line 2102 "parser.tab.c"
+#line 2101 "parser.tab.c"
     break;
 
   case 104: /* d_p_formV: tipo_atributo_entTK lista_idV operador_def_tipoTK d_tipoV  */
-#line 364 "parser.y"
+#line 367 "parser.y"
                                                                       {
 		}
-#line 2109 "parser.tab.c"
+#line 2108 "parser.tab.c"
     break;
 
   case 105: /* d_p_formV: tipo_atributo_salTK lista_idV operador_def_tipoTK d_tipoV  */
-#line 366 "parser.y"
+#line 369 "parser.y"
                                                                     {
 		}
-#line 2116 "parser.tab.c"
+#line 2115 "parser.tab.c"
     break;
 
   case 106: /* d_p_formV: tipo_atributo_ent_salTK lista_idV operador_def_tipoTK d_tipoV  */
-#line 368 "parser.y"
+#line 371 "parser.y"
                                                                         {
 		}
-#line 2123 "parser.tab.c"
+#line 2122 "parser.tab.c"
     break;
 
   case 107: /* accion_llV: identificadorTK inicio_parentesisTK l_llV fin_parentesisTK  */
-#line 372 "parser.y"
+#line 375 "parser.y"
                                                                         {
 		}
-#line 2130 "parser.tab.c"
+#line 2129 "parser.tab.c"
     break;
 
   case 108: /* funcion_llV: identificadorTK inicio_parentesisTK l_llV fin_parentesisTK  */
-#line 375 "parser.y"
+#line 378 "parser.y"
                                                                          {
 		}
-#line 2137 "parser.tab.c"
+#line 2136 "parser.tab.c"
     break;
 
   case 109: /* l_llV: expresionV operador_separadorTK l_llV  */
-#line 378 "parser.y"
+#line 381 "parser.y"
                                               {
 		}
-#line 2144 "parser.tab.c"
+#line 2143 "parser.tab.c"
     break;
 
   case 110: /* l_llV: expresionV  */
-#line 380 "parser.y"
+#line 383 "parser.y"
                      {
 		}
-#line 2151 "parser.tab.c"
+#line 2150 "parser.tab.c"
     break;
 
 
-#line 2155 "parser.tab.c"
+#line 2154 "parser.tab.c"
 
       default: break;
     }
@@ -2344,7 +2343,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 384 "parser.y"
+#line 387 "parser.y"
 
 
 int main(int argc, char **argv){

@@ -6,6 +6,7 @@
 	#include <math.h>
 	#include "parser.tab.h"
 	#include "nombresDeTipos.h"
+	#include "literal.h"
 	
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
 	int potenciaDeDiez(char*);
@@ -31,7 +32,7 @@ tipoTablaDR	(?i:tabla)
 tipoRefDR (?i:ref)
 tipo_atributo_entDR	ent
 tipo_atributo_salDR	sal
-tipo_atributo_ent_sal e\/s
+tipo_atributo_ent_salDR e\/s
 
 conjuncionDR	(?i:y)
 disyuncionDR	(?i:o)
@@ -199,7 +200,7 @@ aritmetico_moduloDR (?i:mod)
         yylval.tipo = CARACTER;
     else if (strcasecmp(yytext, "booleano") == 0)
         yylval.tipo = BOOLEANO;
-    return tipoDR;
+    return tipoTK;
 }
 
 {tipoTablaDR}	{
@@ -215,7 +216,7 @@ aritmetico_moduloDR (?i:mod)
 }
 
 {disyuncionDR}	{
-	return disyuncionTK
+	return disyuncionTK;
 }
 
 {tipo_atributo_entDR}	{

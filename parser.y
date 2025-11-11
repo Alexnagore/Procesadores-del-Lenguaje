@@ -1,6 +1,7 @@
 %{
 	#include <stdio.h>
 	#include "nombresDeTipos.h"
+	#include "literal.h"
 	#include "tablaDeConstantes.h"
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
@@ -32,6 +33,8 @@
 %token inicio_parentesisTK
 %token fin_parentesisTK
 %token <tipo> tipoTK
+%token tipoTablaTK
+%token tipoRefTK
 %token conjuncionTK
 %token disyuncionTK
 %token tipo_atributo_entTK
@@ -77,12 +80,12 @@
 	char* cadena;
 	LiteralT literal;
 	int entero;
-	tipoDato tipo;
+	nombreDeTipoT tipo;
 }
 
-%left conjuncionTK
 %left disyuncionTK
-%nonassoc relacional_distintoTK relacional_menor_igualDR relacional_mayor_igualTK
+%left conjuncionTK
+%nonassoc relacional_distintoTK relacional_menor_igualTK relacional_mayor_igualTK
 %nonassoc relacional_menorTK relacional_mayorTK operador_igualTK
 %right noTK
 %left aritmetico_sumaTK aritmetico_restaTK
