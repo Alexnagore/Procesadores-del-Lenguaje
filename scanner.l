@@ -26,11 +26,15 @@ literal_cadenaDR    '([^']|\/')*'
 
 comentarioDR	\{([^}]|\/\})*\}
 
-tipoDR	(?i:booleano|cadena|caracter|entero|real|tabla|ref)
+tipoDR	(?i:booleano|cadena|caracter|entero|real)
+tipoTablaDR	(?i:tabla)
+tipoRefDR (?i:ref)
 tipo_atributo_entDR	ent
 tipo_atributo_salDR	sal
+tipo_atributo_ent_sal e\/s
 
-conjuncionDR	(?i:o|y)
+conjuncionDR	(?i:y)
+disyuncionDR	(?i:o)
 continuarDR	(?i:continuar)
 deDR	(?i:de)
 devDR	(?i:dev)
@@ -185,11 +189,33 @@ aritmetico_moduloDR (?i:mod)
 }
 
 {tipoDR}	{
-	printf("(tipoTK, %s)\n", yytext);
+	if (strcasecmp(yytext, "entero") == 0)
+        yylval.tipo = ENTERO;
+    else if (strcasecmp(yytext, "real") == 0)
+        yylval.tipo = REAL;
+    else if (strcasecmp(yytext, "cadena") == 0)
+        yylval.tipo = CADENA;
+    else if (strcasecmp(yytext, "caracter") == 0)
+        yylval.tipo = CARACTER;
+    else if (strcasecmp(yytext, "booleano") == 0)
+        yylval.tipo = BOOLEANO;
+    return tipoDR;
+}
+
+{tipoTablaDR}	{
+	return tipoTablaTK;
+}
+
+{tipoRefDR}	{
+	return tipoRefTK;
 }
 
 {conjuncionDR}	{
-	printf("(conjuncionTK, %s)\n", yytext);
+	return conjuncionTK;
+}
+
+{disyuncionDR}	{
+	return disyuncionTK
 }
 
 {tipo_atributo_entDR}	{
@@ -197,7 +223,11 @@ aritmetico_moduloDR (?i:mod)
 }
 
 {tipo_atributo_salDR}	{
-	printf("(tipo_atributo_salTK, %s)\n", yytext);
+	return tipo_atributo_salTK;
+}
+
+{tipo_atributo_ent_salDR}	{
+	return tipo_atributo_ent_salTK;
 }
 
 {continuarDR}	{
@@ -296,15 +326,25 @@ aritmetico_moduloDR (?i:mod)
 }
 
 {literal_booleanoDR}  {
-    printf("(literal_booleanoTK, %s)\n", yytext);
+    yylval.literal.tipoDelValor = BOOLEANO;
+	yylval.literal.valor.valorBooleano = yytext;
+	return literal_booleanoTK;
 }
 
 {identificadorConstanteDR}   {
-    printf("(identificadorConstanteTK, %s)\n", yytext);
+    yylval.literal.tipoDelValor = CADENA;
+	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL )
+	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+	else
+		return identificadorConstanteTK;
 }
 
 {identificadorDR}   {
-    printf("(identificadorTK, %s)\n", yytext);
+    yylval.literal.tipoDelValor = CADENA;
+	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL )
+	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+	else
+		return identificadorTK;
 }
 
 {literal_enteroDR}  {
@@ -327,7 +367,7 @@ aritmetico_moduloDR (?i:mod)
 
 {literal_cadenaDR}  {
     yylval.literal.tipoDelValor = CADENA;
-	if ((ttlval.literal.valor.valorCadena = strdup(yytext)) == NULL )
+	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL )
 	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
 	else
 		return literal_cadenaTK;

@@ -1,6 +1,6 @@
 %{
 	#include <stdio.h>
-	//#include "nombresDeTipos.h"
+	#include "nombresDeTipos.h"
 	#include "tablaDeConstantes.h"
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
@@ -33,6 +33,7 @@
 %token fin_parentesisTK
 %token <tipo> tipoTK
 %token conjuncionTK
+%token disyuncionTK
 %token tipo_atributo_entTK
 %token tipo_atributo_salTK
 %token tipo_atributo_ent_salTK
@@ -66,20 +67,29 @@
 %token <cadena> identificadorTK
 %token <cadena> identificadorBooleanoTK
 %token <cadena> identificadorConstanteTK
-%token literal_booleanoTK
-%token <entero> literal_enteroTK
-%token literal_realTK
-%token literal_caracterTK
+%token <literal> literal_booleanoTK
+%token <literal> literal_enteroTK
+%token <literal> literal_realTK
+%token <literal> literal_caracterTK
 %token comentarioTK
 
-%union {
-    int entero;
-    char* cadena;
-    TipoT tipo;
-    char caracter;
+%union{
+	char* cadena;
+	LiteralT literal;
+	int entero;
+	tipoDato tipo;
 }
 
 %left conjuncionTK
+%left disyuncionTK
+%nonassoc relacional_distintoTK relacional_menor_igualDR relacional_mayor_igualTK
+%nonassoc relacional_menorTK relacional_mayorTK operador_igualTK
+%right noTK
+%left aritmetico_sumaTK aritmetico_restaTK
+%left aritmetico_productoTK aritmetico_divisionTK operacionTK
+%left aritmetico_divisionRealTK aritmetico_moduloTK
+%left tipoTK
+%left puntoTK operador_inicio_arrayTK
 
 %%
 
@@ -215,13 +225,6 @@ decl_salV : tipo_atributo_salTK lista_d_varV{
 		}
 	;
 
-expresionV : exp_aV {
-		}
-	| exp_bV {
-		}
-	| funcion_llV {
-		}
-	;
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		}
 	| exp_aV aritmetico_restaTK exp_aV {
@@ -247,7 +250,10 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 	;
 exp_bV : exp_bV conjuncionTK exp_bV {
 		}
-	| noTK exp_bV {
+	|
+	exp_bV disyuncionTK exp_bV {
+		}
+	|noTK exp_bV {
 		}
 	| operando_bV {
 		}
@@ -266,6 +272,13 @@ exp_bV : exp_bV conjuncionTK exp_bV {
 	| expresionV operador_igualTK expresionV {
 		}
 	| inicio_parentesisTK exp_bV fin_parentesisTK {
+		}
+	;
+expresionV : exp_aV {
+		}
+	| exp_bV {
+		}
+	| funcion_llV {
 		}
 	;
 operando_aV : identificadorTK {
