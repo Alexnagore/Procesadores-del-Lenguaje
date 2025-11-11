@@ -1,13 +1,13 @@
 %{
-	// Headers standard necesarios
 	#include <stdio.h> //Para poder escribir en el terminal
-	#include <stdlib.h> //Para usar exit()
+	#include <stdlib.h> //Para trabajar con NULL y usar exit()
 	#include <strings.h> //Para trabajar con cadenas de caracteres
 	#include <math.h>
-	#include "parser.tab.h"
-	#include "nombresDeTipos.h"
-	#include "literal.h"
-	
+
+	#include "nombresDeTipos.h" // Para saber los nombres de los tipos
+	#include "literal.h" //Para poder usar el tipo Literal
+	#include "parser.tab.h" // Lo crea automaticamente bison con la opcion -v
+
 	void errorEnScanner(char*, char*); //prototipo necesario para compilar
 	int potenciaDeDiez(char*);
 %}
@@ -328,8 +328,13 @@ aritmetico_moduloDR (?i:mod)
 
 {literal_booleanoDR}  {
     yylval.literal.tipoDelValor = BOOLEANO;
-	yylval.literal.valor.valorBooleano = yytext;
-	return literal_booleanoTK;
+
+    if (strcasecmp(yytext, "verdadero") == 0)
+        yylval.literal.valor.valorBooleano = VERDADERO;
+    else
+        yylval.literal.valor.valorBooleano = FALSO;
+
+    return literal_booleanoTK;
 }
 
 {identificadorConstanteDR}   {
@@ -363,7 +368,7 @@ aritmetico_moduloDR (?i:mod)
 {literal_caracterDR}  {
     yylval.literal.tipoDelValor = CARACTER;
 	yylval.literal.valor.valorCaracter = yytext[1];
-	return literalTK;
+	return literal_caracterTK;
 }
 
 {literal_cadenaDR}  {

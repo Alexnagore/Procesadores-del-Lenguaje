@@ -118,9 +118,10 @@ extern int yydebug;
     literal_enteroTK = 319,        /* literal_enteroTK  */
     literal_realTK = 320,          /* literal_realTK  */
     literal_caracterTK = 321,      /* literal_caracterTK  */
-    comentarioTK = 322,            /* comentarioTK  */
-    aritmetico_divisionRealTK = 323, /* aritmetico_divisionRealTK  */
-    aritmetico_moduloTK = 324      /* aritmetico_moduloTK  */
+    literal_cadenaTK = 322,        /* literal_cadenaTK  */
+    comentarioTK = 323,            /* comentarioTK  */
+    aritmetico_divisionRealTK = 324, /* aritmetico_divisionRealTK  */
+    aritmetico_moduloTK = 325      /* aritmetico_moduloTK  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -129,14 +130,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 79 "parser.y"
+#line 80 "parser.y"
 
 	char* cadena;
 	LiteralT literal;
 	int entero;
-	nombreDeTipoT tipo;
+	NombreDeTipoT tipo;
 
-#line 140 "parser.tab.h"
+#line 141 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

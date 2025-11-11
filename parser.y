@@ -74,13 +74,14 @@
 %token <literal> literal_enteroTK
 %token <literal> literal_realTK
 %token <literal> literal_caracterTK
+%token <literal> literal_cadenaTK
 %token comentarioTK
 
 %union{
 	char* cadena;
 	LiteralT literal;
 	int entero;
-	nombreDeTipoT tipo;
+	NombreDeTipoT tipo;
 }
 
 %left disyuncionTK

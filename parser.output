@@ -2,6 +2,7 @@ Terminales no usados en la gramática
 
     tipoTablaTK
     tipoRefTK
+    literal_cadenaTK
     aritmetico_divisionRealTK
     aritmetico_moduloTK
 
@@ -242,157 +243,158 @@ Terminales con las reglas donde aparecen
     literal_enteroTK <literal> (319) 34 53
     literal_realTK <literal> (320) 54
     literal_caracterTK <literal> (321) 28
-    comentarioTK (322) 2 3
-    aritmetico_divisionRealTK (323)
-    aritmetico_moduloTK (324)
+    literal_cadenaTK <literal> (322)
+    comentarioTK (323) 2 3
+    aritmetico_divisionRealTK (324)
+    aritmetico_moduloTK (325)
 
 
 No terminales con las reglas donde aparecen
 
-    $accept (70)
+    $accept (71)
         on left: 0
-    desc_algoritmoV (71)
+    desc_algoritmoV (72)
         on left: 1
         on right: 0
-    cabecera_algV (72)
+    cabecera_algV (73)
         on left: 2
         on right: 1
-    bloque_algV (73)
+    bloque_algV (74)
         on left: 3
         on right: 1
-    decl_globalesV (74)
+    decl_globalesV (75)
         on left: 4 5 6
         on right: 2 4 5
-    decl_a_fV (75)
+    decl_a_fV (76)
         on left: 7 8 9
         on right: 2 7 8
-    bloqueV (76)
+    bloqueV (77)
         on left: 10
         on right: 3 97 98
-    declaracionesV (77)
+    declaracionesV (78)
         on left: 11 12 13 14
         on right: 10 11 12 13
-    declaracion_tipoV (78)
+    declaracion_tipoV (79)
         on left: 15
         on right: 4 11
-    declaracion_constV (79)
+    declaracion_constV (80)
         on left: 16
         on right: 5 12
-    declaracion_varV (80)
+    declaracion_varV (81)
         on left: 17
         on right: 13
-    lista_d_tipoV (81)
+    lista_d_tipoV (82)
         on left: 18 19
         on right: 15 19
-    declaracionTipoV (82)
+    declaracionTipoV (83)
         on left: 20
         on right: 18 19
-    d_tipoV (83)
+    d_tipoV (84)
         on left: 21 22 23 24 25 26
         on right: 20 22 25 31 37 100 103 104 105
-    expresion_tV (84)
+    expresion_tV (85)
         on left: 27 28
         on right: 22 24
-    lista_camposV (85)
+    lista_camposV (86)
         on left: 29 30
         on right: 21 30
-    declaracionCampoV (86)
+    declaracionCampoV (87)
         on left: 31
         on right: 29 30
-    lista_d_cteV (87)
+    lista_d_cteV (88)
         on left: 32 33
         on right: 16 33
-    declaracionDeConstanteV (88)
+    declaracionDeConstanteV (89)
         on left: 34
         on right: 32 33
-    lista_d_varV (89)
+    lista_d_varV (90)
         on left: 35 36
         on right: 17 36 44 45 100
-    declaracionDeVariableV (90)
+    declaracionDeVariableV (91)
         on left: 37
         on right: 35 36
-    lista_idV (91)
+    lista_idV (92)
         on left: 38 39
         on right: 37 39 103 104 105
-    declaracionDeListaIdV (92)
+    declaracionDeListaIdV (93)
         on left: 40
         on right: 38 39
-    decl_ent_salV (93)
+    decl_ent_salV (94)
         on left: 41 42 43
         on right: 2
-    decl_entV (94)
+    decl_entV (95)
         on left: 44
         on right: 41 42
-    decl_salV (95)
+    decl_salV (96)
         on left: 45
         on right: 42 43
-    exp_aV (96)
+    exp_aV (97)
         on left: 46 47 48 49 50 51 52 53 54 55 56
         on right: 46 47 48 49 50 51 55 56 69
-    exp_bV (97)
+    exp_bV (98)
         on left: 57 58 59 60 61 62 63 64 65 66 67 68
         on right: 57 58 59 68 70
-    expresionV (98)
+    expresionV (99)
         on left: 69 70 71
         on right: 27 62 63 64 65 66 67 74 78 88 89 90 91 95 96 98 108 109
-    operando_aV (99)
+    operando_aV (100)
         on left: 72 73 74 75
         on right: 52 73 74 75 88
-    operando_bV (100)
+    operando_bV (101)
         on left: 76 77 78 79
         on right: 60 77 78 79 89
-    instruccionesV (101)
+    instruccionesV (102)
         on left: 80 81
         on right: 10 80 90 91 95 96
-    instruccionV (102)
+    instruccionV (103)
         on left: 82 83 84 85 86 87
         on right: 80 81
-    asignacion_aV (103)
+    asignacion_aV (104)
         on left: 88
         on right: 83
-    asignacion_bV (104)
+    asignacion_bV (105)
         on left: 89
         on right: 84
-    alternativaV (105)
+    alternativaV (106)
         on left: 90
         on right: 85
-    lista_opcionesV (106)
+    lista_opcionesV (107)
         on left: 91 92
         on right: 90 91
-    iteracionV (107)
+    iteracionV (108)
         on left: 93 94
         on right: 86
-    it_cota_expV (108)
+    it_cota_expV (109)
         on left: 95
         on right: 94
-    it_cota_fijaV (109)
+    it_cota_fijaV (110)
         on left: 96
         on right: 93
-    accion_dV (110)
+    accion_dV (111)
         on left: 97
         on right: 7
-    funcion_dV (111)
+    funcion_dV (112)
         on left: 98
         on right: 8
-    a_cabeceraV (112)
+    a_cabeceraV (113)
         on left: 99
         on right: 97
-    f_cabeceraV (113)
+    f_cabeceraV (114)
         on left: 100
         on right: 98
-    d_par_formV (114)
+    d_par_formV (115)
         on left: 101 102
         on right: 99 101
-    d_p_formV (115)
+    d_p_formV (116)
         on left: 103 104 105
         on right: 101
-    accion_llV (116)
+    accion_llV (117)
         on left: 106
         on right: 87
-    funcion_llV (117)
+    funcion_llV (118)
         on left: 107
         on right: 71
-    l_llV (118)
+    l_llV (119)
         on left: 108 109
         on right: 106 107 108
 
