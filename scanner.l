@@ -74,6 +74,10 @@ fin_tuplaDR	(?i:ftupla)
 inicio_tipoDR	(?i:tipo)
 fin_tipoDR	(?i:ftipo)
 
+inicio_parentesisDR	\(
+fin_parentesisDR \)
+
+
 operador_asignacionDR	:=
 operador_comp_secDR	;
 operador_separadorDR	,
@@ -326,6 +330,13 @@ aritmetico_moduloDR (?i:mod)
 	return fin_tipoTK;
 }
 
+{inicio_parentesisDR}	{
+	return inicio_parentesisTK;
+}
+{fin_parentesisDR}	{
+	return fin_parentesisTK;
+}
+
 {literal_booleanoDR}  {
     yylval.literal.tipoDelValor = BOOLEANO;
 
@@ -380,7 +391,7 @@ aritmetico_moduloDR (?i:mod)
 }
 
 {comentarioDR} {
-    /* ignorar */
+    return comentarioTK;
 }
 
 %%
@@ -412,7 +423,7 @@ int potenciaDeDiez(char* literalEntero){
     return (int)(base * pow(10, exp));
 }
 
-int main(int argc, char **argv) {
+/*int main(int argc, char **argv) {
     if (argc > 1) {
         FILE *f = fopen(argv[1], "r");
         if (!f) {
@@ -427,3 +438,4 @@ int main(int argc, char **argv) {
     if (yyin != stdin) fclose(yyin);
     return 0;
 }
+*/

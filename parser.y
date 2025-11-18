@@ -2,11 +2,11 @@
 	#include <stdio.h>
 	#include "nombresDeTipos.h"
 	#include "literal.h"
-	#include "tablaDeConstantes.h"
+	//#include "tablaDeConstantes.h"
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
 	extern FILE* yyin; // Usamos la varible de Flex en la que viene la entrada
-	TablaDeConstantes tc; //Es donde guardaremos las constantes
+	//TablaDeConstantes tc; //Es donde guardaremos las constantes
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
@@ -142,15 +142,15 @@ declaracionesV :
 		}
 	;
 
-declaracion_tipoV : inicio_tipoTK lista_d_tipoV fin_tipoTK{
+declaracion_tipoV : inicio_tipoTK lista_d_tipoV fin_tipoTK operador_comp_secTK{
 		}
 	;
 
-declaracion_constV : inicio_constTK lista_d_cteV fin_constTK{
+declaracion_constV : inicio_constTK lista_d_cteV fin_constTK operador_comp_secTK{
 		}
 	;
 
-declaracion_varV : inicio_varTK lista_d_varV fin_varTK{
+declaracion_varV : inicio_varTK lista_d_varV fin_varTK operador_comp_secTK{
 		}
 	;
 
@@ -237,7 +237,9 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		}
 	| exp_aV aritmetico_divisionTK exp_aV {
 		}
-	| exp_aV operacionTK exp_aV {
+	| exp_aV aritmetico_divisionRealTK exp_aV {
+		}
+	| exp_aV aritmetico_moduloTK exp_aV {
 		}
 	| inicio_parentesisTK exp_aV fin_parentesisTK {
 		}
@@ -396,9 +398,9 @@ int main(int argc, char **argv){
 		yyin = fopen(argv[0], "r");
 	else
 		yyin = stdin;
-	tc = nuevaTablaDeConstantes();
+	//tc = nuevaTablaDeConstantes();
 	yyparse();
-	imprimeTablaDeConstantes(tc);
+	//imprimeTablaDeConstantes(tc);
 }
 
 

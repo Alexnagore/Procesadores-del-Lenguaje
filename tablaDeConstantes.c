@@ -3,7 +3,6 @@
 #include <string.h>
 #include "tablaDeConstantes.h"
 
-
 TablaDeConstantes nuevaTablaDeConstantes() {
     return (Celda *) NULL;
 }

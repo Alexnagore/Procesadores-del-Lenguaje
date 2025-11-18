@@ -2,10 +2,11 @@
 #define FFF_TABLA_DE_CONSTANTES_H
 
 #include <stdbool.h>
+#include "literal.h"
 
 typedef struct celda {
 	char * nombre;
-	int valor;
+	LiteralT valor;
 	struct celda * sig;	
 } Celda;
 
