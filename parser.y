@@ -2,11 +2,15 @@
 	#include <stdio.h>
 	#include "nombresDeTipos.h"
 	#include "literal.h"
+	#include "colaDeIdentificador.h"
 	//#include "tablaDeConstantes.h"
+	#include "tablaDeSimbolos.h"
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
 	extern FILE* yyin; // Usamos la varible de Flex en la que viene la entrada
 	//TablaDeConstantes tc; //Es donde guardaremos las constantes
+	TablaDeConstantes ts;
+	ColaDeIdentificadores ci;
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
@@ -204,6 +208,11 @@ lista_d_varV : declaracionDeVariableV {
 		}
 	;
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
+			// TODO: Desencolar ci e ir insertando en tabla de simbolos
+			while (!esNulaCola(ci)) {
+				insertar(&ts, frente(ci));
+				desencolar(&ci);
+			}
 		}
 	;
 lista_idV : declaracionDeListaIdV {
@@ -212,6 +221,7 @@ lista_idV : declaracionDeListaIdV {
 		}
 	;
 declaracionDeListaIdV : identificadorTK{
+			encolar(&ci, $1);
 		}
 	;
 

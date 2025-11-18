@@ -1,4 +1,4 @@
-#include "colaEnteros.h"
+#include "colaDeIdentificador.h"
 
 #include <stdlib.h>
 #include <stdio.h>
