@@ -168,13 +168,13 @@ declaracionTipoV: identificadorTK operador_igualTK d_tipoV operador_comp_secTK {
 	;
 d_tipoV: inicio_tuplaTK lista_camposV fin_tuplaTK {
         }
-    | tipoTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV {
+    | tipoTablaTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV {
         }
     | identificadorTK {
         }
     | expresion_tV operador_subrangoTK expresion_tV {
         }
-    | tipoTK d_tipoV {
+    | tipoRefTK d_tipoV {
         }
     | tipoTK {
         }
@@ -208,9 +208,35 @@ lista_d_varV : declaracionDeVariableV {
 		}
 	;
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
+			int tipoVariable = $3;
+			LiteralT valorInicial;
+
 			// TODO: Desencolar ci e ir insertando en tabla de simbolos
 			while (!esNulaCola(ci)) {
-				insertar(&ts, frente(ci));
+				char *nombreVar = frente(ci);
+				switch (tipoVariable) {
+					case ENTERO:
+						valorInicial = nuevoLiteralEntero(0);
+						break;
+					case REAL:
+						valorInicial = nuevoLiteralReal(0.0);
+						break;
+					case BOOLEANO:
+						valorInicial = nuevoLiteralBooleano(FALSO); 
+						break;
+					case CARACTER:
+						valorInicial = nuevoLiteralCaracter('\0');
+						break;
+					case CADENA:
+						valorInicial = nuevoLiteralCadena("");
+						break;
+					default:
+						printf("Error interno: Tipo desconocido\n");
+						exit(1);
+        		}
+				if (!insertaSimbolo(&ts, nombreVar, valorInicial)) {
+					printf("Error Semántico: La variable '%s' ya ha sido declarada anteriormente.\n", nombreVar);
+				}
 				desencolar(&ci);
 			}
 		}
