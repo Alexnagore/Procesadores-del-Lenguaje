@@ -1,16 +1,29 @@
 %{
 	#include <stdio.h>
+	#include <stdlib.h>	
 	#include "nombresDeTipos.h"
 	#include "literal.h"
 	#include "colaDeIdentificador.h"
+	#include "tablaDeSimbolos.h"	
 	//#include "tablaDeConstantes.h"
 	#include "tablaDeSimbolos.h"
+
+	/* --- DEFINICIÓN DE COLORES ANSI --- */
+    #define ANSI_COLOR_RED     "\x1b[31m"
+    #define ANSI_COLOR_GREEN   "\x1b[32m"
+    #define ANSI_COLOR_YELLOW  "\x1b[33m"
+    #define ANSI_COLOR_BLUE    "\x1b[34m"
+    #define ANSI_COLOR_MAGENTA "\x1b[35m"
+    #define ANSI_COLOR_CYAN    "\x1b[36m"
+    #define ANSI_COLOR_RESET   "\x1b[0m"
+    /* ---------------------------------- */
+
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
 	extern FILE* yyin; // Usamos la varible de Flex en la que viene la entrada
 	//TablaDeConstantes tc; //Es donde guardaremos las constantes
-	TablaDeConstantes ts;
-	ColaDeIdentificadores ci;
+	TablaDeSimbolos ts;
+	tipoCola ci;
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
@@ -87,6 +100,8 @@
 	int entero;
 	NombreDeTipoT tipo;
 }
+
+%type <tipo> d_tipoV
 
 %left disyuncionTK
 %left conjuncionTK
@@ -209,6 +224,7 @@ lista_d_varV : declaracionDeVariableV {
 	;
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
 			int tipoVariable = $3;
+			printf(ANSI_COLOR_CYAN "TipoVariable: %d\n"ANSI_COLOR_RESET,$3);
 			LiteralT valorInicial;
 
 			// TODO: Desencolar ci e ir insertando en tabla de simbolos
@@ -235,8 +251,10 @@ declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_sec
 						exit(1);
         		}
 				if (!insertaSimbolo(&ts, nombreVar, valorInicial)) {
-					printf("Error Semántico: La variable '%s' ya ha sido declarada anteriormente.\n", nombreVar);
-				}
+					printf(ANSI_COLOR_RED "Error Semántico: La variable '%s' ya ha sido declarada anteriormente.\n"ANSI_COLOR_RESET, nombreVar);
+				} else {
+                	printf(ANSI_COLOR_GREEN"--> GUARDADO EN TABLA: %s\n" ANSI_COLOR_RESET, nombreVar);
+				}	
 				desencolar(&ci);
 			}
 		}
@@ -248,6 +266,7 @@ lista_idV : declaracionDeListaIdV {
 	;
 declaracionDeListaIdV : identificadorTK{
 			encolar(&ci, $1);
+			printf("HE ENCOLADO %s\n\n\n", $1);
 		}
 	;
 
@@ -435,7 +454,15 @@ int main(int argc, char **argv){
 	else
 		yyin = stdin;
 	//tc = nuevaTablaDeConstantes();
+	nuevaCola(&ci);
+	ts = nuevaTablaDeSimbolos();
 	yyparse();
+	/* --- AÑADE ESTO AQUÍ AL FINAL --- */
+    printf("\n\n============================================\n");
+    printf("ESTADO FINAL DE LA TABLA DE SIMBOLOS:\n");
+    printf("============================================\n");
+    imprimeTablaDeSimbolos(ts); 
+    printf("============================================\n");
 	//imprimeTablaDeConstantes(tc);
 }
 

@@ -1,24 +1,25 @@
-compilador: parser.tab.c lex.yy.o literal.o literal.h nombresDeTipos.h
-	gcc parser.tab.c lex.yy.o literal.o -lm -lfl
-	mv a.out compilador
+compilador: parser.tab.c lex.yy.o literal.o tablaDeSimbolos.o colaDeIdentificador.o
+	gcc parser.tab.c lex.yy.o literal.o tablaDeSimbolos.o colaDeIdentificador.o -lm -lfl -o compilador
 
-parser.tab.c parser.tah.h: parser.y literal.h nombresDeTipos.h tablaDeConstantes.h
+parser.tab.c parser.tab.h: parser.y literal.h nombresDeTipos.h tablaDeSimbolos.h colaDeIdentificador.h
 	bison -d -v -t parser.y
 
-lex.yy.o: scanner.l parser.tab.h literal.h nombresDeTipos.h tablaDeConstantes.h
+lex.yy.o: scanner.l parser.tab.h literal.h nombresDeTipos.h tablaDeSimbolos.h
 	flex scanner.l
-	gcc -c lex.yy.c -lm -lfl
+	gcc -c lex.yy.c
 
-literal.o: literal.c
+literal.o: literal.c literal.h
 	gcc -c literal.c
 
-tablaDeConstantes.o: tablaDeConstantes.c
-	gcc -c tablaDeConstantes.c
+tablaDeSimbolos.o: tablaDeSimbolos.c tablaDeSimbolos.h
+	gcc -c tablaDeSimbolos.c
+
+colaDeIdentificador.o: colaDeIdentificador.c colaDeIdentificador.h
+	gcc -c colaDeIdentificador.c
 
 scanner: scannerBeta.l
 	flex scannerBeta.l
-	gcc lex.yy.c -lfl
-	mv a.out scanner
+	gcc lex.yy.c -lfl -o scanner
 
 clean:
-	rm *.tab.* lex.yy.c *.o
+	rm -f *.tab.* lex.yy.c *.o compilador scanner output

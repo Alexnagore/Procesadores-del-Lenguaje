@@ -357,11 +357,12 @@ aritmetico_moduloDR (?i:mod)
 }
 
 {identificadorDR}   {
-    yylval.literal.tipoDelValor = CADENA;
-	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL )
-	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
-	else
-		return identificadorTK;
+    yylval.cadena = strdup(yytext);
+    
+    if (yylval.cadena == NULL )
+        errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+    else
+        return identificadorTK;
 }
 
 {literal_enteroDR}  {
@@ -384,6 +385,7 @@ aritmetico_moduloDR (?i:mod)
 
 {literal_cadenaDR}  {
     yylval.literal.tipoDelValor = CADENA;
+	yylval.literal.valor.valorCadena = strdup(yytext);
 	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL )
 	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
 	else
