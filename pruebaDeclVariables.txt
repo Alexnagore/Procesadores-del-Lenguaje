@@ -3,7 +3,8 @@ ent a, b: entero;
 sal a, b: entero;
 {Prec: a= A AND b = B}
 var
-aux: real;
+real1, real2: real;
+entero1, entero2: entero;
 fvar;
 continuar       
 {Post: Fin}           

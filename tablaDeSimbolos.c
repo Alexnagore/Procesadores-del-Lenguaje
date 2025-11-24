@@ -35,7 +35,7 @@ bool insertaSimbolo(TablaDeSimbolos * tabla, char * nombre, LiteralT valor) {
 void imprimeTablaDeSimbolos(TablaDeSimbolos tabla) {
     Celda * actual = tabla;
     while (actual != NULL) {
-        printf("Nombre: %s, Valor: ", actual->nombre);
+        printf("Nombre: %s,  \tValor: ", actual->nombre);
         escribeLiteral(actual->valor);
         printf("\n");
         actual = actual->sig;

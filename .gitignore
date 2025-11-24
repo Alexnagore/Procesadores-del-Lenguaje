@@ -1,2 +1,6 @@
 a.out
 lex.yy.c
+*.o
+compilador
+*.output
+parser.tab.*

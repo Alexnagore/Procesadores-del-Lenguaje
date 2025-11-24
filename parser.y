@@ -227,7 +227,6 @@ declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_sec
 			printf(ANSI_COLOR_CYAN "TipoVariable: %d\n"ANSI_COLOR_RESET,$3);
 			LiteralT valorInicial;
 
-			// TODO: Desencolar ci e ir insertando en tabla de simbolos
 			while (!esNulaCola(ci)) {
 				char *nombreVar = frente(ci);
 				switch (tipoVariable) {
@@ -458,11 +457,11 @@ int main(int argc, char **argv){
 	ts = nuevaTablaDeSimbolos();
 	yyparse();
 	/* --- AÑADE ESTO AQUÍ AL FINAL --- */
-    printf("\n\n============================================\n");
+    printf("\n\n==================================================\n");
     printf("ESTADO FINAL DE LA TABLA DE SIMBOLOS:\n");
-    printf("============================================\n");
+    printf("==================================================\n");
     imprimeTablaDeSimbolos(ts); 
-    printf("============================================\n");
+    printf("==================================================\n");
 	//imprimeTablaDeConstantes(tc);
 }
 
