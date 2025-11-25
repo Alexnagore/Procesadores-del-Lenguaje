@@ -16,7 +16,7 @@ typedef struct tablaDeCuadruplas{
     int nextQuad;
 } tablaDeCuadruplas;
 
-void nuevaTablaDeCuadruplas();
+tablaDeCuadruplas nuevaTablaDeCuadruplas();
 void gen(char * operador, char * operando1, char * operando2, char * resultado);
 void backpatch(int lista[], int longitud, int resultado);
 void imprimirTablaDeCuadruplas();
