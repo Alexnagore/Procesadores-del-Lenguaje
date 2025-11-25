@@ -294,6 +294,11 @@ decl_salV : tipo_atributo_salTK lista_d_varV{
 	;
 
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
+		int T = newtemp();
+		$$.place = T;
+		if ($1.type == ENTERO && $3 == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de enteros\n"ANSI_COLOR_RESET);
+		}
 		}
 	| exp_aV aritmetico_restaTK exp_aV {
 		}
@@ -353,8 +358,8 @@ expresionV : exp_aV {
 		}
 	;
 operando_aV : identificadorTK {
-		$$.type = buscar_tipo_TS($1);
-		printf(ANSI_COLOR_YELLOW"El tipo del operando %s es : %s"ANSI_COLOR_RESET, $1, buscar_tipo_TS($1));
+		$$.type = buscar_tipo_TS(ts, $1);
+		$$.place = buscar_indice_TS(ts, $1);
 		}
 	| operando_aV puntoTK operando_aV {
 		}
