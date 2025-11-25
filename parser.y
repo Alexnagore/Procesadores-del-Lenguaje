@@ -27,6 +27,14 @@
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
+%code requires{
+
+typedef struct operando{
+	int place;
+	int type;
+} Operando;
+}
+
 %token operador_asignacionTK
 %token <caracter> operador_comp_secTK
 %token operador_separadorTK
@@ -99,9 +107,11 @@
 	LiteralT literal;
 	int entero;
 	NombreDeTipoT tipo;
+	Operando paraOperando;
 }
 
 %type <tipo> d_tipoV
+%type <paraOperando> operando_aV
 
 %left disyuncionTK
 %left conjuncionTK
@@ -308,6 +318,7 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 	| aritmetico_sumaTK exp_aV {
 		}
 	;
+
 exp_bV : exp_bV conjuncionTK exp_bV {
 		}
 	|
@@ -342,6 +353,8 @@ expresionV : exp_aV {
 		}
 	;
 operando_aV : identificadorTK {
+		$$.type = buscar_tipo_TS($1);
+		printf(ANSI_COLOR_YELLOW"El tipo del operando %s es : %s"ANSI_COLOR_RESET, $1, buscar_tipo_TS($1));
 		}
 	| operando_aV puntoTK operando_aV {
 		}
@@ -456,7 +469,6 @@ int main(int argc, char **argv){
 	nuevaCola(&ci);
 	ts = nuevaTablaDeSimbolos();
 	yyparse();
-	/* --- AÑADE ESTO AQUÍ AL FINAL --- */
     printf("\n\n==================================================\n");
     printf("ESTADO FINAL DE LA TABLA DE SIMBOLOS:\n");
     printf("==================================================\n");

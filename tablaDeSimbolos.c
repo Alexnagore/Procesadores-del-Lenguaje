@@ -32,6 +32,15 @@ bool insertaSimbolo(TablaDeSimbolos * tabla, char * nombre, LiteralT valor) {
     return true;
 }
 
+int buscar_tipo_TS(tablaDeSimboloschar * nombre) {
+    while (tablaTS != NULL) {
+        if (strcmp(tablaTS->nombre, nombre) == 0) {
+            return tablaTS->valor.tipo;
+        }
+        tablaTS = tablaTS->sig;
+    }
+}
+
 void imprimeTablaDeSimbolos(TablaDeSimbolos tabla) {
     Celda * actual = tabla;
     while (actual != NULL) {
