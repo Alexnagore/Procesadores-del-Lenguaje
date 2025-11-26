@@ -108,10 +108,12 @@ typedef struct operando{
 	int entero;
 	NombreDeTipoT tipo;
 	Operando paraOperando;
+	ExpresionArit paraExpresionArit;
 }
 
 %type <tipo> d_tipoV
 %type <paraOperando> operando_aV
+%type <paraExpresionArit> exp_aV
 
 %left disyuncionTK
 %left conjuncionTK
