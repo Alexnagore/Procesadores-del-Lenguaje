@@ -35,8 +35,8 @@ typedef struct operando{
 } Operando;
 
 typedef struct ExpresionArit{
-	
-}
+
+} ExpresionArit;
 }
 
 %token operador_asignacionTK
