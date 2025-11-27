@@ -29,15 +29,26 @@
 
 %code requires{
 
+typedef struct expresionArit{
+        int place;
+        int type;
+} ExpresionArit ;
+
 typedef struct operando{
 	int place;
 	int type;
 } Operando;
 
-typedef struct ExpresionArit{
-	int type;
-} ExpresionArit;
+}
 
+%union{
+	char caracter;
+	char* cadena;
+	LiteralT literal;
+	int entero;
+	NombreDeTipoT tipo;
+	Operando paraOperando;
+	ExpresionArit paraExpresionArit;
 }
 
 %token operador_asignacionTK
@@ -107,19 +118,6 @@ typedef struct ExpresionArit{
 %token <literal> literal_cadenaTK
 %token comentarioTK
 
-%union{
-	char* cadena;
-	LiteralT literal;
-	int entero;
-	NombreDeTipoT tipo;
-	Operando paraOperando;
-	ExpresionArit paraExpresionArit;
-}
-
-%type <tipo> d_tipoV
-%type <paraOperando> operando_aV
-%type <paraExpresionArit> exp_aV
-
 %left disyuncionTK
 %left conjuncionTK
 %nonassoc relacional_distintoTK relacional_menor_igualTK relacional_mayor_igualTK
@@ -130,6 +128,10 @@ typedef struct ExpresionArit{
 %left aritmetico_divisionRealTK aritmetico_moduloTK
 %left tipoTK
 %left puntoTK operador_inicio_arrayTK
+
+%type <paraExpresionArit> exp_aV
+%type <tipo> d_tipoV
+%type <paraOperando> operando_aV
 
 %%
 
@@ -303,13 +305,13 @@ decl_salV : tipo_atributo_salTK lista_d_varV{
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		//int T = newtemp();
 		//$$.place = T;
-		if ($1.type == ENTERO && $3 == ENTERO) {
+		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de enteros\n"ANSI_COLOR_RESET);
-		} else if ($1.type == ENTERO && $3 == REAL){
+		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un entero y de un real\n"ANSI_COLOR_RESET);
-		} else if ($1.type == REAL && $3 == REAL){
+		} else if ($1.type == REAL && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de reales\n"ANSI_COLOR_RESET);
-		} else if ($1.type == REAL && $3 == ENTERO){
+		} else if ($1.type == REAL && $3.type == ENTERO){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un real y de un entero\n"ANSI_COLOR_RESET);
 		}
 	}
