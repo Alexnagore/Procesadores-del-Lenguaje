@@ -2,18 +2,22 @@
 #define TABLA_DE_SIMBOLOS_H
 
 #include <stdbool.h>
-#include "literal.h"
+#include "nombresDeTipos.h"
 
 typedef struct celda {
+	int indice;
 	char * nombre;
-	LiteralT valor;
+	NombreDeTipoT tipo;
 	struct celda * sig;	
 } Celda;
 
-typedef Celda * TablaDeSimbolos;
+typedef struct TablaDeSimbolos {
+	Celda * simbolos;
+	int sigPos;
+} TablaDeSimbolos;
 
 TablaDeSimbolos nuevaTablaDeSimbolos(void);
-bool insertaSimbolo(TablaDeSimbolos *, char *, LiteralT);
+bool insertaSimbolo(TablaDeSimbolos *, char *, NombreDeTipoT);
 void modificarTipoTS(TablaDeSimbolos, int, int);
 int newTemp(TablaDeSimbolos *);
 int buscar_tipo_TS(TablaDeSimbolos, char *);

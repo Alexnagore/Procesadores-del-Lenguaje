@@ -4,13 +4,16 @@
 #include "tablaDeSimbolos.h"
 
 TablaDeSimbolos nuevaTablaDeSimbolos(void) {
-    return NULL;
+    TablaDeSimbolos ts;
+    ts.simbolos = NULL;
+    ts.sigPos = 0;
+    return ts;
 }
 
-bool insertaSimbolo(TablaDeSimbolos * tabla, char * nombre, LiteralT valor) {
+bool insertaSimbolo(TablaDeSimbolos * ts, char * nombre, NombreDeTipoT tipo) {
     Celda * aux;
 
-    aux = *tabla;
+    aux = ts->simbolos;
     while (aux != NULL) {
         if (strcmp(aux->nombre, nombre) == 0) {
             return false; 
@@ -24,65 +27,65 @@ bool insertaSimbolo(TablaDeSimbolos * tabla, char * nombre, LiteralT valor) {
         return false;
     }
 
+    nuevaCelda->indice = ts->sigPos;
     nuevaCelda->nombre = strdup(nombre);
-    nuevaCelda->valor = valor;
-    
-    nuevaCelda->sig = *tabla;
-    *tabla = nuevaCelda;
+    nuevaCelda->tipo = tipo;
+    nuevaCelda->sig = ts->simbolos;
+    ts->simbolos = nuevaCelda;
+    ts->sigPos++;
 
     return true;
 }
 
-void modificarTipoTS(TablaDeSimbolos tabla, int clave, int tipo){
+void modificarTipoTS(TablaDeSimbolos ts, int pos, int tipo){
     int cont = 0;
-    while (tabla != NULL && cont < clave) {
-        tabla = tabla->sig;
+    while (ts.simbolos != NULL && cont < pos) {
+        ts.simbolos = ts.simbolos->sig;
         cont++;
     }
-    if (tabla != NULL) {
-        tabla->valor.tipoDelValor = tipo;
+    if (ts.simbolos != NULL) {
+        ts.simbolos->tipo = tipo;
     }
 };
 
 int newTemp(TablaDeSimbolos * ts) {
     char nombreSimbolo[100];
     snprintf(nombreSimbolo, sizeof(nombreSimbolo), "TEMP.%d", ts->sigPos);
-    simbolo nuevoSimbolo;
+    Celda nuevoSimbolo;
     strcpy(nuevoSimbolo.nombre, nombreSimbolo);
     nuevoSimbolo.tipo = -1;
-    nuevoSimbolo.clave = ts->sigPos;
-    insertarSimbolo(ts, nuevoSimbolo.nombre, nuevoSimbolo.tipo);
+    nuevoSimbolo.indice = ts->sigPos;
+    insertaSimbolo(ts, nuevoSimbolo.nombre, nuevoSimbolo.tipo);
     ts->sigPos++;
-    return nuevoSimbolo.clave;
+    return nuevoSimbolo.indice;
 }
 
-int buscar_tipo_TS(TablaDeSimbolos tabla, char * nombre) {
-    while (tabla != NULL) {
-        if (strcmp(tabla->nombre, nombre) == 0) {
-            return tabla->valor.tipoDelValor;
+int buscar_tipo_TS(TablaDeSimbolos ts, char * nombre) {
+    while (ts.simbolos != NULL) {
+        if (strcmp(ts.simbolos->nombre, nombre) == 0) {
+            return ts.simbolos->tipo;
         }
-        tabla = tabla->sig;
+        ts.simbolos = ts.simbolos->sig;
     }
     return -1;
 }
 
-int buscar_indice_TS(TablaDeSimbolos tabla, char * nombre) {
+int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
     int indice = 0;
-    while (tabla != NULL) {
-        if (strcmp(tabla->nombre, nombre) == 0) {
+    while (ts.simbolos != NULL) {
+        if (strcmp(ts.simbolos->nombre, nombre) == 0) {
             return indice;
         }
-        tabla = tabla->sig;
+        ts.simbolos = ts.simbolos->sig;
         indice++;
     }
     return -1;
 }
 
-void imprimeTablaDeSimbolos(TablaDeSimbolos tabla) {
-    Celda * actual = tabla;
+void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
+    Celda * actual = ts.simbolos;
     while (actual != NULL) {
-        printf("Nombre: %s,  \tValor: ", actual->nombre);
-        escribeLiteral(actual->valor);
+        printf("Nombre: %s,  \tIndice: %d\n", actual->nombre, actual->indice);
         printf("\n");
         actual = actual->sig;
     }

@@ -244,31 +244,10 @@ lista_d_varV : declaracionDeVariableV {
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
 			int tipoVariable = $3;
 			printf(ANSI_COLOR_CYAN "TipoVariable: %d\n"ANSI_COLOR_RESET,$3);
-			LiteralT valorInicial;
 
 			while (!esNulaCola(ci)) {
 				char *nombreVar = frente(ci);
-				switch (tipoVariable) {
-					case ENTERO:
-						valorInicial = nuevoLiteralEntero(0);
-						break;
-					case REAL:
-						valorInicial = nuevoLiteralReal(0.0);
-						break;
-					case BOOLEANO:
-						valorInicial = nuevoLiteralBooleano(FALSO); 
-						break;
-					case CARACTER:
-						valorInicial = nuevoLiteralCaracter('\0');
-						break;
-					case CADENA:
-						valorInicial = nuevoLiteralCadena("");
-						break;
-					default:
-						printf("Error interno: Tipo desconocido\n");
-						exit(1);
-        		}
-				if (!insertaSimbolo(&ts, nombreVar, valorInicial)) {
+				if (!insertaSimbolo(&ts, nombreVar, tipoVariable)) {
 					printf(ANSI_COLOR_RED "Error Semántico: La variable '%s' ya ha sido declarada anteriormente.\n"ANSI_COLOR_RESET, nombreVar);
 				} else {
                 	printf(ANSI_COLOR_GREEN"--> GUARDADO EN TABLA: %s\n" ANSI_COLOR_RESET, nombreVar);
@@ -303,7 +282,7 @@ decl_salV : tipo_atributo_salTK lista_d_varV{
 	;
 
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
-		int T = newtemp();
+		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de enteros\n"ANSI_COLOR_RESET);
@@ -324,7 +303,7 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		}
 	}
 	| exp_aV aritmetico_restaTK exp_aV {
-		int T = newtemp();
+		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de enteros\n"ANSI_COLOR_RESET);

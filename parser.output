@@ -1,16 +1,16 @@
-Terminales no usados en la gramática
+Terminals unused in grammar
 
     operacionTK
     literal_cadenaTK
 
 
-Estado 94 conflictos: 2 desplazamiento/reducción
-Estado 137 conflictos: 6 reducción/reducción
-Estado 196 conflictos: 6 reducción/reducción
-Estado 197 conflictos: 6 reducción/reducción
+State 94 conflicts: 2 shift/reduce
+State 137 conflicts: 6 reduce/reduce
+State 196 conflicts: 6 reduce/reduce
+State 197 conflicts: 6 reduce/reduce
 
 
-Gramática
+Grammar
 
     0 $accept: desc_algoritmoV $end
 
@@ -173,7 +173,7 @@ Gramática
   110      | expresionV
 
 
-Terminales con las reglas donde aparecen
+Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
@@ -247,7 +247,7 @@ Terminales con las reglas donde aparecen
     aritmetico_moduloTK (325) 51
 
 
-No terminales con las reglas donde aparecen
+Nonterminals, with rules where they appear
 
     $accept (71)
         on left: 0
@@ -326,7 +326,7 @@ No terminales con las reglas donde aparecen
     decl_salV (96)
         on left: 45
         on right: 42 43
-    exp_aV (97)
+    exp_aV <paraExpresionArit> (97)
         on left: 46 47 48 49 50 51 52 53 54 55 56 57
         on right: 46 47 48 49 50 51 52 56 57 70
     exp_bV (98)
@@ -397,976 +397,976 @@ No terminales con las reglas donde aparecen
         on right: 107 108 109
 
 
-Estado 0
+State 0
 
     0 $accept: • desc_algoritmoV $end
 
-    inicio_algoritmoTK  desplazar e ir al estado 1
+    inicio_algoritmoTK  shift, and go to state 1
 
-    desc_algoritmoV  ir al estado 2
+    desc_algoritmoV  go to state 2
 
 
-Estado 1
+State 1
 
     1 desc_algoritmoV: inicio_algoritmoTK • identificadorTK operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK puntoTK
 
-    identificadorTK  desplazar e ir al estado 3
+    identificadorTK  shift, and go to state 3
 
 
-Estado 2
+State 2
 
     0 $accept: desc_algoritmoV • $end
 
-    $end  desplazar e ir al estado 4
+    $end  shift, and go to state 4
 
 
-Estado 3
+State 3
 
     1 desc_algoritmoV: inicio_algoritmoTK identificadorTK • operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK puntoTK
 
-    operador_comp_secTK  desplazar e ir al estado 5
+    operador_comp_secTK  shift, and go to state 5
 
 
-Estado 4
+State 4
 
     0 $accept: desc_algoritmoV $end •
 
-    $default  aceptar
+    $default  accept
 
 
-Estado 5
+State 5
 
     1 desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK • cabecera_algV bloque_algV fin_algoritmoTK puntoTK
 
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 6 (decl_globalesV)
+    $default  reduce using rule 6 (decl_globalesV)
 
-    cabecera_algV       ir al estado 8
-    decl_globalesV      ir al estado 9
-    declaracion_tipoV   ir al estado 10
-    declaracion_constV  ir al estado 11
+    cabecera_algV       go to state 8
+    decl_globalesV      go to state 9
+    declaracion_tipoV   go to state 10
+    declaracion_constV  go to state 11
 
 
-Estado 6
+State 6
 
    16 declaracion_constV: inicio_constTK • lista_d_cteV fin_constTK operador_comp_secTK
 
-    identificadorConstanteTK  desplazar e ir al estado 12
+    identificadorConstanteTK  shift, and go to state 12
 
-    lista_d_cteV             ir al estado 13
-    declaracionDeConstanteV  ir al estado 14
+    lista_d_cteV             go to state 13
+    declaracionDeConstanteV  go to state 14
 
 
-Estado 7
+State 7
 
    15 declaracion_tipoV: inicio_tipoTK • lista_d_tipoV fin_tipoTK operador_comp_secTK
 
-    identificadorTK  desplazar e ir al estado 15
+    identificadorTK  shift, and go to state 15
 
-    lista_d_tipoV     ir al estado 16
-    declaracionTipoV  ir al estado 17
+    lista_d_tipoV     go to state 16
+    declaracionTipoV  go to state 17
 
 
-Estado 8
+State 8
 
     1 desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV • bloque_algV fin_algoritmoTK puntoTK
 
-    inicio_varTK    desplazar e ir al estado 18
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_varTK    shift, and go to state 18
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 14 (declaracionesV)
+    $default  reduce using rule 14 (declaracionesV)
 
-    bloque_algV         ir al estado 19
-    bloqueV             ir al estado 20
-    declaracionesV      ir al estado 21
-    declaracion_tipoV   ir al estado 22
-    declaracion_constV  ir al estado 23
-    declaracion_varV    ir al estado 24
+    bloque_algV         go to state 19
+    bloqueV             go to state 20
+    declaracionesV      go to state 21
+    declaracion_tipoV   go to state 22
+    declaracion_constV  go to state 23
+    declaracion_varV    go to state 24
 
 
-Estado 9
+State 9
 
     2 cabecera_algV: decl_globalesV • decl_a_fV decl_ent_salV comentarioTK
 
-    inicio_accionTK   desplazar e ir al estado 25
-    inicio_funcionTK  desplazar e ir al estado 26
+    inicio_accionTK   shift, and go to state 25
+    inicio_funcionTK  shift, and go to state 26
 
-    $default  reduce usando la regla 9 (decl_a_fV)
+    $default  reduce using rule 9 (decl_a_fV)
 
-    decl_a_fV   ir al estado 27
-    accion_dV   ir al estado 28
-    funcion_dV  ir al estado 29
+    decl_a_fV   go to state 27
+    accion_dV   go to state 28
+    funcion_dV  go to state 29
 
 
-Estado 10
+State 10
 
     4 decl_globalesV: declaracion_tipoV • decl_globalesV
 
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 6 (decl_globalesV)
+    $default  reduce using rule 6 (decl_globalesV)
 
-    decl_globalesV      ir al estado 30
-    declaracion_tipoV   ir al estado 10
-    declaracion_constV  ir al estado 11
+    decl_globalesV      go to state 30
+    declaracion_tipoV   go to state 10
+    declaracion_constV  go to state 11
 
 
-Estado 11
+State 11
 
     5 decl_globalesV: declaracion_constV • decl_globalesV
 
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 6 (decl_globalesV)
+    $default  reduce using rule 6 (decl_globalesV)
 
-    decl_globalesV      ir al estado 31
-    declaracion_tipoV   ir al estado 10
-    declaracion_constV  ir al estado 11
+    decl_globalesV      go to state 31
+    declaracion_tipoV   go to state 10
+    declaracion_constV  go to state 11
 
 
-Estado 12
+State 12
 
    34 declaracionDeConstanteV: identificadorConstanteTK • operador_igualTK literal_enteroTK operador_comp_secTK
 
-    operador_igualTK  desplazar e ir al estado 32
+    operador_igualTK  shift, and go to state 32
 
 
-Estado 13
+State 13
 
    16 declaracion_constV: inicio_constTK lista_d_cteV • fin_constTK operador_comp_secTK
    33 lista_d_cteV: lista_d_cteV • declaracionDeConstanteV
 
-    fin_constTK               desplazar e ir al estado 33
-    identificadorConstanteTK  desplazar e ir al estado 12
+    fin_constTK               shift, and go to state 33
+    identificadorConstanteTK  shift, and go to state 12
 
-    declaracionDeConstanteV  ir al estado 34
+    declaracionDeConstanteV  go to state 34
 
 
-Estado 14
+State 14
 
    32 lista_d_cteV: declaracionDeConstanteV •
 
-    $default  reduce usando la regla 32 (lista_d_cteV)
+    $default  reduce using rule 32 (lista_d_cteV)
 
 
-Estado 15
+State 15
 
    20 declaracionTipoV: identificadorTK • operador_igualTK d_tipoV operador_comp_secTK
 
-    operador_igualTK  desplazar e ir al estado 35
+    operador_igualTK  shift, and go to state 35
 
 
-Estado 16
+State 16
 
    15 declaracion_tipoV: inicio_tipoTK lista_d_tipoV • fin_tipoTK operador_comp_secTK
    19 lista_d_tipoV: lista_d_tipoV • declaracionTipoV
 
-    fin_tipoTK       desplazar e ir al estado 36
-    identificadorTK  desplazar e ir al estado 15
+    fin_tipoTK       shift, and go to state 36
+    identificadorTK  shift, and go to state 15
 
-    declaracionTipoV  ir al estado 37
+    declaracionTipoV  go to state 37
 
 
-Estado 17
+State 17
 
    18 lista_d_tipoV: declaracionTipoV •
 
-    $default  reduce usando la regla 18 (lista_d_tipoV)
+    $default  reduce using rule 18 (lista_d_tipoV)
 
 
-Estado 18
+State 18
 
    17 declaracion_varV: inicio_varTK • lista_d_varV fin_varTK operador_comp_secTK
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_d_varV            ir al estado 39
-    declaracionDeVariableV  ir al estado 40
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    lista_d_varV            go to state 39
+    declaracionDeVariableV  go to state 40
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 19
+State 19
 
     1 desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV bloque_algV • fin_algoritmoTK puntoTK
 
-    fin_algoritmoTK  desplazar e ir al estado 43
+    fin_algoritmoTK  shift, and go to state 43
 
 
-Estado 20
+State 20
 
     3 bloque_algV: bloqueV • comentarioTK
 
-    comentarioTK  desplazar e ir al estado 44
+    comentarioTK  shift, and go to state 44
 
 
-Estado 21
+State 21
 
    10 bloqueV: declaracionesV • instruccionesV
 
-    continuarTK              desplazar e ir al estado 45
-    inicio_siTK              desplazar e ir al estado 46
-    inicio_mientrasTK        desplazar e ir al estado 47
-    inicio_paraTK            desplazar e ir al estado 48
-    identificadorTK          desplazar e ir al estado 49
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    continuarTK              shift, and go to state 45
+    inicio_siTK              shift, and go to state 46
+    inicio_mientrasTK        shift, and go to state 47
+    inicio_paraTK            shift, and go to state 48
+    identificadorTK          shift, and go to state 49
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_aV     ir al estado 51
-    operando_bV     ir al estado 52
-    instruccionesV  ir al estado 53
-    instruccionV    ir al estado 54
-    asignacion_aV   ir al estado 55
-    asignacion_bV   ir al estado 56
-    alternativaV    ir al estado 57
-    iteracionV      ir al estado 58
-    it_cota_expV    ir al estado 59
-    it_cota_fijaV   ir al estado 60
-    accion_llV      ir al estado 61
+    operando_aV     go to state 51
+    operando_bV     go to state 52
+    instruccionesV  go to state 53
+    instruccionV    go to state 54
+    asignacion_aV   go to state 55
+    asignacion_bV   go to state 56
+    alternativaV    go to state 57
+    iteracionV      go to state 58
+    it_cota_expV    go to state 59
+    it_cota_fijaV   go to state 60
+    accion_llV      go to state 61
 
 
-Estado 22
+State 22
 
    11 declaracionesV: declaracion_tipoV • declaracionesV
 
-    inicio_varTK    desplazar e ir al estado 18
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_varTK    shift, and go to state 18
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 14 (declaracionesV)
+    $default  reduce using rule 14 (declaracionesV)
 
-    declaracionesV      ir al estado 62
-    declaracion_tipoV   ir al estado 22
-    declaracion_constV  ir al estado 23
-    declaracion_varV    ir al estado 24
+    declaracionesV      go to state 62
+    declaracion_tipoV   go to state 22
+    declaracion_constV  go to state 23
+    declaracion_varV    go to state 24
 
 
-Estado 23
+State 23
 
    12 declaracionesV: declaracion_constV • declaracionesV
 
-    inicio_varTK    desplazar e ir al estado 18
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_varTK    shift, and go to state 18
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 14 (declaracionesV)
+    $default  reduce using rule 14 (declaracionesV)
 
-    declaracionesV      ir al estado 63
-    declaracion_tipoV   ir al estado 22
-    declaracion_constV  ir al estado 23
-    declaracion_varV    ir al estado 24
+    declaracionesV      go to state 63
+    declaracion_tipoV   go to state 22
+    declaracion_constV  go to state 23
+    declaracion_varV    go to state 24
 
 
-Estado 24
+State 24
 
    13 declaracionesV: declaracion_varV • declaracionesV
 
-    inicio_varTK    desplazar e ir al estado 18
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_varTK    shift, and go to state 18
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 14 (declaracionesV)
+    $default  reduce using rule 14 (declaracionesV)
 
-    declaracionesV      ir al estado 64
-    declaracion_tipoV   ir al estado 22
-    declaracion_constV  ir al estado 23
-    declaracion_varV    ir al estado 24
+    declaracionesV      go to state 64
+    declaracion_tipoV   go to state 22
+    declaracion_constV  go to state 23
+    declaracion_varV    go to state 24
 
 
-Estado 25
+State 25
 
    98 accion_dV: inicio_accionTK • a_cabeceraV bloqueV fin_accionTK
 
-    identificadorTK  desplazar e ir al estado 65
+    identificadorTK  shift, and go to state 65
 
-    a_cabeceraV  ir al estado 66
+    a_cabeceraV  go to state 66
 
 
-Estado 26
+State 26
 
    99 funcion_dV: inicio_funcionTK • f_cabeceraV bloqueV devTK expresionV fin_funcionTK
 
-    identificadorTK  desplazar e ir al estado 67
+    identificadorTK  shift, and go to state 67
 
-    f_cabeceraV  ir al estado 68
+    f_cabeceraV  go to state 68
 
 
-Estado 27
+State 27
 
     2 cabecera_algV: decl_globalesV decl_a_fV • decl_ent_salV comentarioTK
 
-    tipo_atributo_entTK  desplazar e ir al estado 69
-    tipo_atributo_salTK  desplazar e ir al estado 70
+    tipo_atributo_entTK  shift, and go to state 69
+    tipo_atributo_salTK  shift, and go to state 70
 
-    decl_ent_salV  ir al estado 71
-    decl_entV      ir al estado 72
-    decl_salV      ir al estado 73
+    decl_ent_salV  go to state 71
+    decl_entV      go to state 72
+    decl_salV      go to state 73
 
 
-Estado 28
+State 28
 
     7 decl_a_fV: accion_dV • decl_a_fV
 
-    inicio_accionTK   desplazar e ir al estado 25
-    inicio_funcionTK  desplazar e ir al estado 26
+    inicio_accionTK   shift, and go to state 25
+    inicio_funcionTK  shift, and go to state 26
 
-    $default  reduce usando la regla 9 (decl_a_fV)
+    $default  reduce using rule 9 (decl_a_fV)
 
-    decl_a_fV   ir al estado 74
-    accion_dV   ir al estado 28
-    funcion_dV  ir al estado 29
+    decl_a_fV   go to state 74
+    accion_dV   go to state 28
+    funcion_dV  go to state 29
 
 
-Estado 29
+State 29
 
     8 decl_a_fV: funcion_dV • decl_a_fV
 
-    inicio_accionTK   desplazar e ir al estado 25
-    inicio_funcionTK  desplazar e ir al estado 26
+    inicio_accionTK   shift, and go to state 25
+    inicio_funcionTK  shift, and go to state 26
 
-    $default  reduce usando la regla 9 (decl_a_fV)
+    $default  reduce using rule 9 (decl_a_fV)
 
-    decl_a_fV   ir al estado 75
-    accion_dV   ir al estado 28
-    funcion_dV  ir al estado 29
+    decl_a_fV   go to state 75
+    accion_dV   go to state 28
+    funcion_dV  go to state 29
 
 
-Estado 30
+State 30
 
     4 decl_globalesV: declaracion_tipoV decl_globalesV •
 
-    $default  reduce usando la regla 4 (decl_globalesV)
+    $default  reduce using rule 4 (decl_globalesV)
 
 
-Estado 31
+State 31
 
     5 decl_globalesV: declaracion_constV decl_globalesV •
 
-    $default  reduce usando la regla 5 (decl_globalesV)
+    $default  reduce using rule 5 (decl_globalesV)
 
 
-Estado 32
+State 32
 
    34 declaracionDeConstanteV: identificadorConstanteTK operador_igualTK • literal_enteroTK operador_comp_secTK
 
-    literal_enteroTK  desplazar e ir al estado 76
+    literal_enteroTK  shift, and go to state 76
 
 
-Estado 33
+State 33
 
    16 declaracion_constV: inicio_constTK lista_d_cteV fin_constTK • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 77
+    operador_comp_secTK  shift, and go to state 77
 
 
-Estado 34
+State 34
 
    33 lista_d_cteV: lista_d_cteV declaracionDeConstanteV •
 
-    $default  reduce usando la regla 33 (lista_d_cteV)
+    $default  reduce using rule 33 (lista_d_cteV)
 
 
-Estado 35
+State 35
 
    20 declaracionTipoV: identificadorTK operador_igualTK • d_tipoV operador_comp_secTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 91
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 91
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 36
+State 36
 
    15 declaracion_tipoV: inicio_tipoTK lista_d_tipoV fin_tipoTK • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 99
+    operador_comp_secTK  shift, and go to state 99
 
 
-Estado 37
+State 37
 
    19 lista_d_tipoV: lista_d_tipoV declaracionTipoV •
 
-    $default  reduce usando la regla 19 (lista_d_tipoV)
+    $default  reduce using rule 19 (lista_d_tipoV)
 
 
-Estado 38
+State 38
 
    40 declaracionDeListaIdV: identificadorTK •
 
-    $default  reduce usando la regla 40 (declaracionDeListaIdV)
+    $default  reduce using rule 40 (declaracionDeListaIdV)
 
 
-Estado 39
+State 39
 
    17 declaracion_varV: inicio_varTK lista_d_varV • fin_varTK operador_comp_secTK
    36 lista_d_varV: lista_d_varV • declaracionDeVariableV
 
-    fin_varTK        desplazar e ir al estado 100
-    identificadorTK  desplazar e ir al estado 38
+    fin_varTK        shift, and go to state 100
+    identificadorTK  shift, and go to state 38
 
-    declaracionDeVariableV  ir al estado 101
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    declaracionDeVariableV  go to state 101
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 40
+State 40
 
    35 lista_d_varV: declaracionDeVariableV •
 
-    $default  reduce usando la regla 35 (lista_d_varV)
+    $default  reduce using rule 35 (lista_d_varV)
 
 
-Estado 41
+State 41
 
    37 declaracionDeVariableV: lista_idV • operador_def_tipoTK d_tipoV operador_comp_secTK
    39 lista_idV: lista_idV • operador_separadorTK declaracionDeListaIdV
 
-    operador_separadorTK  desplazar e ir al estado 102
-    operador_def_tipoTK   desplazar e ir al estado 103
+    operador_separadorTK  shift, and go to state 102
+    operador_def_tipoTK   shift, and go to state 103
 
 
-Estado 42
+State 42
 
    38 lista_idV: declaracionDeListaIdV •
 
-    $default  reduce usando la regla 38 (lista_idV)
+    $default  reduce using rule 38 (lista_idV)
 
 
-Estado 43
+State 43
 
     1 desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK • puntoTK
 
-    puntoTK  desplazar e ir al estado 104
+    puntoTK  shift, and go to state 104
 
 
-Estado 44
+State 44
 
     3 bloque_algV: bloqueV comentarioTK •
 
-    $default  reduce usando la regla 3 (bloque_algV)
+    $default  reduce using rule 3 (bloque_algV)
 
 
-Estado 45
+State 45
 
    83 instruccionV: continuarTK •
 
-    $default  reduce usando la regla 83 (instruccionV)
+    $default  reduce using rule 83 (instruccionV)
 
 
-Estado 46
+State 46
 
    91 alternativaV: inicio_siTK • expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 106
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 106
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 47
+State 47
 
    96 it_cota_expV: inicio_mientrasTK • expresionV hacerTK instruccionesV fin_mientrasTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 107
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 107
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 48
+State 48
 
    97 it_cota_fijaV: inicio_paraTK • identificadorTK operador_asignacionTK expresionV hastaTK expresionV hacerTK instruccionesV fin_paraTK
 
-    identificadorTK  desplazar e ir al estado 108
+    identificadorTK  shift, and go to state 108
 
 
-Estado 49
+State 49
 
    73 operando_aV: identificadorTK •
   107 accion_llV: identificadorTK • inicio_parentesisTK l_llV fin_parentesisTK
 
-    inicio_parentesisTK  desplazar e ir al estado 109
+    inicio_parentesisTK  shift, and go to state 109
 
-    $default  reduce usando la regla 73 (operando_aV)
+    $default  reduce using rule 73 (operando_aV)
 
 
-Estado 50
+State 50
 
    77 operando_bV: identificadorBooleanoTK •
 
-    $default  reduce usando la regla 77 (operando_bV)
+    $default  reduce using rule 77 (operando_bV)
 
 
-Estado 51
+State 51
 
    74 operando_aV: operando_aV • puntoTK operando_aV
    75            | operando_aV • operador_inicio_arrayTK expresionV operador_fin_arrayTK
    76            | operando_aV • tipoTK
    89 asignacion_aV: operando_aV • operador_asignacionTK expresionV
 
-    operador_asignacionTK    desplazar e ir al estado 110
-    puntoTK                  desplazar e ir al estado 111
-    operador_inicio_arrayTK  desplazar e ir al estado 112
-    tipoTK                   desplazar e ir al estado 113
+    operador_asignacionTK    shift, and go to state 110
+    puntoTK                  shift, and go to state 111
+    operador_inicio_arrayTK  shift, and go to state 112
+    tipoTK                   shift, and go to state 113
 
 
-Estado 52
+State 52
 
    78 operando_bV: operando_bV • puntoTK operando_bV
    79            | operando_bV • operador_inicio_arrayTK expresionV operador_fin_arrayTK
    80            | operando_bV • tipoTK
    90 asignacion_bV: operando_bV • operador_asignacionTK expresionV
 
-    operador_asignacionTK    desplazar e ir al estado 114
-    puntoTK                  desplazar e ir al estado 115
-    operador_inicio_arrayTK  desplazar e ir al estado 116
-    tipoTK                   desplazar e ir al estado 117
+    operador_asignacionTK    shift, and go to state 114
+    puntoTK                  shift, and go to state 115
+    operador_inicio_arrayTK  shift, and go to state 116
+    tipoTK                   shift, and go to state 117
 
 
-Estado 53
+State 53
 
    10 bloqueV: declaracionesV instruccionesV •
 
-    $default  reduce usando la regla 10 (bloqueV)
+    $default  reduce using rule 10 (bloqueV)
 
 
-Estado 54
+State 54
 
    81 instruccionesV: instruccionV • operador_comp_secTK instruccionesV
    82               | instruccionV •
 
-    operador_comp_secTK  desplazar e ir al estado 118
+    operador_comp_secTK  shift, and go to state 118
 
-    $default  reduce usando la regla 82 (instruccionesV)
+    $default  reduce using rule 82 (instruccionesV)
 
 
-Estado 55
+State 55
 
    84 instruccionV: asignacion_aV •
 
-    $default  reduce usando la regla 84 (instruccionV)
+    $default  reduce using rule 84 (instruccionV)
 
 
-Estado 56
+State 56
 
    85 instruccionV: asignacion_bV •
 
-    $default  reduce usando la regla 85 (instruccionV)
+    $default  reduce using rule 85 (instruccionV)
 
 
-Estado 57
+State 57
 
    86 instruccionV: alternativaV •
 
-    $default  reduce usando la regla 86 (instruccionV)
+    $default  reduce using rule 86 (instruccionV)
 
 
-Estado 58
+State 58
 
    87 instruccionV: iteracionV •
 
-    $default  reduce usando la regla 87 (instruccionV)
+    $default  reduce using rule 87 (instruccionV)
 
 
-Estado 59
+State 59
 
    95 iteracionV: it_cota_expV •
 
-    $default  reduce usando la regla 95 (iteracionV)
+    $default  reduce using rule 95 (iteracionV)
 
 
-Estado 60
+State 60
 
    94 iteracionV: it_cota_fijaV •
 
-    $default  reduce usando la regla 94 (iteracionV)
+    $default  reduce using rule 94 (iteracionV)
 
 
-Estado 61
+State 61
 
    88 instruccionV: accion_llV •
 
-    $default  reduce usando la regla 88 (instruccionV)
+    $default  reduce using rule 88 (instruccionV)
 
 
-Estado 62
+State 62
 
    11 declaracionesV: declaracion_tipoV declaracionesV •
 
-    $default  reduce usando la regla 11 (declaracionesV)
+    $default  reduce using rule 11 (declaracionesV)
 
 
-Estado 63
+State 63
 
    12 declaracionesV: declaracion_constV declaracionesV •
 
-    $default  reduce usando la regla 12 (declaracionesV)
+    $default  reduce using rule 12 (declaracionesV)
 
 
-Estado 64
+State 64
 
    13 declaracionesV: declaracion_varV declaracionesV •
 
-    $default  reduce usando la regla 13 (declaracionesV)
+    $default  reduce using rule 13 (declaracionesV)
 
 
-Estado 65
+State 65
 
   100 a_cabeceraV: identificadorTK • inicio_parentesisTK d_par_formV fin_parentesisTK operador_comp_secTK
 
-    inicio_parentesisTK  desplazar e ir al estado 119
+    inicio_parentesisTK  shift, and go to state 119
 
 
-Estado 66
+State 66
 
    98 accion_dV: inicio_accionTK a_cabeceraV • bloqueV fin_accionTK
 
-    inicio_varTK    desplazar e ir al estado 18
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_varTK    shift, and go to state 18
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 14 (declaracionesV)
+    $default  reduce using rule 14 (declaracionesV)
 
-    bloqueV             ir al estado 120
-    declaracionesV      ir al estado 21
-    declaracion_tipoV   ir al estado 22
-    declaracion_constV  ir al estado 23
-    declaracion_varV    ir al estado 24
+    bloqueV             go to state 120
+    declaracionesV      go to state 21
+    declaracion_tipoV   go to state 22
+    declaracion_constV  go to state 23
+    declaracion_varV    go to state 24
 
 
-Estado 67
+State 67
 
   101 f_cabeceraV: identificadorTK • inicio_parentesisTK lista_d_varV fin_parentesisTK devTK d_tipoV operador_comp_secTK
 
-    inicio_parentesisTK  desplazar e ir al estado 121
+    inicio_parentesisTK  shift, and go to state 121
 
 
-Estado 68
+State 68
 
    99 funcion_dV: inicio_funcionTK f_cabeceraV • bloqueV devTK expresionV fin_funcionTK
 
-    inicio_varTK    desplazar e ir al estado 18
-    inicio_constTK  desplazar e ir al estado 6
-    inicio_tipoTK   desplazar e ir al estado 7
+    inicio_varTK    shift, and go to state 18
+    inicio_constTK  shift, and go to state 6
+    inicio_tipoTK   shift, and go to state 7
 
-    $default  reduce usando la regla 14 (declaracionesV)
+    $default  reduce using rule 14 (declaracionesV)
 
-    bloqueV             ir al estado 122
-    declaracionesV      ir al estado 21
-    declaracion_tipoV   ir al estado 22
-    declaracion_constV  ir al estado 23
-    declaracion_varV    ir al estado 24
+    bloqueV             go to state 122
+    declaracionesV      go to state 21
+    declaracion_tipoV   go to state 22
+    declaracion_constV  go to state 23
+    declaracion_varV    go to state 24
 
 
-Estado 69
+State 69
 
    44 decl_entV: tipo_atributo_entTK • lista_d_varV
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_d_varV            ir al estado 123
-    declaracionDeVariableV  ir al estado 40
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    lista_d_varV            go to state 123
+    declaracionDeVariableV  go to state 40
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 70
+State 70
 
    45 decl_salV: tipo_atributo_salTK • lista_d_varV
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_d_varV            ir al estado 124
-    declaracionDeVariableV  ir al estado 40
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    lista_d_varV            go to state 124
+    declaracionDeVariableV  go to state 40
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 71
+State 71
 
     2 cabecera_algV: decl_globalesV decl_a_fV decl_ent_salV • comentarioTK
 
-    comentarioTK  desplazar e ir al estado 125
+    comentarioTK  shift, and go to state 125
 
 
-Estado 72
+State 72
 
    41 decl_ent_salV: decl_entV •
    42              | decl_entV • decl_salV
 
-    tipo_atributo_salTK  desplazar e ir al estado 70
+    tipo_atributo_salTK  shift, and go to state 70
 
-    $default  reduce usando la regla 41 (decl_ent_salV)
+    $default  reduce using rule 41 (decl_ent_salV)
 
-    decl_salV  ir al estado 126
+    decl_salV  go to state 126
 
 
-Estado 73
+State 73
 
    43 decl_ent_salV: decl_salV •
 
-    $default  reduce usando la regla 43 (decl_ent_salV)
+    $default  reduce using rule 43 (decl_ent_salV)
 
 
-Estado 74
+State 74
 
     7 decl_a_fV: accion_dV decl_a_fV •
 
-    $default  reduce usando la regla 7 (decl_a_fV)
+    $default  reduce using rule 7 (decl_a_fV)
 
 
-Estado 75
+State 75
 
     8 decl_a_fV: funcion_dV decl_a_fV •
 
-    $default  reduce usando la regla 8 (decl_a_fV)
+    $default  reduce using rule 8 (decl_a_fV)
 
 
-Estado 76
+State 76
 
    34 declaracionDeConstanteV: identificadorConstanteTK operador_igualTK literal_enteroTK • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 127
+    operador_comp_secTK  shift, and go to state 127
 
 
-Estado 77
+State 77
 
    16 declaracion_constV: inicio_constTK lista_d_cteV fin_constTK operador_comp_secTK •
 
-    $default  reduce usando la regla 16 (declaracion_constV)
+    $default  reduce using rule 16 (declaracion_constV)
 
 
-Estado 78
+State 78
 
    57 exp_aV: aritmetico_sumaTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 130
-    operando_aV  ir al estado 96
+    exp_aV       go to state 130
+    operando_aV  go to state 96
 
 
-Estado 79
+State 79
 
    56 exp_aV: aritmetico_restaTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 131
-    operando_aV  ir al estado 96
+    exp_aV       go to state 131
+    operando_aV  go to state 96
 
 
-Estado 80
+State 80
 
    52 exp_aV: inicio_parentesisTK • exp_aV fin_parentesisTK
    69 exp_bV: inicio_parentesisTK • exp_bV fin_parentesisTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 132
-    exp_bV       ir al estado 133
-    expresionV   ir al estado 134
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 132
+    exp_bV       go to state 133
+    expresionV   go to state 134
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 81
+State 81
 
    26 d_tipoV: tipoTK •
 
-    $default  reduce usando la regla 26 (d_tipoV)
+    $default  reduce using rule 26 (d_tipoV)
 
 
-Estado 82
+State 82
 
    22 d_tipoV: tipoTablaTK • operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV
 
-    operador_inicio_arrayTK  desplazar e ir al estado 135
+    operador_inicio_arrayTK  shift, and go to state 135
 
 
-Estado 83
+State 83
 
    25 d_tipoV: tipoRefTK • d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 136
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 136
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 84
+State 84
 
    60 exp_bV: noTK • exp_bV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 137
-    expresionV   ir al estado 134
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 137
+    expresionV   go to state 134
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 85
+State 85
 
    21 d_tipoV: inicio_tuplaTK • lista_camposV fin_tuplaTK
 
-    identificadorTK  desplazar e ir al estado 138
+    identificadorTK  shift, and go to state 138
 
-    lista_camposV      ir al estado 139
-    declaracionCampoV  ir al estado 140
+    lista_camposV      go to state 139
+    declaracionCampoV  go to state 140
 
 
-Estado 86
+State 86
 
    23 d_tipoV: identificadorTK •
    73 operando_aV: identificadorTK •
   108 funcion_llV: identificadorTK • inicio_parentesisTK l_llV fin_parentesisTK
 
-    inicio_parentesisTK  desplazar e ir al estado 141
+    inicio_parentesisTK  shift, and go to state 141
 
-    operador_comp_secTK  reduce usando la regla 23 (d_tipoV)
-    $default             reduce usando la regla 73 (operando_aV)
+    operador_comp_secTK  reduce using rule 23 (d_tipoV)
+    $default             reduce using rule 73 (operando_aV)
 
 
-Estado 87
+State 87
 
    62 exp_bV: literal_booleanoTK •
 
-    $default  reduce usando la regla 62 (exp_bV)
+    $default  reduce using rule 62 (exp_bV)
 
 
-Estado 88
+State 88
 
    54 exp_aV: literal_enteroTK •
 
-    $default  reduce usando la regla 54 (exp_aV)
+    $default  reduce using rule 54 (exp_aV)
 
 
-Estado 89
+State 89
 
    55 exp_aV: literal_realTK •
 
-    $default  reduce usando la regla 55 (exp_aV)
+    $default  reduce using rule 55 (exp_aV)
 
 
-Estado 90
+State 90
 
    28 expresion_tV: literal_caracterTK •
 
-    $default  reduce usando la regla 28 (expresion_tV)
+    $default  reduce using rule 28 (expresion_tV)
 
 
-Estado 91
+State 91
 
    20 declaracionTipoV: identificadorTK operador_igualTK d_tipoV • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 142
+    operador_comp_secTK  shift, and go to state 142
 
 
-Estado 92
+State 92
 
    24 d_tipoV: expresion_tV • operador_subrangoTK expresion_tV
 
-    operador_subrangoTK  desplazar e ir al estado 143
+    operador_subrangoTK  shift, and go to state 143
 
 
-Estado 93
+State 93
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -1376,31 +1376,31 @@ Estado 93
    51       | exp_aV • aritmetico_moduloTK exp_aV
    70 expresionV: exp_aV •
 
-    aritmetico_sumaTK          desplazar e ir al estado 144
-    aritmetico_restaTK         desplazar e ir al estado 145
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_sumaTK          shift, and go to state 144
+    aritmetico_restaTK         shift, and go to state 145
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 70 (expresionV)
+    $default  reduce using rule 70 (expresionV)
 
 
-Estado 94
+State 94
 
    58 exp_bV: exp_bV • conjuncionTK exp_bV
    59       | exp_bV • disyuncionTK exp_bV
    71 expresionV: exp_bV •
 
-    conjuncionTK  desplazar e ir al estado 150
-    disyuncionTK  desplazar e ir al estado 151
+    conjuncionTK  shift, and go to state 150
+    disyuncionTK  shift, and go to state 151
 
-    conjuncionTK  [reduce usando la regla 71 (expresionV)]
-    disyuncionTK  [reduce usando la regla 71 (expresionV)]
-    $default      reduce usando la regla 71 (expresionV)
+    conjuncionTK  [reduce using rule 71 (expresionV)]
+    disyuncionTK  [reduce using rule 71 (expresionV)]
+    $default      reduce using rule 71 (expresionV)
 
 
-Estado 95
+State 95
 
    27 expresion_tV: expresionV •
    63 exp_bV: expresionV • relacional_distintoTK expresionV
@@ -1410,128 +1410,128 @@ Estado 95
    67       | expresionV • relacional_mayorTK expresionV
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
-    $default  reduce usando la regla 27 (expresion_tV)
+    $default  reduce using rule 27 (expresion_tV)
 
 
-Estado 96
+State 96
 
    53 exp_aV: operando_aV •
    74 operando_aV: operando_aV • puntoTK operando_aV
    75            | operando_aV • operador_inicio_arrayTK expresionV operador_fin_arrayTK
    76            | operando_aV • tipoTK
 
-    puntoTK                  desplazar e ir al estado 111
-    operador_inicio_arrayTK  desplazar e ir al estado 112
-    tipoTK                   desplazar e ir al estado 113
+    puntoTK                  shift, and go to state 111
+    operador_inicio_arrayTK  shift, and go to state 112
+    tipoTK                   shift, and go to state 113
 
-    $default  reduce usando la regla 53 (exp_aV)
+    $default  reduce using rule 53 (exp_aV)
 
 
-Estado 97
+State 97
 
    61 exp_bV: operando_bV •
    78 operando_bV: operando_bV • puntoTK operando_bV
    79            | operando_bV • operador_inicio_arrayTK expresionV operador_fin_arrayTK
    80            | operando_bV • tipoTK
 
-    puntoTK                  desplazar e ir al estado 115
-    operador_inicio_arrayTK  desplazar e ir al estado 116
-    tipoTK                   desplazar e ir al estado 117
+    puntoTK                  shift, and go to state 115
+    operador_inicio_arrayTK  shift, and go to state 116
+    tipoTK                   shift, and go to state 117
 
-    $default  reduce usando la regla 61 (exp_bV)
+    $default  reduce using rule 61 (exp_bV)
 
 
-Estado 98
+State 98
 
    72 expresionV: funcion_llV •
 
-    $default  reduce usando la regla 72 (expresionV)
+    $default  reduce using rule 72 (expresionV)
 
 
-Estado 99
+State 99
 
    15 declaracion_tipoV: inicio_tipoTK lista_d_tipoV fin_tipoTK operador_comp_secTK •
 
-    $default  reduce usando la regla 15 (declaracion_tipoV)
+    $default  reduce using rule 15 (declaracion_tipoV)
 
 
-Estado 100
+State 100
 
    17 declaracion_varV: inicio_varTK lista_d_varV fin_varTK • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 158
+    operador_comp_secTK  shift, and go to state 158
 
 
-Estado 101
+State 101
 
    36 lista_d_varV: lista_d_varV declaracionDeVariableV •
 
-    $default  reduce usando la regla 36 (lista_d_varV)
+    $default  reduce using rule 36 (lista_d_varV)
 
 
-Estado 102
+State 102
 
    39 lista_idV: lista_idV operador_separadorTK • declaracionDeListaIdV
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    declaracionDeListaIdV  ir al estado 159
+    declaracionDeListaIdV  go to state 159
 
 
-Estado 103
+State 103
 
    37 declaracionDeVariableV: lista_idV operador_def_tipoTK • d_tipoV operador_comp_secTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 160
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 160
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 104
+State 104
 
     1 desc_algoritmoV: inicio_algoritmoTK identificadorTK operador_comp_secTK cabecera_algV bloque_algV fin_algoritmoTK puntoTK •
 
-    $default  reduce usando la regla 1 (desc_algoritmoV)
+    $default  reduce using rule 1 (desc_algoritmoV)
 
 
-Estado 105
+State 105
 
    73 operando_aV: identificadorTK •
   108 funcion_llV: identificadorTK • inicio_parentesisTK l_llV fin_parentesisTK
 
-    inicio_parentesisTK  desplazar e ir al estado 141
+    inicio_parentesisTK  shift, and go to state 141
 
-    $default  reduce usando la regla 73 (operando_aV)
+    $default  reduce using rule 73 (operando_aV)
 
 
-Estado 106
+State 106
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -1541,16 +1541,16 @@ Estado 106
    68       | expresionV • operador_igualTK expresionV
    91 alternativaV: inicio_siTK expresionV • operador_entoncesTK instruccionesV lista_opcionesV fin_siTK
 
-    operador_entoncesTK       desplazar e ir al estado 161
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_entoncesTK       shift, and go to state 161
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
 
-Estado 107
+State 107
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -1560,301 +1560,301 @@ Estado 107
    68       | expresionV • operador_igualTK expresionV
    96 it_cota_expV: inicio_mientrasTK expresionV • hacerTK instruccionesV fin_mientrasTK
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
-    hacerTK                   desplazar e ir al estado 162
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
+    hacerTK                   shift, and go to state 162
 
 
-Estado 108
+State 108
 
    97 it_cota_fijaV: inicio_paraTK identificadorTK • operador_asignacionTK expresionV hastaTK expresionV hacerTK instruccionesV fin_paraTK
 
-    operador_asignacionTK  desplazar e ir al estado 163
+    operador_asignacionTK  shift, and go to state 163
 
 
-Estado 109
+State 109
 
   107 accion_llV: identificadorTK inicio_parentesisTK • l_llV fin_parentesisTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 164
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
-    l_llV        ir al estado 165
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 164
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
+    l_llV        go to state 165
 
 
-Estado 110
+State 110
 
    89 asignacion_aV: operando_aV operador_asignacionTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 166
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 166
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 111
+State 111
 
    74 operando_aV: operando_aV puntoTK • operando_aV
 
-    identificadorTK  desplazar e ir al estado 129
+    identificadorTK  shift, and go to state 129
 
-    operando_aV  ir al estado 167
+    operando_aV  go to state 167
 
 
-Estado 112
+State 112
 
    75 operando_aV: operando_aV operador_inicio_arrayTK • expresionV operador_fin_arrayTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 168
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 168
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 113
+State 113
 
    76 operando_aV: operando_aV tipoTK •
 
-    $default  reduce usando la regla 76 (operando_aV)
+    $default  reduce using rule 76 (operando_aV)
 
 
-Estado 114
+State 114
 
    90 asignacion_bV: operando_bV operador_asignacionTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 169
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 169
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 115
+State 115
 
    78 operando_bV: operando_bV puntoTK • operando_bV
 
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_bV  ir al estado 170
+    operando_bV  go to state 170
 
 
-Estado 116
+State 116
 
    79 operando_bV: operando_bV operador_inicio_arrayTK • expresionV operador_fin_arrayTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 171
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 171
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 117
+State 117
 
    80 operando_bV: operando_bV tipoTK •
 
-    $default  reduce usando la regla 80 (operando_bV)
+    $default  reduce using rule 80 (operando_bV)
 
 
-Estado 118
+State 118
 
    81 instruccionesV: instruccionV operador_comp_secTK • instruccionesV
 
-    continuarTK              desplazar e ir al estado 45
-    inicio_siTK              desplazar e ir al estado 46
-    inicio_mientrasTK        desplazar e ir al estado 47
-    inicio_paraTK            desplazar e ir al estado 48
-    identificadorTK          desplazar e ir al estado 49
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    continuarTK              shift, and go to state 45
+    inicio_siTK              shift, and go to state 46
+    inicio_mientrasTK        shift, and go to state 47
+    inicio_paraTK            shift, and go to state 48
+    identificadorTK          shift, and go to state 49
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_aV     ir al estado 51
-    operando_bV     ir al estado 52
-    instruccionesV  ir al estado 172
-    instruccionV    ir al estado 54
-    asignacion_aV   ir al estado 55
-    asignacion_bV   ir al estado 56
-    alternativaV    ir al estado 57
-    iteracionV      ir al estado 58
-    it_cota_expV    ir al estado 59
-    it_cota_fijaV   ir al estado 60
-    accion_llV      ir al estado 61
+    operando_aV     go to state 51
+    operando_bV     go to state 52
+    instruccionesV  go to state 172
+    instruccionV    go to state 54
+    asignacion_aV   go to state 55
+    asignacion_bV   go to state 56
+    alternativaV    go to state 57
+    iteracionV      go to state 58
+    it_cota_expV    go to state 59
+    it_cota_fijaV   go to state 60
+    accion_llV      go to state 61
 
 
-Estado 119
+State 119
 
   100 a_cabeceraV: identificadorTK inicio_parentesisTK • d_par_formV fin_parentesisTK operador_comp_secTK
 
-    tipo_atributo_entTK      desplazar e ir al estado 173
-    tipo_atributo_salTK      desplazar e ir al estado 174
-    tipo_atributo_ent_salTK  desplazar e ir al estado 175
+    tipo_atributo_entTK      shift, and go to state 173
+    tipo_atributo_salTK      shift, and go to state 174
+    tipo_atributo_ent_salTK  shift, and go to state 175
 
-    $default  reduce usando la regla 103 (d_par_formV)
+    $default  reduce using rule 103 (d_par_formV)
 
-    d_par_formV  ir al estado 176
-    d_p_formV    ir al estado 177
+    d_par_formV  go to state 176
+    d_p_formV    go to state 177
 
 
-Estado 120
+State 120
 
    98 accion_dV: inicio_accionTK a_cabeceraV bloqueV • fin_accionTK
 
-    fin_accionTK  desplazar e ir al estado 178
+    fin_accionTK  shift, and go to state 178
 
 
-Estado 121
+State 121
 
   101 f_cabeceraV: identificadorTK inicio_parentesisTK • lista_d_varV fin_parentesisTK devTK d_tipoV operador_comp_secTK
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_d_varV            ir al estado 179
-    declaracionDeVariableV  ir al estado 40
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    lista_d_varV            go to state 179
+    declaracionDeVariableV  go to state 40
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 122
+State 122
 
    99 funcion_dV: inicio_funcionTK f_cabeceraV bloqueV • devTK expresionV fin_funcionTK
 
-    devTK  desplazar e ir al estado 180
+    devTK  shift, and go to state 180
 
 
-Estado 123
+State 123
 
    36 lista_d_varV: lista_d_varV • declaracionDeVariableV
    44 decl_entV: tipo_atributo_entTK lista_d_varV •
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    $default  reduce usando la regla 44 (decl_entV)
+    $default  reduce using rule 44 (decl_entV)
 
-    declaracionDeVariableV  ir al estado 101
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    declaracionDeVariableV  go to state 101
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 124
+State 124
 
    36 lista_d_varV: lista_d_varV • declaracionDeVariableV
    45 decl_salV: tipo_atributo_salTK lista_d_varV •
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    $default  reduce usando la regla 45 (decl_salV)
+    $default  reduce using rule 45 (decl_salV)
 
-    declaracionDeVariableV  ir al estado 101
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    declaracionDeVariableV  go to state 101
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 125
+State 125
 
     2 cabecera_algV: decl_globalesV decl_a_fV decl_ent_salV comentarioTK •
 
-    $default  reduce usando la regla 2 (cabecera_algV)
+    $default  reduce using rule 2 (cabecera_algV)
 
 
-Estado 126
+State 126
 
    42 decl_ent_salV: decl_entV decl_salV •
 
-    $default  reduce usando la regla 42 (decl_ent_salV)
+    $default  reduce using rule 42 (decl_ent_salV)
 
 
-Estado 127
+State 127
 
    34 declaracionDeConstanteV: identificadorConstanteTK operador_igualTK literal_enteroTK operador_comp_secTK •
 
-    $default  reduce usando la regla 34 (declaracionDeConstanteV)
+    $default  reduce using rule 34 (declaracionDeConstanteV)
 
 
-Estado 128
+State 128
 
    52 exp_aV: inicio_parentesisTK • exp_aV fin_parentesisTK
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 181
-    operando_aV  ir al estado 96
+    exp_aV       go to state 181
+    operando_aV  go to state 96
 
 
-Estado 129
+State 129
 
    73 operando_aV: identificadorTK •
 
-    $default  reduce usando la regla 73 (operando_aV)
+    $default  reduce using rule 73 (operando_aV)
 
 
-Estado 130
+State 130
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -1864,15 +1864,15 @@ Estado 130
    51       | exp_aV • aritmetico_moduloTK exp_aV
    57       | aritmetico_sumaTK exp_aV •
 
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 57 (exp_aV)
+    $default  reduce using rule 57 (exp_aV)
 
 
-Estado 131
+State 131
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -1882,15 +1882,15 @@ Estado 131
    51       | exp_aV • aritmetico_moduloTK exp_aV
    56       | aritmetico_restaTK exp_aV •
 
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 56 (exp_aV)
+    $default  reduce using rule 56 (exp_aV)
 
 
-Estado 132
+State 132
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -1901,32 +1901,32 @@ Estado 132
    52       | inicio_parentesisTK exp_aV • fin_parentesisTK
    70 expresionV: exp_aV •
 
-    aritmetico_sumaTK          desplazar e ir al estado 144
-    aritmetico_restaTK         desplazar e ir al estado 145
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    fin_parentesisTK           desplazar e ir al estado 182
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_sumaTK          shift, and go to state 144
+    aritmetico_restaTK         shift, and go to state 145
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    fin_parentesisTK           shift, and go to state 182
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 70 (expresionV)
+    $default  reduce using rule 70 (expresionV)
 
 
-Estado 133
+State 133
 
    58 exp_bV: exp_bV • conjuncionTK exp_bV
    59       | exp_bV • disyuncionTK exp_bV
    69       | inicio_parentesisTK exp_bV • fin_parentesisTK
    71 expresionV: exp_bV •
 
-    fin_parentesisTK  desplazar e ir al estado 183
-    conjuncionTK      desplazar e ir al estado 150
-    disyuncionTK      desplazar e ir al estado 151
+    fin_parentesisTK  shift, and go to state 183
+    conjuncionTK      shift, and go to state 150
+    disyuncionTK      shift, and go to state 151
 
-    $default  reduce usando la regla 71 (expresionV)
+    $default  reduce using rule 71 (expresionV)
 
 
-Estado 134
+State 134
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -1935,504 +1935,504 @@ Estado 134
    67       | expresionV • relacional_mayorTK expresionV
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
 
-Estado 135
+State 135
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK • expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    expresion_tV  ir al estado 184
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    expresion_tV  go to state 184
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 136
+State 136
 
    25 d_tipoV: tipoRefTK d_tipoV •
 
-    $default  reduce usando la regla 25 (d_tipoV)
+    $default  reduce using rule 25 (d_tipoV)
 
 
-Estado 137
+State 137
 
    58 exp_bV: exp_bV • conjuncionTK exp_bV
    59       | exp_bV • disyuncionTK exp_bV
    60       | noTK exp_bV •
    71 expresionV: exp_bV •
 
-    operador_igualTK          reduce usando la regla 60 (exp_bV)
-    operador_igualTK          [reduce usando la regla 71 (expresionV)]
-    relacional_distintoTK     reduce usando la regla 60 (exp_bV)
-    relacional_distintoTK     [reduce usando la regla 71 (expresionV)]
-    relacional_menor_igualTK  reduce usando la regla 60 (exp_bV)
-    relacional_menor_igualTK  [reduce usando la regla 71 (expresionV)]
-    relacional_mayor_igualTK  reduce usando la regla 60 (exp_bV)
-    relacional_mayor_igualTK  [reduce usando la regla 71 (expresionV)]
-    relacional_menorTK        reduce usando la regla 60 (exp_bV)
-    relacional_menorTK        [reduce usando la regla 71 (expresionV)]
-    relacional_mayorTK        reduce usando la regla 60 (exp_bV)
-    relacional_mayorTK        [reduce usando la regla 71 (expresionV)]
-    $default                  reduce usando la regla 60 (exp_bV)
+    operador_igualTK          reduce using rule 60 (exp_bV)
+    operador_igualTK          [reduce using rule 71 (expresionV)]
+    relacional_distintoTK     reduce using rule 60 (exp_bV)
+    relacional_distintoTK     [reduce using rule 71 (expresionV)]
+    relacional_menor_igualTK  reduce using rule 60 (exp_bV)
+    relacional_menor_igualTK  [reduce using rule 71 (expresionV)]
+    relacional_mayor_igualTK  reduce using rule 60 (exp_bV)
+    relacional_mayor_igualTK  [reduce using rule 71 (expresionV)]
+    relacional_menorTK        reduce using rule 60 (exp_bV)
+    relacional_menorTK        [reduce using rule 71 (expresionV)]
+    relacional_mayorTK        reduce using rule 60 (exp_bV)
+    relacional_mayorTK        [reduce using rule 71 (expresionV)]
+    $default                  reduce using rule 60 (exp_bV)
 
 
-Estado 138
+State 138
 
    31 declaracionCampoV: identificadorTK • operador_def_tipoTK d_tipoV operador_comp_secTK
 
-    operador_def_tipoTK  desplazar e ir al estado 185
+    operador_def_tipoTK  shift, and go to state 185
 
 
-Estado 139
+State 139
 
    21 d_tipoV: inicio_tuplaTK lista_camposV • fin_tuplaTK
    30 lista_camposV: lista_camposV • declaracionCampoV
 
-    fin_tuplaTK      desplazar e ir al estado 186
-    identificadorTK  desplazar e ir al estado 138
+    fin_tuplaTK      shift, and go to state 186
+    identificadorTK  shift, and go to state 138
 
-    declaracionCampoV  ir al estado 187
+    declaracionCampoV  go to state 187
 
 
-Estado 140
+State 140
 
    29 lista_camposV: declaracionCampoV •
 
-    $default  reduce usando la regla 29 (lista_camposV)
+    $default  reduce using rule 29 (lista_camposV)
 
 
-Estado 141
+State 141
 
   108 funcion_llV: identificadorTK inicio_parentesisTK • l_llV fin_parentesisTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 164
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
-    l_llV        ir al estado 188
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 164
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
+    l_llV        go to state 188
 
 
-Estado 142
+State 142
 
    20 declaracionTipoV: identificadorTK operador_igualTK d_tipoV operador_comp_secTK •
 
-    $default  reduce usando la regla 20 (declaracionTipoV)
+    $default  reduce using rule 20 (declaracionTipoV)
 
 
-Estado 143
+State 143
 
    24 d_tipoV: expresion_tV operador_subrangoTK • expresion_tV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    expresion_tV  ir al estado 189
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    expresion_tV  go to state 189
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 144
+State 144
 
    46 exp_aV: exp_aV aritmetico_sumaTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 190
-    operando_aV  ir al estado 96
+    exp_aV       go to state 190
+    operando_aV  go to state 96
 
 
-Estado 145
+State 145
 
    47 exp_aV: exp_aV aritmetico_restaTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 191
-    operando_aV  ir al estado 96
+    exp_aV       go to state 191
+    operando_aV  go to state 96
 
 
-Estado 146
+State 146
 
    48 exp_aV: exp_aV aritmetico_productoTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 192
-    operando_aV  ir al estado 96
+    exp_aV       go to state 192
+    operando_aV  go to state 96
 
 
-Estado 147
+State 147
 
    49 exp_aV: exp_aV aritmetico_divisionTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 193
-    operando_aV  ir al estado 96
+    exp_aV       go to state 193
+    operando_aV  go to state 96
 
 
-Estado 148
+State 148
 
    50 exp_aV: exp_aV aritmetico_divisionRealTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 194
-    operando_aV  ir al estado 96
+    exp_aV       go to state 194
+    operando_aV  go to state 96
 
 
-Estado 149
+State 149
 
    51 exp_aV: exp_aV aritmetico_moduloTK • exp_aV
 
-    aritmetico_sumaTK    desplazar e ir al estado 78
-    aritmetico_restaTK   desplazar e ir al estado 79
-    inicio_parentesisTK  desplazar e ir al estado 128
-    identificadorTK      desplazar e ir al estado 129
-    literal_enteroTK     desplazar e ir al estado 88
-    literal_realTK       desplazar e ir al estado 89
+    aritmetico_sumaTK    shift, and go to state 78
+    aritmetico_restaTK   shift, and go to state 79
+    inicio_parentesisTK  shift, and go to state 128
+    identificadorTK      shift, and go to state 129
+    literal_enteroTK     shift, and go to state 88
+    literal_realTK       shift, and go to state 89
 
-    exp_aV       ir al estado 195
-    operando_aV  ir al estado 96
+    exp_aV       go to state 195
+    operando_aV  go to state 96
 
 
-Estado 150
+State 150
 
    58 exp_bV: exp_bV conjuncionTK • exp_bV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 196
-    expresionV   ir al estado 134
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 196
+    expresionV   go to state 134
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 151
+State 151
 
    59 exp_bV: exp_bV disyuncionTK • exp_bV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 197
-    expresionV   ir al estado 134
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 197
+    expresionV   go to state 134
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 152
+State 152
 
    68 exp_bV: expresionV operador_igualTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 198
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 198
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 153
+State 153
 
    63 exp_bV: expresionV relacional_distintoTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 199
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 199
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 154
+State 154
 
    64 exp_bV: expresionV relacional_menor_igualTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 200
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 200
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 155
+State 155
 
    65 exp_bV: expresionV relacional_mayor_igualTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 201
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 201
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 156
+State 156
 
    66 exp_bV: expresionV relacional_menorTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 202
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 202
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 157
+State 157
 
    67 exp_bV: expresionV relacional_mayorTK • expresionV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 203
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 203
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 158
+State 158
 
    17 declaracion_varV: inicio_varTK lista_d_varV fin_varTK operador_comp_secTK •
 
-    $default  reduce usando la regla 17 (declaracion_varV)
+    $default  reduce using rule 17 (declaracion_varV)
 
 
-Estado 159
+State 159
 
    39 lista_idV: lista_idV operador_separadorTK declaracionDeListaIdV •
 
-    $default  reduce usando la regla 39 (lista_idV)
+    $default  reduce using rule 39 (lista_idV)
 
 
-Estado 160
+State 160
 
    37 declaracionDeVariableV: lista_idV operador_def_tipoTK d_tipoV • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 204
+    operador_comp_secTK  shift, and go to state 204
 
 
-Estado 161
+State 161
 
    91 alternativaV: inicio_siTK expresionV operador_entoncesTK • instruccionesV lista_opcionesV fin_siTK
 
-    continuarTK              desplazar e ir al estado 45
-    inicio_siTK              desplazar e ir al estado 46
-    inicio_mientrasTK        desplazar e ir al estado 47
-    inicio_paraTK            desplazar e ir al estado 48
-    identificadorTK          desplazar e ir al estado 49
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    continuarTK              shift, and go to state 45
+    inicio_siTK              shift, and go to state 46
+    inicio_mientrasTK        shift, and go to state 47
+    inicio_paraTK            shift, and go to state 48
+    identificadorTK          shift, and go to state 49
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_aV     ir al estado 51
-    operando_bV     ir al estado 52
-    instruccionesV  ir al estado 205
-    instruccionV    ir al estado 54
-    asignacion_aV   ir al estado 55
-    asignacion_bV   ir al estado 56
-    alternativaV    ir al estado 57
-    iteracionV      ir al estado 58
-    it_cota_expV    ir al estado 59
-    it_cota_fijaV   ir al estado 60
-    accion_llV      ir al estado 61
+    operando_aV     go to state 51
+    operando_bV     go to state 52
+    instruccionesV  go to state 205
+    instruccionV    go to state 54
+    asignacion_aV   go to state 55
+    asignacion_bV   go to state 56
+    alternativaV    go to state 57
+    iteracionV      go to state 58
+    it_cota_expV    go to state 59
+    it_cota_fijaV   go to state 60
+    accion_llV      go to state 61
 
 
-Estado 162
+State 162
 
    96 it_cota_expV: inicio_mientrasTK expresionV hacerTK • instruccionesV fin_mientrasTK
 
-    continuarTK              desplazar e ir al estado 45
-    inicio_siTK              desplazar e ir al estado 46
-    inicio_mientrasTK        desplazar e ir al estado 47
-    inicio_paraTK            desplazar e ir al estado 48
-    identificadorTK          desplazar e ir al estado 49
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    continuarTK              shift, and go to state 45
+    inicio_siTK              shift, and go to state 46
+    inicio_mientrasTK        shift, and go to state 47
+    inicio_paraTK            shift, and go to state 48
+    identificadorTK          shift, and go to state 49
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_aV     ir al estado 51
-    operando_bV     ir al estado 52
-    instruccionesV  ir al estado 206
-    instruccionV    ir al estado 54
-    asignacion_aV   ir al estado 55
-    asignacion_bV   ir al estado 56
-    alternativaV    ir al estado 57
-    iteracionV      ir al estado 58
-    it_cota_expV    ir al estado 59
-    it_cota_fijaV   ir al estado 60
-    accion_llV      ir al estado 61
+    operando_aV     go to state 51
+    operando_bV     go to state 52
+    instruccionesV  go to state 206
+    instruccionV    go to state 54
+    asignacion_aV   go to state 55
+    asignacion_bV   go to state 56
+    alternativaV    go to state 57
+    iteracionV      go to state 58
+    it_cota_expV    go to state 59
+    it_cota_fijaV   go to state 60
+    accion_llV      go to state 61
 
 
-Estado 163
+State 163
 
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK • expresionV hastaTK expresionV hacerTK instruccionesV fin_paraTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 207
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 207
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 164
+State 164
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2443,25 +2443,25 @@ Estado 164
   109 l_llV: expresionV • operador_separadorTK l_llV
   110      | expresionV •
 
-    operador_separadorTK      desplazar e ir al estado 208
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_separadorTK      shift, and go to state 208
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
-    $default  reduce usando la regla 110 (l_llV)
+    $default  reduce using rule 110 (l_llV)
 
 
-Estado 165
+State 165
 
   107 accion_llV: identificadorTK inicio_parentesisTK l_llV • fin_parentesisTK
 
-    fin_parentesisTK  desplazar e ir al estado 209
+    fin_parentesisTK  shift, and go to state 209
 
 
-Estado 166
+State 166
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2471,27 +2471,27 @@ Estado 166
    68       | expresionV • operador_igualTK expresionV
    89 asignacion_aV: operando_aV operador_asignacionTK expresionV •
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
-    $default  reduce usando la regla 89 (asignacion_aV)
+    $default  reduce using rule 89 (asignacion_aV)
 
 
-Estado 167
+State 167
 
    74 operando_aV: operando_aV • puntoTK operando_aV
    74            | operando_aV puntoTK operando_aV •
    75            | operando_aV • operador_inicio_arrayTK expresionV operador_fin_arrayTK
    76            | operando_aV • tipoTK
 
-    $default  reduce usando la regla 74 (operando_aV)
+    $default  reduce using rule 74 (operando_aV)
 
 
-Estado 168
+State 168
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2501,16 +2501,16 @@ Estado 168
    68       | expresionV • operador_igualTK expresionV
    75 operando_aV: operando_aV operador_inicio_arrayTK expresionV • operador_fin_arrayTK
 
-    operador_igualTK          desplazar e ir al estado 152
-    operador_fin_arrayTK      desplazar e ir al estado 210
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_igualTK          shift, and go to state 152
+    operador_fin_arrayTK      shift, and go to state 210
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
 
-Estado 169
+State 169
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2520,27 +2520,27 @@ Estado 169
    68       | expresionV • operador_igualTK expresionV
    90 asignacion_bV: operando_bV operador_asignacionTK expresionV •
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
-    $default  reduce usando la regla 90 (asignacion_bV)
+    $default  reduce using rule 90 (asignacion_bV)
 
 
-Estado 170
+State 170
 
    78 operando_bV: operando_bV • puntoTK operando_bV
    78            | operando_bV puntoTK operando_bV •
    79            | operando_bV • operador_inicio_arrayTK expresionV operador_fin_arrayTK
    80            | operando_bV • tipoTK
 
-    $default  reduce usando la regla 78 (operando_bV)
+    $default  reduce using rule 78 (operando_bV)
 
 
-Estado 171
+State 171
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2550,109 +2550,109 @@ Estado 171
    68       | expresionV • operador_igualTK expresionV
    79 operando_bV: operando_bV operador_inicio_arrayTK expresionV • operador_fin_arrayTK
 
-    operador_igualTK          desplazar e ir al estado 152
-    operador_fin_arrayTK      desplazar e ir al estado 211
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_igualTK          shift, and go to state 152
+    operador_fin_arrayTK      shift, and go to state 211
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
 
-Estado 172
+State 172
 
    81 instruccionesV: instruccionV operador_comp_secTK instruccionesV •
 
-    $default  reduce usando la regla 81 (instruccionesV)
+    $default  reduce using rule 81 (instruccionesV)
 
 
-Estado 173
+State 173
 
   104 d_p_formV: tipo_atributo_entTK • lista_idV operador_def_tipoTK d_tipoV
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_idV              ir al estado 212
-    declaracionDeListaIdV  ir al estado 42
+    lista_idV              go to state 212
+    declaracionDeListaIdV  go to state 42
 
 
-Estado 174
+State 174
 
   105 d_p_formV: tipo_atributo_salTK • lista_idV operador_def_tipoTK d_tipoV
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_idV              ir al estado 213
-    declaracionDeListaIdV  ir al estado 42
+    lista_idV              go to state 213
+    declaracionDeListaIdV  go to state 42
 
 
-Estado 175
+State 175
 
   106 d_p_formV: tipo_atributo_ent_salTK • lista_idV operador_def_tipoTK d_tipoV
 
-    identificadorTK  desplazar e ir al estado 38
+    identificadorTK  shift, and go to state 38
 
-    lista_idV              ir al estado 214
-    declaracionDeListaIdV  ir al estado 42
+    lista_idV              go to state 214
+    declaracionDeListaIdV  go to state 42
 
 
-Estado 176
+State 176
 
   100 a_cabeceraV: identificadorTK inicio_parentesisTK d_par_formV • fin_parentesisTK operador_comp_secTK
 
-    fin_parentesisTK  desplazar e ir al estado 215
+    fin_parentesisTK  shift, and go to state 215
 
 
-Estado 177
+State 177
 
   102 d_par_formV: d_p_formV • operador_comp_secTK d_par_formV
 
-    operador_comp_secTK  desplazar e ir al estado 216
+    operador_comp_secTK  shift, and go to state 216
 
 
-Estado 178
+State 178
 
    98 accion_dV: inicio_accionTK a_cabeceraV bloqueV fin_accionTK •
 
-    $default  reduce usando la regla 98 (accion_dV)
+    $default  reduce using rule 98 (accion_dV)
 
 
-Estado 179
+State 179
 
    36 lista_d_varV: lista_d_varV • declaracionDeVariableV
   101 f_cabeceraV: identificadorTK inicio_parentesisTK lista_d_varV • fin_parentesisTK devTK d_tipoV operador_comp_secTK
 
-    fin_parentesisTK  desplazar e ir al estado 217
-    identificadorTK   desplazar e ir al estado 38
+    fin_parentesisTK  shift, and go to state 217
+    identificadorTK   shift, and go to state 38
 
-    declaracionDeVariableV  ir al estado 101
-    lista_idV               ir al estado 41
-    declaracionDeListaIdV   ir al estado 42
+    declaracionDeVariableV  go to state 101
+    lista_idV               go to state 41
+    declaracionDeListaIdV   go to state 42
 
 
-Estado 180
+State 180
 
    99 funcion_dV: inicio_funcionTK f_cabeceraV bloqueV devTK • expresionV fin_funcionTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 218
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 218
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 181
+State 181
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -2662,94 +2662,94 @@ Estado 181
    51       | exp_aV • aritmetico_moduloTK exp_aV
    52       | inicio_parentesisTK exp_aV • fin_parentesisTK
 
-    aritmetico_sumaTK          desplazar e ir al estado 144
-    aritmetico_restaTK         desplazar e ir al estado 145
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    fin_parentesisTK           desplazar e ir al estado 182
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_sumaTK          shift, and go to state 144
+    aritmetico_restaTK         shift, and go to state 145
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    fin_parentesisTK           shift, and go to state 182
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
 
-Estado 182
+State 182
 
    52 exp_aV: inicio_parentesisTK exp_aV fin_parentesisTK •
 
-    $default  reduce usando la regla 52 (exp_aV)
+    $default  reduce using rule 52 (exp_aV)
 
 
-Estado 183
+State 183
 
    69 exp_bV: inicio_parentesisTK exp_bV fin_parentesisTK •
 
-    $default  reduce usando la regla 69 (exp_bV)
+    $default  reduce using rule 69 (exp_bV)
 
 
-Estado 184
+State 184
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK expresion_tV • operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV
 
-    operador_subrangoTK  desplazar e ir al estado 219
+    operador_subrangoTK  shift, and go to state 219
 
 
-Estado 185
+State 185
 
    31 declaracionCampoV: identificadorTK operador_def_tipoTK • d_tipoV operador_comp_secTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 220
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 220
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 186
+State 186
 
    21 d_tipoV: inicio_tuplaTK lista_camposV fin_tuplaTK •
 
-    $default  reduce usando la regla 21 (d_tipoV)
+    $default  reduce using rule 21 (d_tipoV)
 
 
-Estado 187
+State 187
 
    30 lista_camposV: lista_camposV declaracionCampoV •
 
-    $default  reduce usando la regla 30 (lista_camposV)
+    $default  reduce using rule 30 (lista_camposV)
 
 
-Estado 188
+State 188
 
   108 funcion_llV: identificadorTK inicio_parentesisTK l_llV • fin_parentesisTK
 
-    fin_parentesisTK  desplazar e ir al estado 221
+    fin_parentesisTK  shift, and go to state 221
 
 
-Estado 189
+State 189
 
    24 d_tipoV: expresion_tV operador_subrangoTK expresion_tV •
 
-    $default  reduce usando la regla 24 (d_tipoV)
+    $default  reduce using rule 24 (d_tipoV)
 
 
-Estado 190
+State 190
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    46       | exp_aV aritmetico_sumaTK exp_aV •
@@ -2759,15 +2759,15 @@ Estado 190
    50       | exp_aV • aritmetico_divisionRealTK exp_aV
    51       | exp_aV • aritmetico_moduloTK exp_aV
 
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 46 (exp_aV)
+    $default  reduce using rule 46 (exp_aV)
 
 
-Estado 191
+State 191
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -2777,15 +2777,15 @@ Estado 191
    50       | exp_aV • aritmetico_divisionRealTK exp_aV
    51       | exp_aV • aritmetico_moduloTK exp_aV
 
-    aritmetico_productoTK      desplazar e ir al estado 146
-    aritmetico_divisionTK      desplazar e ir al estado 147
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_productoTK      shift, and go to state 146
+    aritmetico_divisionTK      shift, and go to state 147
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 47 (exp_aV)
+    $default  reduce using rule 47 (exp_aV)
 
 
-Estado 192
+State 192
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -2795,13 +2795,13 @@ Estado 192
    50       | exp_aV • aritmetico_divisionRealTK exp_aV
    51       | exp_aV • aritmetico_moduloTK exp_aV
 
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 48 (exp_aV)
+    $default  reduce using rule 48 (exp_aV)
 
 
-Estado 193
+State 193
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -2811,13 +2811,13 @@ Estado 193
    50       | exp_aV • aritmetico_divisionRealTK exp_aV
    51       | exp_aV • aritmetico_moduloTK exp_aV
 
-    aritmetico_divisionRealTK  desplazar e ir al estado 148
-    aritmetico_moduloTK        desplazar e ir al estado 149
+    aritmetico_divisionRealTK  shift, and go to state 148
+    aritmetico_moduloTK        shift, and go to state 149
 
-    $default  reduce usando la regla 49 (exp_aV)
+    $default  reduce using rule 49 (exp_aV)
 
 
-Estado 194
+State 194
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -2827,10 +2827,10 @@ Estado 194
    50       | exp_aV aritmetico_divisionRealTK exp_aV •
    51       | exp_aV • aritmetico_moduloTK exp_aV
 
-    $default  reduce usando la regla 50 (exp_aV)
+    $default  reduce using rule 50 (exp_aV)
 
 
-Estado 195
+State 195
 
    46 exp_aV: exp_aV • aritmetico_sumaTK exp_aV
    47       | exp_aV • aritmetico_restaTK exp_aV
@@ -2840,56 +2840,56 @@ Estado 195
    51       | exp_aV • aritmetico_moduloTK exp_aV
    51       | exp_aV aritmetico_moduloTK exp_aV •
 
-    $default  reduce usando la regla 51 (exp_aV)
+    $default  reduce using rule 51 (exp_aV)
 
 
-Estado 196
+State 196
 
    58 exp_bV: exp_bV • conjuncionTK exp_bV
    58       | exp_bV conjuncionTK exp_bV •
    59       | exp_bV • disyuncionTK exp_bV
    71 expresionV: exp_bV •
 
-    operador_igualTK          reduce usando la regla 58 (exp_bV)
-    operador_igualTK          [reduce usando la regla 71 (expresionV)]
-    relacional_distintoTK     reduce usando la regla 58 (exp_bV)
-    relacional_distintoTK     [reduce usando la regla 71 (expresionV)]
-    relacional_menor_igualTK  reduce usando la regla 58 (exp_bV)
-    relacional_menor_igualTK  [reduce usando la regla 71 (expresionV)]
-    relacional_mayor_igualTK  reduce usando la regla 58 (exp_bV)
-    relacional_mayor_igualTK  [reduce usando la regla 71 (expresionV)]
-    relacional_menorTK        reduce usando la regla 58 (exp_bV)
-    relacional_menorTK        [reduce usando la regla 71 (expresionV)]
-    relacional_mayorTK        reduce usando la regla 58 (exp_bV)
-    relacional_mayorTK        [reduce usando la regla 71 (expresionV)]
-    $default                  reduce usando la regla 58 (exp_bV)
+    operador_igualTK          reduce using rule 58 (exp_bV)
+    operador_igualTK          [reduce using rule 71 (expresionV)]
+    relacional_distintoTK     reduce using rule 58 (exp_bV)
+    relacional_distintoTK     [reduce using rule 71 (expresionV)]
+    relacional_menor_igualTK  reduce using rule 58 (exp_bV)
+    relacional_menor_igualTK  [reduce using rule 71 (expresionV)]
+    relacional_mayor_igualTK  reduce using rule 58 (exp_bV)
+    relacional_mayor_igualTK  [reduce using rule 71 (expresionV)]
+    relacional_menorTK        reduce using rule 58 (exp_bV)
+    relacional_menorTK        [reduce using rule 71 (expresionV)]
+    relacional_mayorTK        reduce using rule 58 (exp_bV)
+    relacional_mayorTK        [reduce using rule 71 (expresionV)]
+    $default                  reduce using rule 58 (exp_bV)
 
 
-Estado 197
+State 197
 
    58 exp_bV: exp_bV • conjuncionTK exp_bV
    59       | exp_bV • disyuncionTK exp_bV
    59       | exp_bV disyuncionTK exp_bV •
    71 expresionV: exp_bV •
 
-    conjuncionTK  desplazar e ir al estado 150
+    conjuncionTK  shift, and go to state 150
 
-    operador_igualTK          reduce usando la regla 59 (exp_bV)
-    operador_igualTK          [reduce usando la regla 71 (expresionV)]
-    relacional_distintoTK     reduce usando la regla 59 (exp_bV)
-    relacional_distintoTK     [reduce usando la regla 71 (expresionV)]
-    relacional_menor_igualTK  reduce usando la regla 59 (exp_bV)
-    relacional_menor_igualTK  [reduce usando la regla 71 (expresionV)]
-    relacional_mayor_igualTK  reduce usando la regla 59 (exp_bV)
-    relacional_mayor_igualTK  [reduce usando la regla 71 (expresionV)]
-    relacional_menorTK        reduce usando la regla 59 (exp_bV)
-    relacional_menorTK        [reduce usando la regla 71 (expresionV)]
-    relacional_mayorTK        reduce usando la regla 59 (exp_bV)
-    relacional_mayorTK        [reduce usando la regla 71 (expresionV)]
-    $default                  reduce usando la regla 59 (exp_bV)
+    operador_igualTK          reduce using rule 59 (exp_bV)
+    operador_igualTK          [reduce using rule 71 (expresionV)]
+    relacional_distintoTK     reduce using rule 59 (exp_bV)
+    relacional_distintoTK     [reduce using rule 71 (expresionV)]
+    relacional_menor_igualTK  reduce using rule 59 (exp_bV)
+    relacional_menor_igualTK  [reduce using rule 71 (expresionV)]
+    relacional_mayor_igualTK  reduce using rule 59 (exp_bV)
+    relacional_mayor_igualTK  [reduce using rule 71 (expresionV)]
+    relacional_menorTK        reduce using rule 59 (exp_bV)
+    relacional_menorTK        [reduce using rule 71 (expresionV)]
+    relacional_mayorTK        reduce using rule 59 (exp_bV)
+    relacional_mayorTK        [reduce using rule 71 (expresionV)]
+    $default                  reduce using rule 59 (exp_bV)
 
 
-Estado 198
+State 198
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2899,14 +2899,14 @@ Estado 198
    68       | expresionV • operador_igualTK expresionV
    68       | expresionV operador_igualTK expresionV •
 
-    operador_igualTK    error (no asociativo)
-    relacional_menorTK  error (no asociativo)
-    relacional_mayorTK  error (no asociativo)
+    operador_igualTK    error (nonassociative)
+    relacional_menorTK  error (nonassociative)
+    relacional_mayorTK  error (nonassociative)
 
-    $default  reduce usando la regla 68 (exp_bV)
+    $default  reduce using rule 68 (exp_bV)
 
 
-Estado 199
+State 199
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    63       | expresionV relacional_distintoTK expresionV •
@@ -2916,18 +2916,18 @@ Estado 199
    67       | expresionV • relacional_mayorTK expresionV
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK    desplazar e ir al estado 152
-    relacional_menorTK  desplazar e ir al estado 156
-    relacional_mayorTK  desplazar e ir al estado 157
+    operador_igualTK    shift, and go to state 152
+    relacional_menorTK  shift, and go to state 156
+    relacional_mayorTK  shift, and go to state 157
 
-    relacional_distintoTK     error (no asociativo)
-    relacional_menor_igualTK  error (no asociativo)
-    relacional_mayor_igualTK  error (no asociativo)
+    relacional_distintoTK     error (nonassociative)
+    relacional_menor_igualTK  error (nonassociative)
+    relacional_mayor_igualTK  error (nonassociative)
 
-    $default  reduce usando la regla 63 (exp_bV)
+    $default  reduce using rule 63 (exp_bV)
 
 
-Estado 200
+State 200
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2937,18 +2937,18 @@ Estado 200
    67       | expresionV • relacional_mayorTK expresionV
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK    desplazar e ir al estado 152
-    relacional_menorTK  desplazar e ir al estado 156
-    relacional_mayorTK  desplazar e ir al estado 157
+    operador_igualTK    shift, and go to state 152
+    relacional_menorTK  shift, and go to state 156
+    relacional_mayorTK  shift, and go to state 157
 
-    relacional_distintoTK     error (no asociativo)
-    relacional_menor_igualTK  error (no asociativo)
-    relacional_mayor_igualTK  error (no asociativo)
+    relacional_distintoTK     error (nonassociative)
+    relacional_menor_igualTK  error (nonassociative)
+    relacional_mayor_igualTK  error (nonassociative)
 
-    $default  reduce usando la regla 64 (exp_bV)
+    $default  reduce using rule 64 (exp_bV)
 
 
-Estado 201
+State 201
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2958,18 +2958,18 @@ Estado 201
    67       | expresionV • relacional_mayorTK expresionV
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK    desplazar e ir al estado 152
-    relacional_menorTK  desplazar e ir al estado 156
-    relacional_mayorTK  desplazar e ir al estado 157
+    operador_igualTK    shift, and go to state 152
+    relacional_menorTK  shift, and go to state 156
+    relacional_mayorTK  shift, and go to state 157
 
-    relacional_distintoTK     error (no asociativo)
-    relacional_menor_igualTK  error (no asociativo)
-    relacional_mayor_igualTK  error (no asociativo)
+    relacional_distintoTK     error (nonassociative)
+    relacional_menor_igualTK  error (nonassociative)
+    relacional_mayor_igualTK  error (nonassociative)
 
-    $default  reduce usando la regla 65 (exp_bV)
+    $default  reduce using rule 65 (exp_bV)
 
 
-Estado 202
+State 202
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2979,14 +2979,14 @@ Estado 202
    67       | expresionV • relacional_mayorTK expresionV
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK    error (no asociativo)
-    relacional_menorTK  error (no asociativo)
-    relacional_mayorTK  error (no asociativo)
+    operador_igualTK    error (nonassociative)
+    relacional_menorTK  error (nonassociative)
+    relacional_mayorTK  error (nonassociative)
 
-    $default  reduce usando la regla 66 (exp_bV)
+    $default  reduce using rule 66 (exp_bV)
 
 
-Estado 203
+State 203
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -2996,39 +2996,39 @@ Estado 203
    67       | expresionV relacional_mayorTK expresionV •
    68       | expresionV • operador_igualTK expresionV
 
-    operador_igualTK    error (no asociativo)
-    relacional_menorTK  error (no asociativo)
-    relacional_mayorTK  error (no asociativo)
+    operador_igualTK    error (nonassociative)
+    relacional_menorTK  error (nonassociative)
+    relacional_mayorTK  error (nonassociative)
 
-    $default  reduce usando la regla 67 (exp_bV)
+    $default  reduce using rule 67 (exp_bV)
 
 
-Estado 204
+State 204
 
    37 declaracionDeVariableV: lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK •
 
-    $default  reduce usando la regla 37 (declaracionDeVariableV)
+    $default  reduce using rule 37 (declaracionDeVariableV)
 
 
-Estado 205
+State 205
 
    91 alternativaV: inicio_siTK expresionV operador_entoncesTK instruccionesV • lista_opcionesV fin_siTK
 
-    operador_elseTK  desplazar e ir al estado 222
+    operador_elseTK  shift, and go to state 222
 
-    $default  reduce usando la regla 93 (lista_opcionesV)
+    $default  reduce using rule 93 (lista_opcionesV)
 
-    lista_opcionesV  ir al estado 223
+    lista_opcionesV  go to state 223
 
 
-Estado 206
+State 206
 
    96 it_cota_expV: inicio_mientrasTK expresionV hacerTK instruccionesV • fin_mientrasTK
 
-    fin_mientrasTK  desplazar e ir al estado 224
+    fin_mientrasTK  shift, and go to state 224
 
 
-Estado 207
+State 207
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -3038,115 +3038,115 @@ Estado 207
    68       | expresionV • operador_igualTK expresionV
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV • hastaTK expresionV hacerTK instruccionesV fin_paraTK
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
-    hastaTK                   desplazar e ir al estado 225
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
+    hastaTK                   shift, and go to state 225
 
 
-Estado 208
+State 208
 
   109 l_llV: expresionV operador_separadorTK • l_llV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 164
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
-    l_llV        ir al estado 226
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 164
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
+    l_llV        go to state 226
 
 
-Estado 209
+State 209
 
   107 accion_llV: identificadorTK inicio_parentesisTK l_llV fin_parentesisTK •
 
-    $default  reduce usando la regla 107 (accion_llV)
+    $default  reduce using rule 107 (accion_llV)
 
 
-Estado 210
+State 210
 
    75 operando_aV: operando_aV operador_inicio_arrayTK expresionV operador_fin_arrayTK •
 
-    $default  reduce usando la regla 75 (operando_aV)
+    $default  reduce using rule 75 (operando_aV)
 
 
-Estado 211
+State 211
 
    79 operando_bV: operando_bV operador_inicio_arrayTK expresionV operador_fin_arrayTK •
 
-    $default  reduce usando la regla 79 (operando_bV)
+    $default  reduce using rule 79 (operando_bV)
 
 
-Estado 212
+State 212
 
    39 lista_idV: lista_idV • operador_separadorTK declaracionDeListaIdV
   104 d_p_formV: tipo_atributo_entTK lista_idV • operador_def_tipoTK d_tipoV
 
-    operador_separadorTK  desplazar e ir al estado 102
-    operador_def_tipoTK   desplazar e ir al estado 227
+    operador_separadorTK  shift, and go to state 102
+    operador_def_tipoTK   shift, and go to state 227
 
 
-Estado 213
+State 213
 
    39 lista_idV: lista_idV • operador_separadorTK declaracionDeListaIdV
   105 d_p_formV: tipo_atributo_salTK lista_idV • operador_def_tipoTK d_tipoV
 
-    operador_separadorTK  desplazar e ir al estado 102
-    operador_def_tipoTK   desplazar e ir al estado 228
+    operador_separadorTK  shift, and go to state 102
+    operador_def_tipoTK   shift, and go to state 228
 
 
-Estado 214
+State 214
 
    39 lista_idV: lista_idV • operador_separadorTK declaracionDeListaIdV
   106 d_p_formV: tipo_atributo_ent_salTK lista_idV • operador_def_tipoTK d_tipoV
 
-    operador_separadorTK  desplazar e ir al estado 102
-    operador_def_tipoTK   desplazar e ir al estado 229
+    operador_separadorTK  shift, and go to state 102
+    operador_def_tipoTK   shift, and go to state 229
 
 
-Estado 215
+State 215
 
   100 a_cabeceraV: identificadorTK inicio_parentesisTK d_par_formV fin_parentesisTK • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 230
+    operador_comp_secTK  shift, and go to state 230
 
 
-Estado 216
+State 216
 
   102 d_par_formV: d_p_formV operador_comp_secTK • d_par_formV
 
-    tipo_atributo_entTK      desplazar e ir al estado 173
-    tipo_atributo_salTK      desplazar e ir al estado 174
-    tipo_atributo_ent_salTK  desplazar e ir al estado 175
+    tipo_atributo_entTK      shift, and go to state 173
+    tipo_atributo_salTK      shift, and go to state 174
+    tipo_atributo_ent_salTK  shift, and go to state 175
 
-    $default  reduce usando la regla 103 (d_par_formV)
+    $default  reduce using rule 103 (d_par_formV)
 
-    d_par_formV  ir al estado 231
-    d_p_formV    ir al estado 177
+    d_par_formV  go to state 231
+    d_p_formV    go to state 177
 
 
-Estado 217
+State 217
 
   101 f_cabeceraV: identificadorTK inicio_parentesisTK lista_d_varV fin_parentesisTK • devTK d_tipoV operador_comp_secTK
 
-    devTK  desplazar e ir al estado 232
+    devTK  shift, and go to state 232
 
 
-Estado 218
+State 218
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -3156,270 +3156,270 @@ Estado 218
    68       | expresionV • operador_igualTK expresionV
    99 funcion_dV: inicio_funcionTK f_cabeceraV bloqueV devTK expresionV • fin_funcionTK
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
-    fin_funcionTK             desplazar e ir al estado 233
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
+    fin_funcionTK             shift, and go to state 233
 
 
-Estado 219
+State 219
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK expresion_tV operador_subrangoTK • expresion_tV operador_fin_arrayTK deTK d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    expresion_tV  ir al estado 234
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    expresion_tV  go to state 234
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 220
+State 220
 
    31 declaracionCampoV: identificadorTK operador_def_tipoTK d_tipoV • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 235
+    operador_comp_secTK  shift, and go to state 235
 
 
-Estado 221
+State 221
 
   108 funcion_llV: identificadorTK inicio_parentesisTK l_llV fin_parentesisTK •
 
-    $default  reduce usando la regla 108 (funcion_llV)
+    $default  reduce using rule 108 (funcion_llV)
 
 
-Estado 222
+State 222
 
    92 lista_opcionesV: operador_elseTK • expresionV operador_entoncesTK instruccionesV lista_opcionesV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 236
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 236
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 223
+State 223
 
    91 alternativaV: inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV • fin_siTK
 
-    fin_siTK  desplazar e ir al estado 237
+    fin_siTK  shift, and go to state 237
 
 
-Estado 224
+State 224
 
    96 it_cota_expV: inicio_mientrasTK expresionV hacerTK instruccionesV fin_mientrasTK •
 
-    $default  reduce usando la regla 96 (it_cota_expV)
+    $default  reduce using rule 96 (it_cota_expV)
 
 
-Estado 225
+State 225
 
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK • expresionV hacerTK instruccionesV fin_paraTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    noTK                     desplazar e ir al estado 84
-    identificadorTK          desplazar e ir al estado 105
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    noTK                     shift, and go to state 84
+    identificadorTK          shift, and go to state 105
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
 
-    exp_aV       ir al estado 93
-    exp_bV       ir al estado 94
-    expresionV   ir al estado 238
-    operando_aV  ir al estado 96
-    operando_bV  ir al estado 97
-    funcion_llV  ir al estado 98
+    exp_aV       go to state 93
+    exp_bV       go to state 94
+    expresionV   go to state 238
+    operando_aV  go to state 96
+    operando_bV  go to state 97
+    funcion_llV  go to state 98
 
 
-Estado 226
+State 226
 
   109 l_llV: expresionV operador_separadorTK l_llV •
 
-    $default  reduce usando la regla 109 (l_llV)
+    $default  reduce using rule 109 (l_llV)
 
 
-Estado 227
+State 227
 
   104 d_p_formV: tipo_atributo_entTK lista_idV operador_def_tipoTK • d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 239
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 239
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 228
+State 228
 
   105 d_p_formV: tipo_atributo_salTK lista_idV operador_def_tipoTK • d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 240
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 240
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 229
+State 229
 
   106 d_p_formV: tipo_atributo_ent_salTK lista_idV operador_def_tipoTK • d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 241
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 241
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 230
+State 230
 
   100 a_cabeceraV: identificadorTK inicio_parentesisTK d_par_formV fin_parentesisTK operador_comp_secTK •
 
-    $default  reduce usando la regla 100 (a_cabeceraV)
+    $default  reduce using rule 100 (a_cabeceraV)
 
 
-Estado 231
+State 231
 
   102 d_par_formV: d_p_formV operador_comp_secTK d_par_formV •
 
-    $default  reduce usando la regla 102 (d_par_formV)
+    $default  reduce using rule 102 (d_par_formV)
 
 
-Estado 232
+State 232
 
   101 f_cabeceraV: identificadorTK inicio_parentesisTK lista_d_varV fin_parentesisTK devTK • d_tipoV operador_comp_secTK
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 242
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 242
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 233
+State 233
 
    99 funcion_dV: inicio_funcionTK f_cabeceraV bloqueV devTK expresionV fin_funcionTK •
 
-    $default  reduce usando la regla 99 (funcion_dV)
+    $default  reduce using rule 99 (funcion_dV)
 
 
-Estado 234
+State 234
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV • operador_fin_arrayTK deTK d_tipoV
 
-    operador_fin_arrayTK  desplazar e ir al estado 243
+    operador_fin_arrayTK  shift, and go to state 243
 
 
-Estado 235
+State 235
 
    31 declaracionCampoV: identificadorTK operador_def_tipoTK d_tipoV operador_comp_secTK •
 
-    $default  reduce usando la regla 31 (declaracionCampoV)
+    $default  reduce using rule 31 (declaracionCampoV)
 
 
-Estado 236
+State 236
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -3429,23 +3429,23 @@ Estado 236
    68       | expresionV • operador_igualTK expresionV
    92 lista_opcionesV: operador_elseTK expresionV • operador_entoncesTK instruccionesV lista_opcionesV
 
-    operador_entoncesTK       desplazar e ir al estado 244
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
+    operador_entoncesTK       shift, and go to state 244
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
 
 
-Estado 237
+State 237
 
    91 alternativaV: inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK •
 
-    $default  reduce usando la regla 91 (alternativaV)
+    $default  reduce using rule 91 (alternativaV)
 
 
-Estado 238
+State 238
 
    63 exp_bV: expresionV • relacional_distintoTK expresionV
    64       | expresionV • relacional_menor_igualTK expresionV
@@ -3455,168 +3455,168 @@ Estado 238
    68       | expresionV • operador_igualTK expresionV
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK expresionV • hacerTK instruccionesV fin_paraTK
 
-    operador_igualTK          desplazar e ir al estado 152
-    relacional_distintoTK     desplazar e ir al estado 153
-    relacional_menor_igualTK  desplazar e ir al estado 154
-    relacional_mayor_igualTK  desplazar e ir al estado 155
-    relacional_menorTK        desplazar e ir al estado 156
-    relacional_mayorTK        desplazar e ir al estado 157
-    hacerTK                   desplazar e ir al estado 245
+    operador_igualTK          shift, and go to state 152
+    relacional_distintoTK     shift, and go to state 153
+    relacional_menor_igualTK  shift, and go to state 154
+    relacional_mayor_igualTK  shift, and go to state 155
+    relacional_menorTK        shift, and go to state 156
+    relacional_mayorTK        shift, and go to state 157
+    hacerTK                   shift, and go to state 245
 
 
-Estado 239
+State 239
 
   104 d_p_formV: tipo_atributo_entTK lista_idV operador_def_tipoTK d_tipoV •
 
-    $default  reduce usando la regla 104 (d_p_formV)
+    $default  reduce using rule 104 (d_p_formV)
 
 
-Estado 240
+State 240
 
   105 d_p_formV: tipo_atributo_salTK lista_idV operador_def_tipoTK d_tipoV •
 
-    $default  reduce usando la regla 105 (d_p_formV)
+    $default  reduce using rule 105 (d_p_formV)
 
 
-Estado 241
+State 241
 
   106 d_p_formV: tipo_atributo_ent_salTK lista_idV operador_def_tipoTK d_tipoV •
 
-    $default  reduce usando la regla 106 (d_p_formV)
+    $default  reduce using rule 106 (d_p_formV)
 
 
-Estado 242
+State 242
 
   101 f_cabeceraV: identificadorTK inicio_parentesisTK lista_d_varV fin_parentesisTK devTK d_tipoV • operador_comp_secTK
 
-    operador_comp_secTK  desplazar e ir al estado 246
+    operador_comp_secTK  shift, and go to state 246
 
 
-Estado 243
+State 243
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK • deTK d_tipoV
 
-    deTK  desplazar e ir al estado 247
+    deTK  shift, and go to state 247
 
 
-Estado 244
+State 244
 
    92 lista_opcionesV: operador_elseTK expresionV operador_entoncesTK • instruccionesV lista_opcionesV
 
-    continuarTK              desplazar e ir al estado 45
-    inicio_siTK              desplazar e ir al estado 46
-    inicio_mientrasTK        desplazar e ir al estado 47
-    inicio_paraTK            desplazar e ir al estado 48
-    identificadorTK          desplazar e ir al estado 49
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    continuarTK              shift, and go to state 45
+    inicio_siTK              shift, and go to state 46
+    inicio_mientrasTK        shift, and go to state 47
+    inicio_paraTK            shift, and go to state 48
+    identificadorTK          shift, and go to state 49
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_aV     ir al estado 51
-    operando_bV     ir al estado 52
-    instruccionesV  ir al estado 248
-    instruccionV    ir al estado 54
-    asignacion_aV   ir al estado 55
-    asignacion_bV   ir al estado 56
-    alternativaV    ir al estado 57
-    iteracionV      ir al estado 58
-    it_cota_expV    ir al estado 59
-    it_cota_fijaV   ir al estado 60
-    accion_llV      ir al estado 61
+    operando_aV     go to state 51
+    operando_bV     go to state 52
+    instruccionesV  go to state 248
+    instruccionV    go to state 54
+    asignacion_aV   go to state 55
+    asignacion_bV   go to state 56
+    alternativaV    go to state 57
+    iteracionV      go to state 58
+    it_cota_expV    go to state 59
+    it_cota_fijaV   go to state 60
+    accion_llV      go to state 61
 
 
-Estado 245
+State 245
 
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK expresionV hacerTK • instruccionesV fin_paraTK
 
-    continuarTK              desplazar e ir al estado 45
-    inicio_siTK              desplazar e ir al estado 46
-    inicio_mientrasTK        desplazar e ir al estado 47
-    inicio_paraTK            desplazar e ir al estado 48
-    identificadorTK          desplazar e ir al estado 49
-    identificadorBooleanoTK  desplazar e ir al estado 50
+    continuarTK              shift, and go to state 45
+    inicio_siTK              shift, and go to state 46
+    inicio_mientrasTK        shift, and go to state 47
+    inicio_paraTK            shift, and go to state 48
+    identificadorTK          shift, and go to state 49
+    identificadorBooleanoTK  shift, and go to state 50
 
-    operando_aV     ir al estado 51
-    operando_bV     ir al estado 52
-    instruccionesV  ir al estado 249
-    instruccionV    ir al estado 54
-    asignacion_aV   ir al estado 55
-    asignacion_bV   ir al estado 56
-    alternativaV    ir al estado 57
-    iteracionV      ir al estado 58
-    it_cota_expV    ir al estado 59
-    it_cota_fijaV   ir al estado 60
-    accion_llV      ir al estado 61
+    operando_aV     go to state 51
+    operando_bV     go to state 52
+    instruccionesV  go to state 249
+    instruccionV    go to state 54
+    asignacion_aV   go to state 55
+    asignacion_bV   go to state 56
+    alternativaV    go to state 57
+    iteracionV      go to state 58
+    it_cota_expV    go to state 59
+    it_cota_fijaV   go to state 60
+    accion_llV      go to state 61
 
 
-Estado 246
+State 246
 
   101 f_cabeceraV: identificadorTK inicio_parentesisTK lista_d_varV fin_parentesisTK devTK d_tipoV operador_comp_secTK •
 
-    $default  reduce usando la regla 101 (f_cabeceraV)
+    $default  reduce using rule 101 (f_cabeceraV)
 
 
-Estado 247
+State 247
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK • d_tipoV
 
-    aritmetico_sumaTK        desplazar e ir al estado 78
-    aritmetico_restaTK       desplazar e ir al estado 79
-    inicio_parentesisTK      desplazar e ir al estado 80
-    tipoTK                   desplazar e ir al estado 81
-    tipoTablaTK              desplazar e ir al estado 82
-    tipoRefTK                desplazar e ir al estado 83
-    noTK                     desplazar e ir al estado 84
-    inicio_tuplaTK           desplazar e ir al estado 85
-    identificadorTK          desplazar e ir al estado 86
-    identificadorBooleanoTK  desplazar e ir al estado 50
-    literal_booleanoTK       desplazar e ir al estado 87
-    literal_enteroTK         desplazar e ir al estado 88
-    literal_realTK           desplazar e ir al estado 89
-    literal_caracterTK       desplazar e ir al estado 90
+    aritmetico_sumaTK        shift, and go to state 78
+    aritmetico_restaTK       shift, and go to state 79
+    inicio_parentesisTK      shift, and go to state 80
+    tipoTK                   shift, and go to state 81
+    tipoTablaTK              shift, and go to state 82
+    tipoRefTK                shift, and go to state 83
+    noTK                     shift, and go to state 84
+    inicio_tuplaTK           shift, and go to state 85
+    identificadorTK          shift, and go to state 86
+    identificadorBooleanoTK  shift, and go to state 50
+    literal_booleanoTK       shift, and go to state 87
+    literal_enteroTK         shift, and go to state 88
+    literal_realTK           shift, and go to state 89
+    literal_caracterTK       shift, and go to state 90
 
-    d_tipoV       ir al estado 250
-    expresion_tV  ir al estado 92
-    exp_aV        ir al estado 93
-    exp_bV        ir al estado 94
-    expresionV    ir al estado 95
-    operando_aV   ir al estado 96
-    operando_bV   ir al estado 97
-    funcion_llV   ir al estado 98
+    d_tipoV       go to state 250
+    expresion_tV  go to state 92
+    exp_aV        go to state 93
+    exp_bV        go to state 94
+    expresionV    go to state 95
+    operando_aV   go to state 96
+    operando_bV   go to state 97
+    funcion_llV   go to state 98
 
 
-Estado 248
+State 248
 
    92 lista_opcionesV: operador_elseTK expresionV operador_entoncesTK instruccionesV • lista_opcionesV
 
-    operador_elseTK  desplazar e ir al estado 222
+    operador_elseTK  shift, and go to state 222
 
-    $default  reduce usando la regla 93 (lista_opcionesV)
+    $default  reduce using rule 93 (lista_opcionesV)
 
-    lista_opcionesV  ir al estado 251
+    lista_opcionesV  go to state 251
 
 
-Estado 249
+State 249
 
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK expresionV hacerTK instruccionesV • fin_paraTK
 
-    fin_paraTK  desplazar e ir al estado 252
+    fin_paraTK  shift, and go to state 252
 
 
-Estado 250
+State 250
 
    22 d_tipoV: tipoTablaTK operador_inicio_arrayTK expresion_tV operador_subrangoTK expresion_tV operador_fin_arrayTK deTK d_tipoV •
 
-    $default  reduce usando la regla 22 (d_tipoV)
+    $default  reduce using rule 22 (d_tipoV)
 
 
-Estado 251
+State 251
 
    92 lista_opcionesV: operador_elseTK expresionV operador_entoncesTK instruccionesV lista_opcionesV •
 
-    $default  reduce usando la regla 92 (lista_opcionesV)
+    $default  reduce using rule 92 (lista_opcionesV)
 
 
-Estado 252
+State 252
 
    97 it_cota_fijaV: inicio_paraTK identificadorTK operador_asignacionTK expresionV hastaTK expresionV hacerTK instruccionesV fin_paraTK •
 
-    $default  reduce usando la regla 97 (it_cota_fijaV)
+    $default  reduce using rule 97 (it_cota_fijaV)
