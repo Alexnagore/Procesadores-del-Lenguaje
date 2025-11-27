@@ -39,7 +39,9 @@ void modificarTipoTS(TablaDeSimbolos tabla, int clave, int tipo){
         tabla = tabla->sig;
         cont++;
     }
-    tabla->simbolos[clave].tipo = tipo;
+    if (tabla != NULL) {
+        tabla->valor.tipoDelValor = tipo;
+    }
 };
 
 int newTemp(TablaDeSimbolos * ts) {
@@ -49,7 +51,7 @@ int newTemp(TablaDeSimbolos * ts) {
     strcpy(nuevoSimbolo.nombre, nombreSimbolo);
     nuevoSimbolo.tipo = -1;
     nuevoSimbolo.clave = ts->sigPos;
-    ts->simbolos[ts->sigPos] = nuevoSimbolo;
+    insertarSimbolo(ts, nuevoSimbolo.nombre, nuevoSimbolo.tipo);
     ts->sigPos++;
     return nuevoSimbolo.clave;
 }
