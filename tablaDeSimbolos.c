@@ -6,6 +6,7 @@
 TablaDeSimbolos nuevaTablaDeSimbolos(void) {
     return NULL;
 }
+
 bool insertaSimbolo(TablaDeSimbolos * tabla, char * nombre, LiteralT valor) {
     Celda * aux;
 
@@ -30,6 +31,27 @@ bool insertaSimbolo(TablaDeSimbolos * tabla, char * nombre, LiteralT valor) {
     *tabla = nuevaCelda;
 
     return true;
+}
+
+void modificarTipoTS(TablaDeSimbolos tabla, int clave, int tipo){
+    int cont = 0;
+    while (tabla != NULL && cont < clave) {
+        tabla = tabla->sig;
+        cont++;
+    }
+    tabla->simbolos[clave].tipo = tipo;
+};
+
+int newTemp(TablaDeSimbolos * ts) {
+    char nombreSimbolo[100];
+    snprintf(nombreSimbolo, sizeof(nombreSimbolo), "TEMP.%d", ts->sigPos);
+    simbolo nuevoSimbolo;
+    strcpy(nuevoSimbolo.nombre, nombreSimbolo);
+    nuevoSimbolo.tipo = -1;
+    nuevoSimbolo.clave = ts->sigPos;
+    ts->simbolos[ts->sigPos] = nuevoSimbolo;
+    ts->sigPos++;
+    return nuevoSimbolo.clave;
 }
 
 int buscar_tipo_TS(TablaDeSimbolos tabla, char * nombre) {

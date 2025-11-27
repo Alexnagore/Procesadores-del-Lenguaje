@@ -303,21 +303,49 @@ decl_salV : tipo_atributo_salTK lista_d_varV{
 	;
 
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
-		//int T = newtemp();
-		//$$.place = T;
+		int T = newtemp();
+		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, ENTERO);
+			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un entero y de un real\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, REAL);
+			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de reales\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, REAL);
+			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un real y de un entero\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, REAL);
+			$$.type = REAL;
 		}
 	}
 	| exp_aV aritmetico_restaTK exp_aV {
+		int T = newtemp();
+		$$.place = T;
+		if ($1.type == ENTERO && $3.type == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, ENTERO);
+			$$.type = ENTERO;
+		} else if ($1.type == ENTERO && $3.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un entero y de un real\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, REAL);
+			$$.type = REAL;
+		} else if ($1.type == REAL && $3.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de reales\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, REAL);
+			$$.type = REAL;
+		} else if ($1.type == REAL && $3.type == ENTERO){
+			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un real y de un entero\n"ANSI_COLOR_RESET);
+			modificarTipoTS(ts, T, REAL);
+			$$.type = REAL;
 		}
+	}
 	| exp_aV aritmetico_productoTK exp_aV {
+		
 		}
 	| exp_aV aritmetico_divisionTK exp_aV {
 		}
