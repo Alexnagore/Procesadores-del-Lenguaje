@@ -292,7 +292,7 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un entero y de un real\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);           
 			gen(&tc,SUMA_REAL,T,$3.place,T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
@@ -314,32 +314,111 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de enteros\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, ENTERO);
+			gen(&tc,RESTA_ENTERO,$1.place,$3.place,T);
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un entero y de un real\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,RESTA_REAL,T,$3.place,T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de reales\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,RESTA_REAL,$1.place,$3.place,T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un real y de un entero\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
+			gen(&tc,RESTA_REAL,$1.place,T,T);
 			$$.type = REAL;
 		}
 	}
 	| exp_aV aritmetico_productoTK exp_aV {
-		
+		int T = newTemp(&ts);
+		$$.place = T;
+		if ($1.type == ENTERO && $3.type == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, ENTERO);
+			gen(&tc, MULT_ENTERO,$1.place,$3.place,T);
+			$$.type = ENTERO;
+		} else if ($1.type == ENTERO && $3.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de un entero y de un real\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,MULT_REAL,T,$3.place,T);
+			$$.type = REAL;
+		} else if ($1.type == REAL && $3.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de reales\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,MULT_REAL,$1.place,$3.place,T);
+			$$.type = REAL;
+		} else if ($1.type == REAL && $3.type == ENTERO){
+			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de un real y de un entero\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
+			gen(&tc,MULT_REAL,$1.place,T,T);
+			$$.type = REAL;
 		}
+	}
 	| exp_aV aritmetico_divisionTK exp_aV {
+		int T = newTemp(&ts);
+		$$.place = T;
+		if ($1.type == ENTERO && $3.type == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en una division de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, ENTERO);
+			gen(&tc, DIV_ENTERO,$1.place,$3.place,T);
+			$$.type = ENTERO;
+		} else if ($1.type == REAL || $3.type == REAL){
+			printf(ANSI_COLOR_RED"Error Semántico: No se puede realizar una división entera con algún operando reale.\n"ANSI_COLOR_RESET);
 		}
+	}
 	| exp_aV aritmetico_divisionRealTK exp_aV {
+		int T = newTemp(&ts);
+		$$.place = T;
+		if ($1.type == ENTERO && $3.type == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en una division real de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,INT_TO_REAL,$3.place,NULO,T+1);
+			gen(&tc,DIV_REAL,T,T+1,T);
+			$$.type = REAL;
+		} else if ($1.type == ENTERO && $3.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en una division de un entero y de un real\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,DIV_REAL,T,$3.place,T);
+			$$.type = REAL;
+		} else if ($1.type == REAL && $3.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en una division de reales\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,DIV_REAL,$1.place,$3.place,T);
+			$$.type = REAL;
+		} else if ($1.type == REAL && $3.type == ENTERO){
+			printf(ANSI_COLOR_MAGENTA"Estoy en una division de un real y de un entero\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
+			gen(&tc,DIV_REAL,$1.place,T,T);
+			$$.type = REAL;
 		}
+	}
 	| exp_aV aritmetico_moduloTK exp_aV {
+		int T = newTemp(&ts);
+		$$.place = T;
+		if ($1.type == ENTERO && $3.type == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en un modulo de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, ENTERO);
+			gen(&tc, MODULO,$1.place,$3.place,T);
+			$$.type = ENTERO;
+		} else if ($1.type == REAL || $3.type == REAL){
+			printf(ANSI_COLOR_RED"Error Semántico: No se puede realizar una operación de módulo con algún operando real.\n"ANSI_COLOR_RESET);
 		}
+	}
 	| inicio_parentesisTK exp_aV fin_parentesisTK {
-		}
+		$$.place = $2.place;
+		$$.type = $2.type;
+	}
 	| operando_aV {
 		}
 	| literal_enteroTK {
@@ -347,9 +426,21 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 	| literal_realTK {
 		}
 	| aritmetico_restaTK exp_aV {
+		int T = newTemp(&ts);
+		$$.place = T;
+		$$.type = $2.type;
+		if ($2.type == ENTERO) {
+			printf(ANSI_COLOR_MAGENTA"Estoy en un menos unario de enteros\n"ANSI_COLOR_RESET);
+			gen(&tc, NEG_ENTERO, $2.place, NULO, T);
+		} else if ($2.type == REAL){
+			printf(ANSI_COLOR_MAGENTA"Estoy en un menos unario de reales\n"ANSI_COLOR_RESET);
+			gen(&tc, NEG_REAL, $2.place, NULO, T);
 		}
+	}
 	| aritmetico_sumaTK exp_aV {
-		}
+		$$.place = $2.place;
+		$$.type = $2.type;
+	}
 	;
 
 exp_bV : exp_bV conjuncionTK exp_bV {
