@@ -5,8 +5,7 @@
 	#include "literal.h"
 	#include "colaDeIdentificador.h"
 	#include "tablaDeSimbolos.h"	
-	//#include "tablaDeConstantes.h"
-	#include "tablaDeSimbolos.h"
+	#include "tablaDeCuadruplas.h"
 
 	/* --- DEFINICIÓN DE COLORES ANSI --- */
     #define ANSI_COLOR_RED     "\x1b[31m"
@@ -21,8 +20,8 @@
 	int yylex(); // Usamos la funcion que se crea gracias a flex
 	void yyerror(char *); // Prototipo de una funcion necesaria
 	extern FILE* yyin; // Usamos la varible de Flex en la que viene la entrada
-	//TablaDeConstantes tc; //Es donde guardaremos las constantes
 	TablaDeSimbolos ts;
+	TablaDeCuadruplas tc;
 	tipoCola ci;
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
@@ -286,19 +285,26 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de enteros\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, ENTERO);
+			printf(ANSI_COLOR_RESET"nada\n");
+			modificarTipoTS(&ts, T, ENTERO);
+			gen(&tc,SUMA_ENTERO,$1.place,$3.place,T);
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un entero y de un real\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, REAL);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,SUMA_REAL,T,$3.place,T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de reales\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, REAL);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,SUMA_REAL,$1.place,$3.place,T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un real y de un entero\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, REAL);
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
+			gen(&tc,SUMA_REAL,T,$1.place,T);
 			$$.type = REAL;
 		}
 	}
@@ -307,19 +313,19 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de enteros\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, ENTERO);
+			modificarTipoTS(&ts, T, ENTERO);
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un entero y de un real\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, REAL);
+			modificarTipoTS(&ts, T, REAL);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de reales\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, REAL);
+			modificarTipoTS(&ts, T, REAL);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un real y de un entero\n"ANSI_COLOR_RESET);
-			modificarTipoTS(ts, T, REAL);
+			modificarTipoTS(&ts, T, REAL);
 			$$.type = REAL;
 		}
 	}
@@ -492,7 +498,7 @@ int main(int argc, char **argv){
 		yyin = fopen(argv[0], "r");
 	else
 		yyin = stdin;
-	//tc = nuevaTablaDeConstantes();
+	tc = nuevaTablaDeCuadruplas();
 	nuevaCola(&ci);
 	ts = nuevaTablaDeSimbolos();
 	yyparse();
@@ -501,10 +507,17 @@ int main(int argc, char **argv){
     printf("==================================================\n");
     imprimeTablaDeSimbolos(ts); 
     printf("==================================================\n");
-	//imprimeTablaDeConstantes(tc);
+	printf("\n\n==================================================\n");
+    printf("ESTADO FINAL DE LA TABLA DE CUADRUPLAS:\n");
+    printf("==================================================\n");
+	imprimirTablaDeCuadruplas(&tc);
+    printf("==================================================\n");
+
 }
 
 
 void yyerror(char * s){
 	printf("\tBISON: ERROR, %s\n", s);
 }
+
+

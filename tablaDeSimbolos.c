@@ -37,27 +37,27 @@ bool insertaSimbolo(TablaDeSimbolos * ts, char * nombre, NombreDeTipoT tipo) {
     return true;
 }
 
-void modificarTipoTS(TablaDeSimbolos ts, int pos, int tipo){
-    int cont = 0;
-    while (ts.simbolos != NULL && cont < pos) {
-        ts.simbolos = ts.simbolos->sig;
-        cont++;
+void modificarTipoTS(TablaDeSimbolos * ts, int pos, int tipo){
+    printf("Voy a modificar el tipo del simbolo en la posicion %d a el tipo %d\n", pos, tipo);
+    Celda * aux = ts->simbolos;
+    int cont = ts->sigPos - 1;
+    while (aux != NULL && cont > pos) {
+        printf("Estoy en el simbolo %s con tipo %d\n", aux->nombre, aux->tipo);
+        aux = aux->sig;
+        cont--;
     }
-    if (ts.simbolos != NULL) {
-        ts.simbolos->tipo = tipo;
+    if (aux != NULL) {
+        printf("Voy a modificar el simbolo de la variable %s con tipo %d a tipo %d\n", aux->nombre, aux->tipo, tipo);
+        aux->tipo = tipo;
     }
-};
+}
 
 int newTemp(TablaDeSimbolos * ts) {
-    char nombreSimbolo[100];
-    snprintf(nombreSimbolo, sizeof(nombreSimbolo), "TEMP.%d", ts->sigPos);
-    Celda nuevoSimbolo;
-    strcpy(nuevoSimbolo.nombre, nombreSimbolo);
-    nuevoSimbolo.tipo = -1;
-    nuevoSimbolo.indice = ts->sigPos;
-    insertaSimbolo(ts, nuevoSimbolo.nombre, nuevoSimbolo.tipo);
-    ts->sigPos++;
-    return nuevoSimbolo.indice;
+    char nombreSimbolo[20];
+    int indice = ts->sigPos;
+    snprintf(nombreSimbolo, sizeof(nombreSimbolo), "TEMP.%d", indice);
+    insertaSimbolo(ts, nombreSimbolo, -1);
+    return indice;
 }
 
 int buscar_tipo_TS(TablaDeSimbolos ts, char * nombre) {
@@ -85,7 +85,7 @@ int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
 void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
     Celda * actual = ts.simbolos;
     while (actual != NULL) {
-        printf("Nombre: %s,  \tIndice: %d\n", actual->nombre, actual->indice);
+        printf("Nombre: %s  \tIndice: %d \tTipo: %d\n", actual->nombre, actual->indice, actual->tipo);
         printf("\n");
         actual = actual->sig;
     }

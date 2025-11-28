@@ -1,5 +1,5 @@
-compilador: parser.tab.c lex.yy.o literal.o tablaDeSimbolos.o colaDeIdentificador.o
-	gcc parser.tab.c lex.yy.o literal.o tablaDeSimbolos.o colaDeIdentificador.o -lm -lfl -o compilador
+compilador: parser.tab.c lex.yy.o literal.o tablaDeSimbolos.o colaDeIdentificador.o tablaDeCuadruplas.o
+	gcc parser.tab.c lex.yy.o literal.o tablaDeSimbolos.o tablaDeCuadruplas.o colaDeIdentificador.o -lm -lfl -o compilador
 
 parser.tab.c parser.tab.h: parser.y literal.h nombresDeTipos.h tablaDeSimbolos.h colaDeIdentificador.h
 	bison -d -v -t parser.y
@@ -13,6 +13,9 @@ literal.o: literal.c literal.h
 
 tablaDeSimbolos.o: tablaDeSimbolos.c tablaDeSimbolos.h
 	gcc -c tablaDeSimbolos.c
+
+tablaDeCuadruplas.o: tablaDeCuadruplas.c tablaDeCuadruplas.h
+	gcc -c tablaDeCuadruplas.c
 
 colaDeIdentificador.o: colaDeIdentificador.c colaDeIdentificador.h
 	gcc -c colaDeIdentificador.c
