@@ -71,13 +71,11 @@ int buscar_tipo_TS(TablaDeSimbolos ts, char * nombre) {
 }
 
 int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
-    int indice = 0;
     while (ts.simbolos != NULL) {
         if (strcmp(ts.simbolos->nombre, nombre) == 0) {
-            return indice;
+            return ts.simbolos->indice;
         }
         ts.simbolos = ts.simbolos->sig;
-        indice++;
     }
     return -1;
 }
