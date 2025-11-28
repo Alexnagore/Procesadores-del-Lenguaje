@@ -3,6 +3,9 @@
 #include <string.h>
 #include "tablaDeSimbolos.h"
 
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 TablaDeSimbolos nuevaTablaDeSimbolos(void) {
     TablaDeSimbolos ts;
     ts.simbolos = NULL;
@@ -81,10 +84,22 @@ int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
 }
 
 void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
+    printf(ANSI_COLOR_CYAN);
+    printf("+------------+------------+------------+\n");
+    printf("| %-10s | %-10s | %-10s |\n", "NOMBRE", "INDICE", "TIPO");
+    printf("+------------+------------+------------+\n");
+    printf(ANSI_COLOR_RESET);
+
     Celda * actual = ts.simbolos;
     while (actual != NULL) {
-        printf("Nombre: %s  \tIndice: %d \tTipo: %d\n", actual->nombre, actual->indice, actual->tipo);
-        printf("\n");
+        printf("| %-10s | %-10d | %-10d |\n",
+             actual->nombre,
+             actual->indice,
+             actual->tipo);
         actual = actual->sig;
     }
+
+    printf(ANSI_COLOR_CYAN);
+    printf("+------------+------------+------------+\n");
+    printf(ANSI_COLOR_RESET);
 }
