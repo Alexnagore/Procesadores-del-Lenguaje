@@ -80,7 +80,6 @@ typedef struct operando{
 %token tipo_atributo_entTK
 %token tipo_atributo_salTK
 %token tipo_atributo_ent_salTK
-%token operacionTK
 %token continuarTK
 %token deTK
 %token devTK
@@ -114,7 +113,6 @@ typedef struct operando{
 %token <literal> literal_enteroTK
 %token <literal> literal_realTK
 %token <literal> literal_caracterTK
-%token <literal> literal_cadenaTK
 %token comentarioTK
 
 %left disyuncionTK

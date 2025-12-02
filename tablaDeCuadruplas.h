@@ -4,18 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct tipoCuadrupla{
-	int operador;
-    int operando1;
-    int operando2;
-    int resultado;
-} TipoCuadrupla;
-
-typedef struct tablaDeCuadruplas{
-    TipoCuadrupla cuadruplas[100];
-    int nextQuad;
-} TablaDeCuadruplas;
-
 typedef enum operadores{
     NULO = -1,
     INT_TO_REAL = 0,
@@ -40,11 +28,26 @@ typedef enum operadores{
     SIGNO_MAYOR_IGUAL_OPERADOR = 21,
     SIGNO_MENOR_IGUAL_OPERADOR = 22,
     SIGNO_DISTINTO_OPERADOR = 23
-}Operadores;
+} Operadores;
+
+typedef struct tipoCuadrupla{
+    int operador;
+    int operando1;
+    int operando2;
+    int resultado;
+} TipoCuadrupla;
+
+typedef struct tablaDeCuadruplas{
+    TipoCuadrupla cuadruplas[100];
+    int nextQuad;
+} TablaDeCuadruplas;
+
 
 TablaDeCuadruplas nuevaTablaDeCuadruplas();
 void gen(TablaDeCuadruplas * tabla, int operador, int operando1, int operando2, int resultado);
-void backpatch(int lista[], int longitud, int resultado);
-void imprimirTablaDeCuadruplas();
+void backpatch(TablaDeCuadruplas * tabla, int lista[], int longitud, int resultado);
+void imprimirTablaDeCuadruplas(TablaDeCuadruplas * tabla);
+int* makelist(int index); 
+int* merge(int lista1[], int len1, int lista2[], int len2);
 
 #endif
