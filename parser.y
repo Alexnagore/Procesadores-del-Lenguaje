@@ -146,7 +146,7 @@ typedef struct m{
 %nonassoc relacional_menorTK relacional_mayorTK operador_igualTK
 %right noTK
 %left aritmetico_sumaTK aritmetico_restaTK
-%left aritmetico_productoTK aritmetico_divisionTK operacionTK
+%left aritmetico_productoTK aritmetico_divisionTK
 %left aritmetico_divisionRealTK aritmetico_moduloTK
 %left tipoTK
 %left puntoTK operador_inicio_arrayTK
