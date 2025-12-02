@@ -29,14 +29,35 @@
 %code requires{
 
 typedef struct expresionArit{
-        int place;
-        int type;
-} ExpresionArit ;
+    int place;
+    int type;
+} ExpresionArit;
+
+typedef struct expresionBool{
+	int verdadero[100];
+	int sigVerdadero;
+	int falso[100];
+	int sigFalso;
+} ExpresionBool;
+
+typedef struct expresionV{
+	int place;
+	int type;
+} ExpresionV;
 
 typedef struct operando{
 	int place;
 	int type;
 } Operando;
+
+typedef struct asignacion{
+	int place;
+	int type;
+} Asignacion;
+
+typedef struct m{
+	int quad;
+} M;
 
 }
 
@@ -48,6 +69,10 @@ typedef struct operando{
 	NombreDeTipoT tipo;
 	Operando paraOperando;
 	ExpresionArit paraExpresionArit;
+	ExpresionBool paraExpresionBool;
+	Asignacion paraAsignacion;
+	ExpresionV paraExpresionV;
+	M paraM;
 }
 
 %token operador_asignacionTK
@@ -127,8 +152,12 @@ typedef struct operando{
 %left puntoTK operador_inicio_arrayTK
 
 %type <paraExpresionArit> exp_aV
+%type <paraExpresionBool> exp_bV
 %type <tipo> d_tipoV
 %type <paraOperando> operando_aV
+%type <paraAsignacion> asignacion_aV
+%type <paraExpresionV> expresionV
+%type <paraM> M
 
 %%
 
@@ -312,7 +341,7 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		if ($1.type == ENTERO && $3.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de enteros\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, ENTERO);
-			gen(&tc,RESTA_ENTERO,$1.place,$3.place,T);
+			gen(&tc,RESTA_ENTERO,$1.place,$3.place,T);NULO
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un entero y de un real\n"ANSI_COLOR_RESET);
@@ -385,7 +414,7 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		} else if ($1.type == ENTERO && $3.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en una division de un entero y de un real\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
+			gen(&tc,INT_TO_REAL,$1.place,NULO,T);NULO
 			gen(&tc,DIV_REAL,T,$3.place,T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
@@ -441,19 +470,39 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 	}
 	;
 
-exp_bV : exp_bV conjuncionTK exp_bV {
-		}
+exp_bV : exp_bV conjuncionTK M exp_bV {
+		backpatch($1.true, M.quad);
+		$$.false = merge($1.false, $2.false);
+		$$.true = $2.true;
+	}
 	|
-	exp_bV disyuncionTK exp_bV {
-		}
+	exp_bV disyuncionTK M exp_bV {
+		backpatch($1.false, M.quad);
+		$$.true = merge($1.true, $2.true);
+		$$.false = $2.false;
+	}
 	|noTK exp_bV {
-		}
+		$$.true = $2.false;
+		$$.false = $2.true;
+	}
 	| operando_bV {
 		}
 	| literal_booleanoTK {
 		}
 	| expresionV relacional_distintoTK expresionV {
+		if ($1.type != $3.type) && ($1.type == REAL && $3.type == ENTERO){
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+		} else if ($1.type != $3.type) && ($1.type == ENTERO && $3.type == REAL){
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+		} else {
+			printf(ANSI_COLOR_RED "Error, tipos incompatibles en la comparación" ANSI_COLOR_RESET);
 		}
+		if ($1.place != $3.place) {
+			gen(&tc, SIGNO_DISTINTO_OPERADOR, $1.place, $3.place, T);
+			$$.place = T;
+		}
+		
+	}
 	| expresionV relacional_menor_igualTK expresionV {
 		}
 	| expresionV relacional_mayor_igualTK expresionV {
@@ -465,7 +514,9 @@ exp_bV : exp_bV conjuncionTK exp_bV {
 	| expresionV operador_igualTK expresionV {
 		}
 	| inicio_parentesisTK exp_bV fin_parentesisTK {
-		}
+		$$.true = $2.true;
+		$$.false = $2.false;
+	}
 	;
 expresionV : exp_aV {
 		}
@@ -486,7 +537,9 @@ operando_aV : identificadorTK {
 		}
 	;
 operando_bV : identificadorBooleanoTK {
-		}
+		$$.type = buscar_tipo_TS(ts, $1);
+		$$.place = buscar_indice_TS(ts, $1);
+	}
 	| operando_bV puntoTK operando_bV {
 		}
 	| operando_bV operador_inicio_arrayTK expresionV operador_fin_arrayTK {
@@ -514,7 +567,17 @@ instruccionV : continuarTK {
 		}
 	;
 asignacion_aV : operando_aV operador_asignacionTK expresionV {
+		int T = newTemp(&ts);
+		$$.place = T;
+		if ($3.type == $$.type) {
+			gen(&tc, ASIGNACION_TC, $1.place, $3.place, NULO);
+		} else if ($3.type == REAL && $$.type == ENTERO) {
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+			gen(&tc, ASIGNACION_TC, $1.place, T, T);
+		} else {
+			printf(ANSI_COLOR_RED "Error, no se puede asignar un Real a una variabla Entera" ANSI_COLOR_RESET);
 		}
+	}
 	;
 asignacion_bV : operando_bV operador_asignacionTK expresionV {
 		}

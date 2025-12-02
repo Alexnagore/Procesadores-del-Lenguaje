@@ -7,6 +7,8 @@ real1, real2: real;
 entero1, entero2: entero;
 fvar;
 entero1 := entero1 + entero2;
+real1 := entero1;
+entero1 := real1;
 continuar       
 {Post: Fin}           
 falgoritmo.
