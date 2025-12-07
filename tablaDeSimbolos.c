@@ -83,6 +83,19 @@ int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
     return -1;
 }
 
+char * nombreTipo(int tipo) {
+    switch (tipo) {
+        case 0: return "BOOLEANO";
+        case 1: return "CADENA";
+        case 2: return "CARACTER";
+        case 3: return "ENTERO";
+        case 4: return "REAL";
+        case 5: return "FALSOO";
+        case 6: return "VERDADEROO";
+        default: return "TEMPORAL";
+    }
+}
+
 void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
     printf(ANSI_COLOR_CYAN);
     printf("+------------+------------+------------+\n");
@@ -92,10 +105,10 @@ void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
 
     Celda * actual = ts.simbolos;
     while (actual != NULL) {
-        printf("| %-10s | %-10d | %-10d |\n",
+        printf("| %-10s | %-10d | %-10s |\n",
              actual->nombre,
              actual->indice,
-             actual->tipo);
+             nombreTipo(actual->tipo)); // Asumiendo que existe una función nombreTipo que convierte el tipo a su nombre
         actual = actual->sig;
     }
 

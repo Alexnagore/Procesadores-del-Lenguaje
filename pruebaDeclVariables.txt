@@ -3,12 +3,9 @@ ent a, b: entero;
 sal a, b: entero;
 {Prec: a= A AND b = B}
 var
-real1, real2: real;
-entero1, entero2: entero;
+b_bool1, b_bool2, b_bool3: booleano;
 fvar;
-entero1 := entero1 + entero2;
-real1 := entero1;
-entero1 := real1;
+b_bool1 := b_bool2 y b_bool3;
 continuar       
 {Post: Fin}           
 falgoritmo.

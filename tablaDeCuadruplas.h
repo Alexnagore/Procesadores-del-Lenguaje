@@ -47,7 +47,8 @@ TablaDeCuadruplas nuevaTablaDeCuadruplas();
 void gen(TablaDeCuadruplas * tabla, int operador, int operando1, int operando2, int resultado);
 void backpatch(TablaDeCuadruplas * tabla, int lista[], int longitud, int resultado);
 void imprimirTablaDeCuadruplas(TablaDeCuadruplas * tabla);
-int* makelist(int index); 
-int* merge(int lista1[], int len1, int lista2[], int len2);
+int makelist(TablaDeCuadruplas * tabla, int index); 
+void merge(int lista1[], int len1, int lista2[], int len2, int resultado[]);
+void copiaListas(int destino[], int origen[], int longitud);
 
 #endif
