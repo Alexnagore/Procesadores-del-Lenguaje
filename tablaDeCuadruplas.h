@@ -31,6 +31,7 @@ typedef enum operadores{
     SIGNO_DISTINTO_OPERADOR = 23,
     INPUT = 24,
     OUTPUT = 25,
+    INPUTOUTPUT = 26
 } Operadores;
 
 typedef struct tipoCuadrupla{

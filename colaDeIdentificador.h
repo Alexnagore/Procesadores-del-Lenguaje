@@ -1,3 +1,6 @@
+#ifndef COLA_DE_IDENTIFICADOR_H
+#define COLA_DE_IDENTIFICADOR_H
+
 #include <stdbool.h>
 
 typedef char* tipoElementoCola;
@@ -20,4 +23,4 @@ void desencolar(tipoCola*);
 
 tipoElementoCola frente(tipoCola);
 
-
+#endif

@@ -97,6 +97,10 @@ void imprimirOutputFinal(TablaDeCuadruplas * tabla, TablaDeSimbolos * tablaSimbo
                 nombre_res = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->resultado);
                 printf("input %s\n", nombre_res ? nombre_res : "?");
                 break;
+            case INPUTOUTPUT:
+                nombre_res = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->resultado);
+                printf("input/output %s\n", nombre_res ? nombre_res : "?");
+                break;
             case OUTPUT:
                 nombre_op1 = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->operando1);
                 printf("output %s\n", nombre_op1 ? nombre_op1 : "?");

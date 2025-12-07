@@ -1,6 +1,8 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>	
+	#include <string.h>
+	#include <stdbool.h>
 	#include "nombresDeTipos.h"
 	#include "literal.h"
 	#include "colaDeIdentificador.h"
@@ -23,10 +25,16 @@
 	TablaDeSimbolos ts;
 	TablaDeCuadruplas tc;
 	tipoCola ci;
+	int variablesSalida[50]; // Array para almacenar índices de variables de salida
+	int numVariablesSalida = 0; // Contador de variables de salida
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
 %code requires{
+
+	#include "nombresDeTipos.h"
+	#include "literal.h"
+	#include "colaDeIdentificador.h"
 
 typedef struct expresionArit{
     int place;
@@ -72,6 +80,7 @@ typedef struct asignacion{
 	ExpresionBool paraExpresionBool;
 	Asignacion paraAsignacion;
 	ExpresionV paraExpresionV;
+	tipoCola* colaNombres;
 	// M paraM;
 }
 
@@ -157,6 +166,7 @@ typedef struct asignacion{
 %type <paraOperando> operando_aV operando_bV
 %type <paraAsignacion> asignacion_aV
 %type <paraExpresionV> expresionV
+%type <colaNombres> lista_d_varV declaracionDeVariableV
 /* %type <paraM> M */
 
 %%
@@ -170,6 +180,9 @@ cabecera_algV : decl_globalesV decl_a_fV decl_ent_salV comentarioTK{
 	;
 
 bloque_algV : bloqueV comentarioTK{
+		for (int i = 0; i < numVariablesSalida; i++) {
+			gen(&tc, OUTPUT, variablesSalida[i], NULO, NULO);
+		}
 		}
 	;
 
@@ -263,23 +276,32 @@ declaracionDeConstanteV : identificadorConstanteTK operador_igualTK literal_ente
 	;
 
 lista_d_varV : declaracionDeVariableV {
-		}
+		$$ = $1;
+	}
 	| lista_d_varV declaracionDeVariableV{
-		}
+		while (!esNulaCola(*$2)) {
+            char* nombre = frente(*$2);
+            encolar($1, nombre);
+            desencolar($2);
+        }
+		free($2);
+
+        $$ = $1;
+	}
 	;
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
 			int tipoVariable = $3;
-			printf(ANSI_COLOR_CYAN "TipoVariable: %d\n"ANSI_COLOR_RESET,$3);
-
+			tipoCola * colaLocal = (tipoCola*) malloc(sizeof(tipoCola));
+			nuevaCola(colaLocal);
 			while (!esNulaCola(ci)) {
 				char *nombreVar = frente(ci);
 				if (!insertaSimbolo(&ts, nombreVar, tipoVariable)) {
 					printf(ANSI_COLOR_RED "Error Semántico: La variable '%s' ya ha sido declarada anteriormente.\n"ANSI_COLOR_RESET, nombreVar);
-				} else {
-                	printf(ANSI_COLOR_GREEN"--> GUARDADO EN TABLA: %s\n" ANSI_COLOR_RESET, nombreVar);
-				}	
+				}
+				encolar(colaLocal, nombreVar);
 				desencolar(&ci);
 			}
+			$$ = colaLocal;
 		}
 	;
 lista_idV : declaracionDeListaIdV {
@@ -301,10 +323,46 @@ decl_ent_salV :	decl_entV {
 		}
 	;
 decl_entV : tipo_atributo_entTK lista_d_varV{
+		tipoCola* colaNombres = $2;
+
+		while (!esNulaCola(*colaNombres)) {
+			char* nombreVar = frente(*colaNombres);
+			int indice = buscar_indice_TS(ts, nombreVar);
+			if (indice != -1) {
+				gen(&tc, INPUT, NULO, NULO, indice);
+				printf(ANSI_COLOR_GREEN "  INPUT generado para: %s (índice %d)\n" ANSI_COLOR_RESET, nombreVar, indice);
+			}
+			desencolar(colaNombres);
+		}
+		free(colaNombres);
+		numVariablesSalida = 0;
 		}
 	;
 decl_salV : tipo_atributo_salTK lista_d_varV{
+		tipoCola* colaNombres = $2;
+
+		while (!esNulaCola(*colaNombres)) {
+			char* nombreVar = frente(*colaNombres);
+			int indice = buscar_indice_TS(ts, nombreVar);
+			// if (indice != -1) {
+			// 	bool esEntrada = false;
+			// 	for(int i = 0; i < tc.nextQuad; i++) {
+			// 		if (tc.cuadruplas[i].operador == INPUT && tc.cuadruplas[i].resultado == indice) {
+			// 			tc.cuadruplas[i].operador = INPUTOUTPUT;
+			// 			printf(ANSI_COLOR_CYAN "  Modificado a INPUT/OUTPUT para: %s (índice %d)\n" ANSI_COLOR_RESET, nombreVar, indice);
+			// 			esEntrada = true;
+			// 			break;
+			// 		}
+			// 	}
+			// 	if (!esEntrada) {
+			// 		variablesSalida[numVariablesSalida++] = indice;
+			// 	}
+			// }
+			variablesSalida[numVariablesSalida++] = indice;
+			desencolar(colaNombres);
 		}
+		free(colaNombres);
+	}
 	;
 
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
@@ -526,7 +584,6 @@ expresionV : exp_aV {
 		}
 	;
 operando_aV : identificadorTK {
-		printf(ANSI_COLOR_YELLOW "Buscando operando %s en la TS\n" ANSI_COLOR_RESET, $1);
 		$$.type = buscar_tipo_TS(ts, $1);
 		$$.place = buscar_indice_TS(ts, $1);
 	}
