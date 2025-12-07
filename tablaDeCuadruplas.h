@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "tablaDeSimbolos.h"
 
 typedef enum operadores{
     NULO = -1,
@@ -27,7 +28,9 @@ typedef enum operadores{
     SIGNO_IGUAL_OPERADOR = 20,
     SIGNO_MAYOR_IGUAL_OPERADOR = 21,
     SIGNO_MENOR_IGUAL_OPERADOR = 22,
-    SIGNO_DISTINTO_OPERADOR = 23
+    SIGNO_DISTINTO_OPERADOR = 23,
+    INPUT = 24,
+    OUTPUT = 25,
 } Operadores;
 
 typedef struct tipoCuadrupla{
@@ -49,5 +52,5 @@ void backpatch(TablaDeCuadruplas * tabla, int lista[], int longitud, int resulta
 void imprimirTablaDeCuadruplas(TablaDeCuadruplas * tabla);
 int* makelist(int index); 
 int* merge(int lista1[], int len1, int lista2[], int len2);
-
+void imprimirOutputFinal(TablaDeCuadruplas * tabla, TablaDeSimbolos * tablaSimbolos);
 #endif

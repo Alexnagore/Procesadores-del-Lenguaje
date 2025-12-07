@@ -22,6 +22,7 @@ void modificarTipoTS(TablaDeSimbolos *, int, int);
 int newTemp(TablaDeSimbolos *);
 int buscar_tipo_TS(TablaDeSimbolos, char *);
 int buscar_indice_TS(TablaDeSimbolos, char *);
+char * buscar_nombre_por_indice_TS(TablaDeSimbolos, int);
 void imprimeTablaDeSimbolos(TablaDeSimbolos);
 
 #endif

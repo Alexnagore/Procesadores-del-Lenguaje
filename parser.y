@@ -568,17 +568,19 @@ instruccionV : continuarTK {
 		}
 	;
 asignacion_aV : operando_aV operador_asignacionTK expresionV {
-		printf(ANSI_COLOR_YELLOW "%d %d\n" ANSI_COLOR_RESET, $1.place, $3.place);
-		int T = newTemp(&ts);
-		printf(ANSI_COLOR_CYAN "Asignacion: He creado la variable temporal T.%d\n" ANSI_COLOR_RESET, T);
-		$$.place = T;
-		if ($3.type == $$.type) {
-			gen(&tc, ASIGNACION_TC, $1.place, $3.place, T);
-		} else if ($3.type == REAL && $$.type == ENTERO) {
+		$$.place = $1.place;
+		$$.type = $1.type;
+		if ($3.type == $1.type) {
+			gen(&tc, ASIGNACION_TC, $3.place, NULO, $1.place);
+		} else if ($3.type == REAL && $1.type == ENTERO) {
+			printf(ANSI_COLOR_RED "Error, no se puede asignar un Real a una variable Entera" ANSI_COLOR_RESET);
+		} else if ($3.type == ENTERO && $1.type == REAL) {
+			int T = newTemp(&ts);
+			modificarTipoTS(&ts, T, REAL);
 			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
-			gen(&tc, ASIGNACION_TC, $1.place, T, T);
+			gen(&tc, ASIGNACION_TC, T, NULO, $1.place);
 		} else {
-			printf(ANSI_COLOR_RED "Error, no se puede asignar un Real a una variabla Entera" ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED "Error, tipos incompatibles en la asignación" ANSI_COLOR_RESET);
 		}
 	}
 	;
@@ -667,6 +669,8 @@ int main(int argc, char **argv){
     printf("==================================================\n");
 	imprimirTablaDeCuadruplas(&tc);
     printf("==================================================\n");
+	printf("\n\n\n");
+	imprimirOutputFinal(&tc, &ts);
 
 }
 
