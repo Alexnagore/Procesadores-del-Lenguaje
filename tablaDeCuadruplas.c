@@ -92,6 +92,43 @@ char * obtenerNombreOperador(int operador) {
     }
 }
 
+void copiaListas(int destino[], int origen[], int longitud) {
+    for (int i = 0; i < longitud; i++) {
+        destino[i] = origen[i];
+    }
+}
+
+char * obtenerNombreOperador(int operador) {
+    switch (operador) {
+        case NULO: return "NULO";
+        case INT_TO_REAL: return "INT_TO_REAL";
+        case SUMA_ENTERO: return "SUMA_ENTERO";
+        case RESTA_ENTERO: return "RESTA_ENTERO";
+        case MULT_ENTERO: return "MULT_ENTERO";
+        case DIV_ENTERO: return "DIV_ENTERO";
+        case SUMA_REAL: return "SUMA_REAL";
+        case RESTA_REAL: return "RESTA_REAL";
+        case MULT_REAL: return "MULT_REAL";
+        case DIV_REAL: return "DIV_REAL";
+        case MODULO: return "MODULO";
+        case COCIENTE: return "COCIENTE";
+        case ASIGNACION_TC: return "ASIGNACION_TC";
+        case NEG_ENTERO: return "NEG_ENTERO";
+        case NEG_REAL: return "NEG_REAL";
+        case GOTO: return "GOTO";
+        case SALTO: return "SALTO";
+        case SIGNO_MAYOR_OPERADOR: return "SIGNO_MAYOR";
+        case SIGNO_MENOR_OPERADOR: return "SIGNO_MENOR";
+        case SIGNO_IGUAL_OPERADOR: return "SIGNO_IGUAL";
+        case SIGNO_MAYOR_IGUAL_OPERADOR: return "SIGNO_MAYOR_IGUAL";
+        case SIGNO_MENOR_IGUAL_OPERADOR: return "SIGNO_MENOR_IGUAL";
+        case SIGNO_DISTINTO_OPERADOR: return "SIGNO_DISTINTO";
+        case VERDADERO: return "VERDADERO";
+        case FALSO: return "FALSO";
+        default: return "DESCONOCIDO";
+    }
+}
+
 void imprimirTablaDeCuadruplas(TablaDeCuadruplas * tabla) {
     printf(ANSI_COLOR_CYAN);
     printf("+----------------------+----------------------+----------------------+----------------------+\n");

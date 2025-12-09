@@ -573,13 +573,26 @@ exp_bV : exp_bV conjuncionTK M exp_bV {
 			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
 		} else if (($1.type != $3.type) && ($1.type == ENTERO && $3.type == REAL)){
 			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+		} else if ($1.type != $3.type){
+			printf(ANSI_COLOR_RED "Error, tipos incompatibles en operador distinto\n" ANSI_COLOR_RESET);
+			break;
 		}
-		if ($1.place != $3.place) {
-			gen(&tc, SIGNO_DISTINTO_OPERADOR, $1.place, $3.place, T);
-		}
+		gen(&tc, SIGNO_DISTINTO_OPERADOR, $1.place, $3.place, T);
 		
 	}
 	| expresionV relacional_menor_igualTK expresionV {
+		printf(ANSI_COLOR_MAGENTA "ENTRO EN MENOR O IGUAL\n" ANSI_COLOR_RESET);
+		int T = newTemp(&ts);
+		$$.place = T;
+		if (($1.type != $3.type) && ($1.type == REAL && $3.type == ENTERO)){
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+		} else if (($1.type != $3.type) && ($1.type == ENTERO && $3.type == REAL)){
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+		} else if (($1.type != $3.type) || ($1.type != REAL && $1.type != ENTERO)) {
+			printf(ANSI_COLOR_RED "Error, tipos incompatibles en operador distinto\n" ANSI_COLOR_RESET);
+			break;
+		}
+		gen(&tc, SIGNO_MENOR_IGUAL_OPERADOR, $1.place, $3.place, T);
 		}
 	| expresionV relacional_mayor_igualTK expresionV {
 		}
@@ -664,9 +677,9 @@ asignacion_aV : operando_aV operador_asignacionTK expresionV {
 	}
 	;
 asignacion_bV : operando_bV operador_asignacionTK expresionV {
-		printf(ANSI_COLOR_YELLOW "ASIGNACIÓN BOOLEANA => ()\n" ANSI_COLOR_RESET);
 		int T = newTemp(&ts);
 		printf(ANSI_COLOR_YELLOW "ASIGNACIÓN BOOLEANA => (T=%d)\n" ANSI_COLOR_RESET, T);
+		modificarTipoTS(&ts, T, BOOLEANO);
 		$$.place = T;
 		if ($3.type == BOOLEANO) {
 			backpatch(&tc, $3.falso, $3.sigFalso, tc.nextQuad);
