@@ -1,6 +1,8 @@
 %{
 	#include <stdio.h>
 	#include <stdlib.h>	
+	#include <string.h>
+	#include <stdbool.h>
 	#include "nombresDeTipos.h"
 	#include "literal.h"
 	#include "colaDeIdentificador.h"
@@ -23,10 +25,16 @@
 	TablaDeSimbolos ts;
 	TablaDeCuadruplas tc;
 	tipoCola ci;
+	int variablesSalida[50]; // Array para almacenar índices de variables de salida
+	int numVariablesSalida = 0; // Contador de variables de salida
 	#define YYDEBUG 1 //Permite activar el modo Debugg de Bison
 %}
 
 %code requires{
+
+	#include "nombresDeTipos.h"
+	#include "literal.h"
+	#include "colaDeIdentificador.h"
 
 typedef struct expresionArit{
     int place;
@@ -61,9 +69,9 @@ typedef struct asignacion{
 	int type;
 } Asignacion;
 
-typedef struct m{
-	int quad;
-} M;
+// typedef struct m{
+// 	int quad;
+// } M;
 
 }
 
@@ -78,7 +86,8 @@ typedef struct m{
 	ExpresionBool paraExpresionBool;
 	Asignacion paraAsignacion;
 	ExpresionV paraExpresionV;
-	M paraM;
+	tipoCola* colaNombres;
+	// M paraM;
 }
 
 %token operador_asignacionTK
@@ -153,8 +162,7 @@ typedef struct m{
 %nonassoc relacional_menorTK relacional_mayorTK operador_igualTK
 %right noTK
 %left aritmetico_sumaTK aritmetico_restaTK
-%left aritmetico_productoTK aritmetico_divisionTK
-%left aritmetico_divisionRealTK aritmetico_moduloTK
+%left aritmetico_productoTK aritmetico_divisionTK aritmetico_divisionRealTK aritmetico_moduloTK
 %left tipoTK
 %left puntoTK operador_inicio_arrayTK
 
@@ -165,7 +173,8 @@ typedef struct m{
 %type <paraOperando> operando_bV
 %type <paraAsignacion> asignacion_aV, asignacion_bV
 %type <paraExpresionV> expresionV
-%type <paraM> M
+%type <colaNombres> lista_d_varV declaracionDeVariableV
+/* %type <paraM> M */
 
 %%
 
@@ -178,6 +187,9 @@ cabecera_algV : decl_globalesV decl_a_fV decl_ent_salV comentarioTK{
 	;
 
 bloque_algV : bloqueV comentarioTK{
+		for (int i = 0; i < numVariablesSalida; i++) {
+			gen(&tc, OUTPUT, variablesSalida[i], NULO, NULO);
+		}
 		}
 	;
 
@@ -271,20 +283,32 @@ declaracionDeConstanteV : identificadorConstanteTK operador_igualTK literal_ente
 	;
 
 lista_d_varV : declaracionDeVariableV {
-		}
+		$$ = $1;
+	}
 	| lista_d_varV declaracionDeVariableV{
-		}
+		while (!esNulaCola(*$2)) {
+            char* nombre = frente(*$2);
+            encolar($1, nombre);
+            desencolar($2);
+        }
+		free($2);
+
+        $$ = $1;
+	}
 	;
 declaracionDeVariableV : lista_idV operador_def_tipoTK d_tipoV operador_comp_secTK{
 			int tipoVariable = $3;
-
+			tipoCola * colaLocal = (tipoCola*) malloc(sizeof(tipoCola));
+			nuevaCola(colaLocal);
 			while (!esNulaCola(ci)) {
 				char *nombreVar = frente(ci);
 				if (!insertaSimbolo(&ts, nombreVar, tipoVariable)) {
 					printf(ANSI_COLOR_RED "Error Semántico: La variable '%s' ya ha sido declarada anteriormente.\n"ANSI_COLOR_RESET, nombreVar);
 				}
+				encolar(colaLocal, nombreVar);
 				desencolar(&ci);
 			}
+			$$ = colaLocal;
 		}
 	;
 lista_idV : declaracionDeListaIdV {
@@ -310,64 +334,91 @@ decl_ent_salV :	decl_entV {
 		}
 	;
 decl_entV : tipo_atributo_entTK lista_d_varV{
+		tipoCola* colaNombres = $2;
+
+		while (!esNulaCola(*colaNombres)) {
+			char* nombreVar = frente(*colaNombres);
+			int indice = buscar_indice_TS(ts, nombreVar);
+			if (indice != -1) {
+				gen(&tc, INPUT, NULO, NULO, indice);
+				printf(ANSI_COLOR_GREEN "  INPUT generado para: %s (índice %d)\n" ANSI_COLOR_RESET, nombreVar, indice);
+			}
+			desencolar(colaNombres);
+		}
+		free(colaNombres);
+		numVariablesSalida = 0;
 		}
 	;
 decl_salV : tipo_atributo_salTK lista_d_varV{
+		tipoCola* colaNombres = $2;
+
+		while (!esNulaCola(*colaNombres)) {
+			char* nombreVar = frente(*colaNombres);
+			int indice = buscar_indice_TS(ts, nombreVar);
+			// if (indice != -1) {
+			// 	bool esEntrada = false;
+			// 	for(int i = 0; i < tc.nextQuad; i++) {
+			// 		if (tc.cuadruplas[i].operador == INPUT && tc.cuadruplas[i].resultado == indice) {
+			// 			tc.cuadruplas[i].operador = INPUTOUTPUT;
+			// 			printf(ANSI_COLOR_CYAN "  Modificado a INPUT/OUTPUT para: %s (índice %d)\n" ANSI_COLOR_RESET, nombreVar, indice);
+			// 			esEntrada = true;
+			// 			break;
+			// 		}
+			// 	}
+			// 	if (!esEntrada) {
+			// 		variablesSalida[numVariablesSalida++] = indice;
+			// 	}
+			// }
+			variablesSalida[numVariablesSalida++] = indice;
+			desencolar(colaNombres);
 		}
+		free(colaNombres);
+	}
 	;
 
 exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
-			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de enteros\n"ANSI_COLOR_RESET);
-			printf(ANSI_COLOR_RESET"nada\n");
 			modificarTipoTS(&ts, T, ENTERO);
-			gen(&tc,SUMA_ENTERO,$1.place,$3.place,T);
+			gen(&tc, SUMA_ENTERO, $1.place, $3.place, T);
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un entero y de un real\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);           
-			gen(&tc,SUMA_REAL,T,$3.place,T);
-			$$.type = REAL;
-		} else if ($1.type == REAL && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de reales\n"ANSI_COLOR_RESET);
-			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,SUMA_REAL,$1.place,$3.place,T);
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);           
+			gen(&tc, SUMA_REAL, T, $3.place, T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una suma de un real y de un entero\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
-			gen(&tc,SUMA_REAL,T,$1.place,T);
+			gen(&tc,INT_TO_REAL, $3.place, NULO, T);
+			gen(&tc, SUMA_REAL, T, $1.place, T);
 			$$.type = REAL;
-		}
+		} else if ($1.type == REAL && $3.type == REAL){
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc, SUMA_REAL, $1.place, $3.place, T);
+			$$.type = REAL;
+		} 
 	}
 	| exp_aV aritmetico_restaTK exp_aV {
 		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
-			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de enteros\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, ENTERO);
-			gen(&tc,RESTA_ENTERO,$1.place,$3.place,T);
+			gen(&tc, RESTA_ENTERO, $1.place, $3.place, T);
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un entero y de un real\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
-			gen(&tc,RESTA_REAL,T,$3.place,T);
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+			gen(&tc, RESTA_REAL, T, $3.place, T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de reales\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,RESTA_REAL,$1.place,$3.place,T);
+			gen(&tc, RESTA_REAL, $1.place, $3.place, T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una resta de un real y de un entero\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
 			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
-			gen(&tc,RESTA_REAL,$1.place,T,T);
+			gen(&tc,RESTA_REAL, T, $1.place, T);
 			$$.type = REAL;
 		}
 	}
@@ -375,26 +426,22 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
-			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de enteros\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, ENTERO);
-			gen(&tc, MULT_ENTERO,$1.place,$3.place,T);
+			gen(&tc, MULT_ENTERO, $1.place, $3.place, T);
 			$$.type = ENTERO;
 		} else if ($1.type == ENTERO && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de un entero y de un real\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
-			gen(&tc,MULT_REAL,T,$3.place,T);
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+			gen(&tc, MULT_REAL, T, $3.place, T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de reales\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,MULT_REAL,$1.place,$3.place,T);
+			gen(&tc, MULT_REAL, $1.place, $3.place, T);
 			$$.type = REAL;
 		} else if ($1.type == REAL && $3.type == ENTERO){
-			printf(ANSI_COLOR_MAGENTA"Estoy en un producto de un real y de un entero\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
-			gen(&tc,MULT_REAL,$1.place,T,T);
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+			gen(&tc, MULT_REAL, T, $1.place, T);
 			$$.type = REAL;
 		}
 	}
@@ -402,40 +449,45 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
-			printf(ANSI_COLOR_MAGENTA"Estoy en una division de enteros\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, ENTERO);
 			gen(&tc, DIV_ENTERO,$1.place,$3.place,T);
 			$$.type = ENTERO;
-		} else if ($1.type == REAL || $3.type == REAL){
-			printf(ANSI_COLOR_RED"Error Semántico: No se puede realizar una división entera con algún operando reale.\n"ANSI_COLOR_RESET);
+		} else if($1.type == ENTERO && $3.type == REAL){
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+			gen(&tc, DIV_REAL, T, $3.place, T);
+			$$.type = REAL;
+		} else if($1.type == REAL && $3.type == ENTERO){
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+			gen(&tc, DIV_REAL, T, $1.place, T);
+			$$.type = REAL;
+		} else if($1.type == REAL && $3.type == REAL){
+			modificarTipoTS(&ts, T, REAL);
+			gen(&tc, DIV_REAL, $1.place, $3.place, T);
+			$$.type = REAL;
 		}
 	}
 	| exp_aV aritmetico_divisionRealTK exp_aV {
 		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
-			printf(ANSI_COLOR_MAGENTA"Estoy en una division real de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, ENTERO);
+			gen(&tc, DIV_ENTERO,$1.place,$3.place,T);
+			$$.type = ENTERO;
+		} else if($1.type == ENTERO && $3.type == REAL){
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
-			gen(&tc,INT_TO_REAL,$3.place,NULO,T+1);
-			gen(&tc,DIV_REAL,T,T+1,T);
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+			gen(&tc, DIV_REAL, T, $3.place, T);
 			$$.type = REAL;
-		} else if ($1.type == ENTERO && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una division de un entero y de un real\n"ANSI_COLOR_RESET);
+		} else if($1.type == REAL && $3.type == ENTERO){
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$1.place,NULO,T);
-			gen(&tc,DIV_REAL,T,$3.place,T);
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+			gen(&tc, DIV_REAL, T, $1.place, T);
 			$$.type = REAL;
-		} else if ($1.type == REAL && $3.type == REAL){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una division de reales\n"ANSI_COLOR_RESET);
+		} else if($1.type == REAL && $3.type == REAL){
 			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,DIV_REAL,$1.place,$3.place,T);
-			$$.type = REAL;
-		} else if ($1.type == REAL && $3.type == ENTERO){
-			printf(ANSI_COLOR_MAGENTA"Estoy en una division de un real y de un entero\n"ANSI_COLOR_RESET);
-			modificarTipoTS(&ts, T, REAL);
-			gen(&tc,INT_TO_REAL,$3.place,NULO,T);
-			gen(&tc,DIV_REAL,$1.place,T,T);
+			gen(&tc, DIV_REAL, $1.place, $3.place, T);
 			$$.type = REAL;
 		}
 	}
@@ -443,7 +495,6 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		int T = newTemp(&ts);
 		$$.place = T;
 		if ($1.type == ENTERO && $3.type == ENTERO) {
-			printf(ANSI_COLOR_MAGENTA"Estoy en un modulo de enteros\n"ANSI_COLOR_RESET);
 			modificarTipoTS(&ts, T, ENTERO);
 			gen(&tc, MODULO,$1.place,$3.place,T);
 			$$.type = ENTERO;
@@ -458,6 +509,14 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 	| operando_aV {
 		}
 	| literal_enteroTK {
+		char nombreLiteral[100];
+		sprintf(nombreLiteral, "%d", $1.valor.valorEntero);
+		printf(ANSI_COLOR_MAGENTA "Estoy en un literal entero %d\n" ANSI_COLOR_RESET, $1.valor.valorEntero);
+		insertaSimbolo(&ts, nombreLiteral, ENTERO);
+		int index = buscar_indice_TS(ts, nombreLiteral);
+		modificarTipoTS(&ts, index, ENTERO);
+		$$.place = index;
+		$$.type = ENTERO;
 		}
 	| literal_realTK {
 		}
@@ -467,9 +526,11 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 		$$.type = $2.type;
 		if ($2.type == ENTERO) {
 			printf(ANSI_COLOR_MAGENTA"Estoy en un menos unario de enteros\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, ENTERO);
 			gen(&tc, NEG_ENTERO, $2.place, NULO, T);
 		} else if ($2.type == REAL){
 			printf(ANSI_COLOR_MAGENTA"Estoy en un menos unario de reales\n"ANSI_COLOR_RESET);
+			modificarTipoTS(&ts, T, REAL);
 			gen(&tc, NEG_REAL, $2.place, NULO, T);
 		}
 	}
@@ -547,7 +608,7 @@ expresionV : exp_aV {
 operando_aV : identificadorTK {
 		$$.type = buscar_tipo_TS(ts, $1);
 		$$.place = buscar_indice_TS(ts, $1);
-		}
+	}
 	| operando_aV puntoTK operando_aV {
 		}
 	| operando_aV operador_inicio_arrayTK expresionV operador_fin_arrayTK {
@@ -556,8 +617,8 @@ operando_aV : identificadorTK {
 		}
 	;
 operando_bV : identificadorBooleanoTK {
-		$$.type = buscar_tipo_TS(ts, $1);
-		$$.place = buscar_indice_TS(ts, $1);
+		// $$.type = buscar_tipo_TS(ts, $1);
+		// $$.place = buscar_indice_TS(ts, $1);
 	}
 	| operando_bV puntoTK operando_bV {
 		}
@@ -586,15 +647,19 @@ instruccionV : continuarTK {
 		}
 	;
 asignacion_aV : operando_aV operador_asignacionTK expresionV {
-		int T = newTemp(&ts);
-		$$.place = T;
-		if ($3.type == $$.type) {
-			gen(&tc, ASIGNACION_TC, $1.place, $3.place, NULO);
-		} else if ($3.type == REAL && $$.type == ENTERO) {
+		$$.place = $1.place;
+		$$.type = $1.type;
+		if ($3.type == $1.type) {
+			gen(&tc, ASIGNACION_TC, $3.place, NULO, $1.place);
+		} else if ($3.type == REAL && $1.type == ENTERO) {
+			printf(ANSI_COLOR_RED "Error, no se puede asignar un Real a una variable Entera" ANSI_COLOR_RESET);
+		} else if ($3.type == ENTERO && $1.type == REAL) {
+			int T = newTemp(&ts);
+			modificarTipoTS(&ts, T, REAL);
 			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
-			gen(&tc, ASIGNACION_TC, $1.place, T, T);
+			gen(&tc, ASIGNACION_TC, T, NULO, $1.place);
 		} else {
-			printf(ANSI_COLOR_RED "Error, no se puede asignar un Real a una variabla Entera" ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED "Error, tipos incompatibles en la asignación" ANSI_COLOR_RESET);
 		}
 	}
 	;
@@ -701,6 +766,8 @@ int main(int argc, char **argv){
     printf("==================================================\n");
 	imprimirTablaDeCuadruplas(&tc);
     printf("==================================================\n");
+	printf("\n\n\n");
+	imprimirOutputFinal(&tc, &ts);
 
 }
 

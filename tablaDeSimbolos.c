@@ -83,17 +83,15 @@ int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
     return -1;
 }
 
-char * nombreTipo(int tipo) {
-    switch (tipo) {
-        case 0: return "BOOLEANO";
-        case 1: return "CADENA";
-        case 2: return "CARACTER";
-        case 3: return "ENTERO";
-        case 4: return "REAL";
-        case 5: return "FALSOO";
-        case 6: return "VERDADEROO";
-        default: return "TEMPORAL";
+char * buscar_nombre_por_indice_TS(TablaDeSimbolos ts, int indice) {
+    Celda * actual = ts.simbolos;
+    while (actual != NULL) {
+        if (actual->indice == indice) {
+            return actual->nombre;
+        }
+        actual = actual->sig;
     }
+    return NULL;
 }
 
 void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
