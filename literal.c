@@ -46,7 +46,7 @@ void escribeLiteral(LiteralT l){
     switch (l.tipoDelValor) {
         case BOOLEANO: 
             printf("Booleano\t");
-            if (l.valor.valorBooleano == VERDADERO)
+            if (l.valor.valorBooleano == VERD)
                 printf("Verdadero\n");
             else
                 printf("Falso\n");

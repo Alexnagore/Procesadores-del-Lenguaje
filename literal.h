@@ -4,8 +4,8 @@
 #include "nombresDeTipos.h"
 
 typedef enum valorBooleanoT {
-	VERDADERO,
-	FALSO
+	VERD,
+	FALS
 } ValorBooleanoT;
 
 typedef union valorLiteralT{

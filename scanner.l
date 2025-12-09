@@ -342,9 +342,9 @@ aritmetico_moduloDR (?i:mod)
     yylval.literal.tipoDelValor = BOOLEANO;
 
     if (strcasecmp(yytext, "verdadero") == 0)
-        yylval.literal.valor.valorBooleano = VERDADERO;
+        yylval.literal.valor.valorBooleano = VERD;
     else
-        yylval.literal.valor.valorBooleano = FALSO;
+        yylval.literal.valor.valorBooleano = FALS;
 
     return literal_booleanoTK;
 }

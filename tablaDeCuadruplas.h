@@ -27,7 +27,9 @@ typedef enum operadores{
     SIGNO_IGUAL_OPERADOR = 20,
     SIGNO_MAYOR_IGUAL_OPERADOR = 21,
     SIGNO_MENOR_IGUAL_OPERADOR = 22,
-    SIGNO_DISTINTO_OPERADOR = 23
+    SIGNO_DISTINTO_OPERADOR = 23,
+    VERDADERO = 24,
+    FALSO = 25
 } Operadores;
 
 typedef struct tipoCuadrupla{
