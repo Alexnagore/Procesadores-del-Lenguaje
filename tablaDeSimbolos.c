@@ -103,10 +103,10 @@ void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
 
     Celda * actual = ts.simbolos;
     while (actual != NULL) {
-        printf("| %-10s | %-10d | %-10d |\n",
+        printf("| %-10s | %-10d | %-10s |\n",
              actual->nombre,
              actual->indice,
-             actual->tipo);
+             nombreTipo(actual->tipo)); // Asumiendo que existe una función nombreTipo que convierte el tipo a su nombre
         actual = actual->sig;
     }
 

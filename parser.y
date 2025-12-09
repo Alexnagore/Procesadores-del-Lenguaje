@@ -42,6 +42,8 @@ typedef struct expresionArit{
 } ExpresionArit;
 
 typedef struct expresionBool{
+	int type;
+	int place;
 	int verdadero[100];
 	int sigVerdadero;
 	int falso[100];
@@ -51,6 +53,10 @@ typedef struct expresionBool{
 typedef struct expresionV{
 	int place;
 	int type;
+	int verdadero[100];
+	int sigVerdadero;
+	int falso[100];
+	int sigFalso;
 } ExpresionV;
 
 typedef struct operando{
@@ -163,8 +169,9 @@ typedef struct asignacion{
 %type <paraExpresionArit> exp_aV
 %type <paraExpresionBool> exp_bV
 %type <tipo> d_tipoV
-%type <paraOperando> operando_aV operando_bV
-%type <paraAsignacion> asignacion_aV
+%type <paraOperando> operando_aV
+%type <paraOperando> operando_bV
+%type <paraAsignacion> asignacion_aV, asignacion_bV
 %type <paraExpresionV> expresionV
 %type <colaNombres> lista_d_varV declaracionDeVariableV
 /* %type <paraM> M */
@@ -310,6 +317,10 @@ lista_idV : declaracionDeListaIdV {
 		}
 	;
 declaracionDeListaIdV : identificadorTK{
+			encolar(&ci, $1);
+			printf("HE ENCOLADO %s\n\n\n", $1);
+		}
+		| identificadorBooleanoTK{
 			encolar(&ci, $1);
 			printf("HE ENCOLADO %s\n\n\n", $1);
 		}
@@ -529,37 +540,44 @@ exp_aV : exp_aV aritmetico_sumaTK exp_aV {
 	}
 	;
 
-exp_bV : exp_bV conjuncionTK exp_bV {
-		// backpatch($1.true, M.quad);
-		// $$.false = merge($1.false, $2.false);
-		// $$.true = $2.true;
+exp_bV : exp_bV conjuncionTK M exp_bV {
+		printf(ANSI_COLOR_MAGENTA "ENTRO EN CONJUNCION\n" ANSI_COLOR_RESET);
+		backpatch(&tc, $1.verdadero, $1.sigVerdadero, $3.quad);
+		merge($1.falso, $1.sigFalso, $4.verdadero, $4.sigVerdadero, $$.falso);
+		copiaListas($$.verdadero, $4.verdadero, $4.sigVerdadero);
+		$$.sigVerdadero = $4.sigVerdadero;
 	}
-	|
-	exp_bV disyuncionTK exp_bV {
-		// backpatch($1.false, M.quad);
-		// $$.true = merge($1.true, $2.true);
-		// $$.false = $2.false;
+	| exp_bV disyuncionTK M exp_bV {
+		printf(ANSI_COLOR_MAGENTA "ENTRO EN DISYUNCION\n" ANSI_COLOR_RESET);
+		backpatch(&tc, $1.falso, $1.sigFalso, $3.quad);
+		merge($1.verdadero, $1.sigVerdadero, $4.verdadero, $4.sigVerdadero, $$.verdadero);
+		copiaListas($$.falso, $4.falso, $4.sigFalso);
+		$$.sigFalso = $4.sigFalso;
 	}
-	|noTK exp_bV {
-		// $$.true = $2.false;
-		// $$.false = $2.true;
+	| noTK exp_bV {
+		printf(ANSI_COLOR_MAGENTA "ENTRO EN NEGACION\n" ANSI_COLOR_RESET);
+		copiaListas( $$.verdadero, $2.falso, $2.sigFalso);
+		$$.sigVerdadero = $2.sigFalso;
+		copiaListas( $$.falso, $2.verdadero, $2.sigVerdadero);
+		$$.sigFalso = $2.sigVerdadero;
 	}
 	| operando_bV {
 		}
 	| literal_booleanoTK {
 		}
 	| expresionV relacional_distintoTK expresionV {
-		// if ($1.type != $3.type) && ($1.type == REAL && $3.type == ENTERO){
-		// 	gen(&tc, INT_TO_REAL, $3.place, NULO, T);
-		// } else if ($1.type != $3.type) && ($1.type == ENTERO && $3.type == REAL){
-		// 	gen(&tc, INT_TO_REAL, $1.place, NULO, T);
-		// } else {
-		// 	printf(ANSI_COLOR_RED "Error, tipos incompatibles en la comparación" ANSI_COLOR_RESET);
-		// }
-		// if ($1.place != $3.place) {
-		// 	gen(&tc, SIGNO_DISTINTO_OPERADOR, $1.place, $3.place, T);
-		// 	$$.place = T;
-		// }
+		printf(ANSI_COLOR_MAGENTA "ENTRO EN DISTINTO\n" ANSI_COLOR_RESET);
+		int T = newTemp(&ts);
+		$$.place = T;
+		if (($1.type != $3.type) && ($1.type == REAL && $3.type == ENTERO)){
+			gen(&tc, INT_TO_REAL, $3.place, NULO, T);
+		} else if (($1.type != $3.type) && ($1.type == ENTERO && $3.type == REAL)){
+			gen(&tc, INT_TO_REAL, $1.place, NULO, T);
+		}
+		if ($1.place != $3.place) {
+			gen(&tc, SIGNO_DISTINTO_OPERADOR, $1.place, $3.place, T);
+		}
+		
 	}
 	| expresionV relacional_menor_igualTK expresionV {
 		}
@@ -572,13 +590,17 @@ exp_bV : exp_bV conjuncionTK exp_bV {
 	| expresionV operador_igualTK expresionV {
 		}
 	| inicio_parentesisTK exp_bV fin_parentesisTK {
-		// $$.true = $2.true;
-		// $$.false = $2.false;
+		copiaListas($$.verdadero, $2.verdadero, $2.sigVerdadero);
+		$$.sigVerdadero = $2.sigVerdadero;
+		copiaListas($$.falso, $2.falso, $2.sigFalso);
+		$$.sigFalso = $2.sigFalso;
+		$$.type = BOOLEANO;
 	}
 	;
 expresionV : exp_aV {
 		}
 	| exp_bV {
+		$$.type = BOOLEANO;
 		}
 	| funcion_llV {
 		}
@@ -642,7 +664,20 @@ asignacion_aV : operando_aV operador_asignacionTK expresionV {
 	}
 	;
 asignacion_bV : operando_bV operador_asignacionTK expresionV {
+		printf(ANSI_COLOR_YELLOW "ASIGNACIÓN BOOLEANA => ()\n" ANSI_COLOR_RESET);
+		int T = newTemp(&ts);
+		printf(ANSI_COLOR_YELLOW "ASIGNACIÓN BOOLEANA => (T=%d)\n" ANSI_COLOR_RESET, T);
+		$$.place = T;
+		if ($3.type == BOOLEANO) {
+			backpatch(&tc, $3.falso, $3.sigFalso, tc.nextQuad);
+			gen(&tc, FALSO, NULO, NULO, $1.place);
+			gen(&tc, GOTO, NULO, NULO, tc.nextQuad + 2);
+			backpatch(&tc, $3.verdadero, $3.sigVerdadero, tc.nextQuad);
+			gen(&tc, VERDADERO, NULO, NULO, $1.place);
+		} else {
+			printf(ANSI_COLOR_RED "Error, no se puede asignar un valor no booleano a una variable booleana" ANSI_COLOR_RESET);
 		}
+	}
 	;
 alternativaV : inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK {
 		}
@@ -700,6 +735,11 @@ l_llV : expresionV operador_separadorTK l_llV {
 	| expresionV {
 		}
 	;
+M : %empty {
+		$$.quad = tc.nextQuad;
+	}
+	;
+
 
 %%
 

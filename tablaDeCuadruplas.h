@@ -29,9 +29,11 @@ typedef enum operadores{
     SIGNO_MAYOR_IGUAL_OPERADOR = 21,
     SIGNO_MENOR_IGUAL_OPERADOR = 22,
     SIGNO_DISTINTO_OPERADOR = 23,
-    INPUT = 24,
-    OUTPUT = 25,
-    INPUTOUTPUT = 26
+    VERDADERO = 24,
+    FALSO = 25
+    INPUT = 26,
+    OUTPUT = 27,
+    INPUTOUTPUT = 28
 } Operadores;
 
 typedef struct tipoCuadrupla{
@@ -51,7 +53,9 @@ TablaDeCuadruplas nuevaTablaDeCuadruplas();
 void gen(TablaDeCuadruplas * tabla, int operador, int operando1, int operando2, int resultado);
 void backpatch(TablaDeCuadruplas * tabla, int lista[], int longitud, int resultado);
 void imprimirTablaDeCuadruplas(TablaDeCuadruplas * tabla);
-int* makelist(int index); 
-int* merge(int lista1[], int len1, int lista2[], int len2);
+int makelist(TablaDeCuadruplas * tabla, int index); 
+void merge(int lista1[], int len1, int lista2[], int len2, int resultado[]);
+void copiaListas(int destino[], int origen[], int longitud);
 void imprimirOutputFinal(TablaDeCuadruplas * tabla, TablaDeSimbolos * tablaSimbolos);
+
 #endif

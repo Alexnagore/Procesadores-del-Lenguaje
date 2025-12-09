@@ -18,6 +18,7 @@ letra_o_cifraDR [[:alnum:]]
 
 identificadorConstanteDR [A-Z][A-Z]*
 identificadorDR {letraDR}{letra_o_cifraDR}*
+identificadorBooleanoDR b_{letra_o_cifraDR}*
 
 literal_enteroDR    [+-]?{cifraDR}{cifraDR}*([eE]{cifraDR}{cifraDR}*)?
 literal_realDR    [+-]?{cifraDR}{cifraDR}*(\.{cifraDR}{cifraDR}*)?([eE]{cifraDR}{cifraDR}*)?|{literal_enteroDR}[rR]
@@ -341,9 +342,9 @@ aritmetico_moduloDR (?i:mod)
     yylval.literal.tipoDelValor = BOOLEANO;
 
     if (strcasecmp(yytext, "verdadero") == 0)
-        yylval.literal.valor.valorBooleano = VERDADERO;
+        yylval.literal.valor.valorBooleano = VERD;
     else
-        yylval.literal.valor.valorBooleano = FALSO;
+        yylval.literal.valor.valorBooleano = FALS;
 
     return literal_booleanoTK;
 }
@@ -363,6 +364,15 @@ aritmetico_moduloDR (?i:mod)
         errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
     else
         return identificadorTK;
+}
+
+{identificadorBooleanoDR}   {
+	yylval.cadena = strdup(yytext);
+	
+	if (yylval.cadena == NULL )
+		errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
+	else
+		return identificadorBooleanoTK;
 }
 
 {literal_enteroDR}  {
