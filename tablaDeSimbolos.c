@@ -90,8 +90,6 @@ char * nombreTipo(int tipo) {
         case 2: return "CARACTER";
         case 3: return "ENTERO";
         case 4: return "REAL";
-        case 5: return "FALSOO";
-        case 6: return "VERDADEROO";
         default: return "TEMPORAL";
     }
 }
@@ -108,7 +106,7 @@ void imprimeTablaDeSimbolos(TablaDeSimbolos ts) {
         printf("| %-10s | %-10d | %-10s |\n",
              actual->nombre,
              actual->indice,
-             nombreTipo(actual->tipo)); // Asumiendo que existe una función nombreTipo que convierte el tipo a su nombre
+             nombreTipo(actual->tipo));
         actual = actual->sig;
     }
 

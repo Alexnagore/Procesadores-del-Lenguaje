@@ -80,12 +80,12 @@ char * obtenerNombreOperador(int operador) {
         case NEG_REAL: return "NEG_REAL";
         case GOTO: return "GOTO";
         case SALTO: return "SALTO";
-        case SIGNO_MAYOR_OPERADOR: return "SIGNO_MAYOR_OPERADOR";
-        case SIGNO_MENOR_OPERADOR: return "SIGNO_MENOR_OPERADOR";
-        case SIGNO_IGUAL_OPERADOR: return "SIGNO_IGUAL_OPERADOR";
-        case SIGNO_MAYOR_IGUAL_OPERADOR: return "SIGNO_MAYOR_IGUAL_OPERADOR";
-        case SIGNO_MENOR_IGUAL_OPERADOR: return "SIGNO_MENOR_IGUAL_OPERADOR";
-        case SIGNO_DISTINTO_OPERADOR: return "SIGNO_DISTINTO_OPERADOR";
+        case SIGNO_MAYOR_OPERADOR: return "SIGNO_MAYOR";
+        case SIGNO_MENOR_OPERADOR: return "SIGNO_MENOR";
+        case SIGNO_IGUAL_OPERADOR: return "SIGNO_IGUAL";
+        case SIGNO_MAYOR_IGUAL_OPERADOR: return "SIGNO_MAYOR_IGUAL";
+        case SIGNO_MENOR_IGUAL_OPERADOR: return "SIGNO_MENOR_IGUAL";
+        case SIGNO_DISTINTO_OPERADOR: return "SIGNO_DISTINTO";
         case VERDADERO: return "VERDADERO";
         case FALSO: return "FALSO";
         default: return "DESCONOCIDO";
