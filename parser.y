@@ -517,7 +517,6 @@ exp_bV : exp_bV conjuncionTK M exp_bV {
 		}
 		if ($1.place != $3.place) {
 			gen(&tc, SIGNO_DISTINTO_OPERADOR, $1.place, $3.place, T);
-			$$.place = T;
 		}
 		
 	}
@@ -605,14 +604,16 @@ asignacion_bV : operando_bV operador_asignacionTK expresionV {
 		printf(ANSI_COLOR_RED "ASIGNACIÓN BOOLEANA\n" ANSI_COLOR_RESET);
 		int T = newTemp(&ts);
 		$$.place = T;
-		// if ($3.type == BOOLEANO) {
-		// 	backpatch(&tc,$3.falso,$3.sigFalso,tc.nextQuad);
-		// 	gen(&tc, VERDADERO,NULO,NULO,$1.place);
-		// 	gen(&tc, SALTO,NULO,NULO,tc.nextQuad +2);
-		// 	backpatch(&tc,$3.verdadero,$3.sigVerdadero,tc.nextQuad);
-		// 	gen(&tc, FALSO, NULO,NULO,$1.place);
-		// }
+		if ($3.type == BOOLEANO) {
+			backpatch(&tc,$3.falso,$3.sigFalso,tc.nextQuad);
+			gen(&tc, VERDADERO,NULO,NULO,$1.place);
+			gen(&tc, SALTO,NULO,NULO,tc.nextQuad +2);
+			backpatch(&tc,$3.verdadero,$3.sigVerdadero,tc.nextQuad);
+			gen(&tc, FALSO, NULO,NULO,$1.place);
+		} else {
+			printf(ANSI_COLOR_RED "Error, no se puede asignar un valor no booleano a una variable booleana" ANSI_COLOR_RESET);
 		}
+	}
 	;
 alternativaV : inicio_siTK expresionV operador_entoncesTK instruccionesV lista_opcionesV fin_siTK {
 		}
