@@ -24,7 +24,6 @@ literal_enteroDR    [+-]?{cifraDR}{cifraDR}*([eE]{cifraDR}{cifraDR}*)?
 literal_realDR    [+-]?{cifraDR}{cifraDR}*(\.{cifraDR}{cifraDR}*)?([eE]{cifraDR}{cifraDR}*)?|{literal_enteroDR}[rR]
 literal_booleanoDR (?i:verdadero|falso)
 literal_caracterDR  \".\"
-literal_cadenaDR    '([^']|\/')*'
 
 comentarioDR	\{([^}]|\/\})*\}
 
@@ -391,15 +390,6 @@ aritmetico_moduloDR (?i:mod)
     yylval.literal.tipoDelValor = CARACTER;
 	yylval.literal.valor.valorCaracter = yytext[1];
 	return literal_caracterTK;
-}
-
-{literal_cadenaDR}  {
-    yylval.literal.tipoDelValor = CADENA;
-	yylval.literal.valor.valorCadena = strdup(yytext);
-	if ((yylval.literal.valor.valorCadena = strdup(yytext)) == NULL )
-	    errorEnScanner("No hay memoria para strdup() al leer %s\n", yytext);
-	else
-		return literal_cadenaTK;
 }
 
 {comentarioDR} {

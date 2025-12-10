@@ -83,6 +83,17 @@ int buscar_indice_TS(TablaDeSimbolos ts, char * nombre) {
     return -1;
 }
 
+char * buscar_nombre_por_indice_TS(TablaDeSimbolos ts, int indice) {
+    Celda * actual = ts.simbolos;
+    while (actual != NULL) {
+        if (actual->indice == indice) {
+            return actual->nombre;
+        }
+        actual = actual->sig;
+    }
+    return NULL;
+}
+
 char * nombreTipo(int tipo) {
     switch (tipo) {
         case 0: return "BOOLEANO";

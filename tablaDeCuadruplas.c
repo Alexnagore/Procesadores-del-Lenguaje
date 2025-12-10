@@ -29,14 +29,14 @@ void gen(TablaDeCuadruplas * tabla, int operador, int operando1, int operando2, 
     tabla->nextQuad++;
 }
 
-// void backpatch(TablaDeCuadruplas * tabla, int lista[], int longitud, int resultado) {
-//     for (int i = 0; i < longitud; i++) {
-//         int index = lista[i];
-//         if (index >= 0 && index < tabla->nextQuad) {
-//             tabla->cuadruplas[index].resultado = resultado;
-//         }
-//     }
-// }
+void backpatch(TablaDeCuadruplas * tabla, int lista[], int longitud, int resultado) {
+    for (int i = 0; i < longitud; i++) {
+        int index = lista[i];
+        if (index >= 0 && index < tabla->nextQuad) {
+            tabla->cuadruplas[index].resultado = resultado;
+        }
+    }
+}
 
 void merge(int lista1[], int len1, int lista2[], int len2, int resultado[]){
     int i = 0;    
@@ -51,51 +51,8 @@ void merge(int lista1[], int len1, int lista2[], int len2, int resultado[]){
     }    
 }
 
-// int makelist(TablaDeCuadruplas * tabla, int index){
-//     return tabla->nextQuad + index;
-// }
-
-void copiaListas(int destino[], int origen[], int longitud) {
-    for (int i = 0; i < longitud; i++) {
-        destino[i] = origen[i];
-    }
-}
-
-char * obtenerNombreOperador(int operador) {
-    switch (operador) {
-        case NULO: return "NULO";
-        case INT_TO_REAL: return "INT_TO_REAL";
-        case SUMA_ENTERO: return "SUMA_ENTERO";
-        case RESTA_ENTERO: return "RESTA_ENTERO";
-        case MULT_ENTERO: return "MULT_ENTERO";
-        case DIV_ENTERO: return "DIV_ENTERO";
-        case SUMA_REAL: return "SUMA_REAL";
-        case RESTA_REAL: return "RESTA_REAL";
-        case MULT_REAL: return "MULT_REAL";
-        case DIV_REAL: return "DIV_REAL";
-        case MODULO: return "MODULO";
-        case COCIENTE: return "COCIENTE";
-        case ASIGNACION_TC: return "ASIGNACION_TC";
-        case NEG_ENTERO: return "NEG_ENTERO";
-        case NEG_REAL: return "NEG_REAL";
-        case GOTO: return "GOTO";
-        case SALTO: return "SALTO";
-        case SIGNO_MAYOR_OPERADOR: return "SIGNO_MAYOR_OPERADOR";
-        case SIGNO_MENOR_OPERADOR: return "SIGNO_MENOR_OPERADOR";
-        case SIGNO_IGUAL_OPERADOR: return "SIGNO_IGUAL_OPERADOR";
-        case SIGNO_MAYOR_IGUAL_OPERADOR: return "SIGNO_MAYOR_IGUAL_OPERADOR";
-        case SIGNO_MENOR_IGUAL_OPERADOR: return "SIGNO_MENOR_IGUAL_OPERADOR";
-        case SIGNO_DISTINTO_OPERADOR: return "SIGNO_DISTINTO_OPERADOR";
-        case VERDADERO: return "VERDADERO";
-        case FALSO: return "FALSO";
-        default: return "DESCONOCIDO";
-    }
-}
-
-void copiaListas(int destino[], int origen[], int longitud) {
-    for (int i = 0; i < longitud; i++) {
-        destino[i] = origen[i];
-    }
+int makelist(TablaDeCuadruplas * tabla, int index){
+    return tabla->nextQuad + index;
 }
 
 char * obtenerNombreOperador(int operador) {
@@ -125,7 +82,15 @@ char * obtenerNombreOperador(int operador) {
         case SIGNO_DISTINTO_OPERADOR: return "SIGNO_DISTINTO";
         case VERDADERO: return "VERDADERO";
         case FALSO: return "FALSO";
-        default: return "DESCONOCIDO";
+        case INPUT: return "INPUT";
+        case OUTPUT: return "OUTPUT";
+        default: return "TEMPORAL";
+    }
+}
+
+void copiaListas(int destino[], int origen[], int longitud) {
+    for (int i = 0; i < longitud; i++) {
+        destino[i] = origen[i];
     }
 }
 
@@ -165,10 +130,6 @@ void imprimirOutputFinal(TablaDeCuadruplas * tabla, TablaDeSimbolos * tablaSimbo
             case INPUT:
                 nombre_res = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->resultado);
                 printf("input %s\n", nombre_res ? nombre_res : "?");
-                break;
-            case INPUTOUTPUT:
-                nombre_res = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->resultado);
-                printf("input/output %s\n", nombre_res ? nombre_res : "?");
                 break;
             case OUTPUT:
                 nombre_op1 = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->operando1);
@@ -290,7 +251,7 @@ void imprimirOutputFinal(TablaDeCuadruplas * tabla, TablaDeSimbolos * tablaSimbo
             case SIGNO_DISTINTO_OPERADOR:
                 nombre_op1 = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->operando1);
                 nombre_op2 = buscar_nombre_por_indice_TS(*tablaSimbolos, cuadrupla->operando2);
-                printf("if %s != %s goto %d\n", 
+                printf("if %s <> %s goto %d\n", 
                     nombre_op1 ? nombre_op1 : "?",
                     nombre_op2 ? nombre_op2 : "?",
                     cuadrupla->resultado);
@@ -306,7 +267,11 @@ void imprimirOutputFinal(TablaDeCuadruplas * tabla, TablaDeSimbolos * tablaSimbo
                     nombre_op1 ? nombre_op1 : "?");
                 break;
             default:
-                printf("operador desconocido\n");
+                // printf("Operador desconocido: %s (op1: %d, op2: %d, res: %d)\n",
+                //     obtenerNombreOperador(cuadrupla->operador),
+                //     cuadrupla->operando1,
+                //     cuadrupla->operando2,
+                //     cuadrupla->resultado);
                 break;
         }
     }
