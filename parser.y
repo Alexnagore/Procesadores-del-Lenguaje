@@ -816,12 +816,12 @@ int main(int argc, char **argv){
 	nuevaCola(&ci);
 	ts = nuevaTablaDeSimbolos();
 	yyparse();
-    printf("\n\n==================================================\n");
+    printf("\n\n=================================================\n");
     printf("ESTADO FINAL DE LA TABLA DE SIMBOLOS:\n");
     printf("==================================================\n");
     imprimeTablaDeSimbolos(ts); 
     printf("==================================================\n");
-	printf("\n\n==================================================\n");
+	printf("\n\n=================================================\n");
     printf("ESTADO FINAL DE LA TABLA DE CUADRUPLAS:\n");
     printf("==================================================\n");
 	imprimirTablaDeCuadruplas(&tc);
